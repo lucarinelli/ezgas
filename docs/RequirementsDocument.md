@@ -73,24 +73,22 @@ ru -- (EZGas system)
 
 # Stories and personas
 
-_Marshall_ drives his car back and forth to work from monday to friday. The commute is long enough to pass close to different gas stations. Marshall tries to pay attention to the signs advertising the prices to then remember which gas station was the cheapest, but that requires quite some effort and memory. He often forgets which was the cheapest station or even to look the price signs of some stations. In this way Marshall usually ends up making a sub-optimal choice when stopping to fuel his car, ending up paying more. Marshall wants to cut commute costs in a more effortlessly way.
+_Marshall_ drives his car back and forth to work from Monday to Friday. The commute is long enough to pass close to different gas stations. Marshall tries to pay attention to the signs advertising the prices to then remember which gas station was the cheapest, but that requires quite some effort and memory. He often forgets which was the cheapest station or even to look at the price signs of some stations. In this way Marshall usually ends up making a sub-optimal choice when stopping to fuel his car, ending up paying more. Marshall wants to cut commute costs in a more effortlessly way.
 
-By using EZGas Marshall could check on his phone, before leaving his house or before leaving the office, which is the cheapest gas station on is commute, no need to look for the price signs, and he would need to remember only at which station to stop.
+By using EZGas Marshall could check on his phone, before leaving his house or before leaving the office, which is the cheapest gas station on is the commute, no need to look for the price signs, and he would need to remember only at which station to stop.
 Marshall is going to be more relaxed while driving and is going to save a significant amount of money over time.
 
 _Ted_ does not commute daily by car, he prefers to move around by bike. In the weekend or during holidays he enjoys car trips around the country to the most unlikely destinations with his wife Tracy and their children. Before leaving town he likes to stop to a gas station to avoid to pay more stopping at the usually much more expensive gas stations on the highway. His family instead always wants to hit the road as soon as possible and Ted ends up having to stop at gas stations on the highway.
 
 Using EZGas Ted can check ahead where are the cheapest gas stations along the road and can try to insert some small deviations to save some money.
 
-_Robin_ drives her motorbike all around the city every night, working for a food delivery company. Every cent she and her colleagues can save is important to make their work really profitable. She likes to share which is the cheapest gas station she sees with her colleagues and they do the same with her, this usually happens when they meet or with messages on their instant messaging groups' chats. But chats get really messy and it's difficult to understand which is the best price and where to find it.
+_Robin_ drives her motorbike all around the city every night, working for a food delivery company. Every cent she and her colleagues can save is important to make their work profitable. She likes to share which is the cheapest gas station she sees with her colleagues and they do the same with her, this usually happens when they meet or with messages on their instant messaging groups' chats. But chats get messy and it's difficult to understand which is the best price and where to find it.
 
-Robin already use her phone for directions, with EZGas she can check and update prices for the gas stations she stops to and more easily share them with her colleagues.
+Robin already uses her phone for directions, with EZGas she can check and update prices for the gas stations she stops to and more easily shares them with her colleagues.
 
 _Barney_ works in a gas station, to have more clients he updates the prices on EZGas any time he lowers them on the signs.
 
-_Lily_ works for EZGas and will handle reports from the users and the public about the contents and the application behaviours. She works from home to spend more time with her childrens. She uses her own laptop to work and needs a simple yet powerful interface to the application, through a web browser, to receive all the reports in one place and perform the adeguate changes to the contents of the application as fast as possible. Through this intergace using her account she can deactivate the accounts of users who misbehave. She collects technical reports and when necessary forwards them in batches to the developers via email.
-
-
+_Lily_ works for EZGas and will handle reports from the users and the public about the contents and the application behaviours. She works from home to spend more time with her children. She uses her laptop to work and needs a simple yet powerful interface to the application, through a web browser, to receive all the reports in one place and perform the adequate changes to the contents of the application as fast as possible. Through this interface using her account, she can deactivate the accounts of users who misbehave. She collects technical reports and when necessary forward them in batches to the developers via email.
 
 # Functional and non functional requirements
 
@@ -294,7 +292,7 @@ Note: Insert and update are the same for prices, the timestamps are used to dete
 | ---------------- |:-------------:| 
 | Precondition     | RegisteredUser U with U.email=new\_mail does not exist |  
 | Post condition   | RegisteredUser U is inserted with U.email=new\_mail, U.name=new\_name, U.password=Hash(new\_password), U.created\_timestamp=now, U.status="to\_be\_verified". |
-| Nominal Scenario | The user fill the registration form with the requested details and submits it. |
+| Nominal Scenario | The user fills the registration form with the requested details and submits it. |
 | Variants         | If the user data verification fails a warning should be issued. |
 
 ### Use case 4.4, UC4.4 - FR4.4 User data verification
