@@ -33,7 +33,8 @@ Version:
 | E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 64                                     |   
 | C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 1920 | 
 | Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |  1                  |               
- Class: EzGas, User, GasStation, Report, Price, FuelType, RegisterUser, Administrator, Maps, UserService, GasStatioonService
+
+Class: EzGas, User, GasStation, Report, Price, FuelType, RegisterUser, Administrator, Maps, UserService, GasStatioonService
 
 # Estimate by activity decomposition
 
