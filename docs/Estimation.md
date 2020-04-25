@@ -1,23 +1,25 @@
 # Project Estimation  
 
-Authors:
+Authors:  Alberto Canta, Dario Licastro, Ignacio López-Perea, Luca Rinelli
 
-Date:
+Date: 25/04/2020
 
-Version:
+Version: 1
 
 # Contents
 
 
 
-- [Estimate by product decomposition]
-- [Estimate by activity decomposition ]
+- [Estimate by product decomposition](#estimate-by-product-decomposition)
+- [Estimate by activity decomposition](#Estimate-by-activity-decomposition)
 
 
 
 # Estimation approach
 
-<Consider the EZGas  project as described in YOUR requirement document, assume that you are going to develop the project INDEPENDENT of the deadlines of the course>
+Consider the EZGas  project as described in requirement document, this is an estimate plan for the project.
+We considered to use Java Language with Spring Framework.
+Group are about 4 developer working in parallel.
 
 # Estimate by product decomposition
 
@@ -32,9 +34,19 @@ Version:
 | S = Estimated size of project, in LOC (= NC * A) | 638 |
 | E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 64                                     |   
 | C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 1920 | 
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |  1                  |               
+| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |  1  |               
+|  |  |
 
 Class: EzGas, User, GasStation, Report, Price, FuelType, RegisterUser, Administrator, Maps, UserService, GasStatioonService
+
+|             | Estimate                        |             
+| ----------- | ------------------------------- |  
+| NC =  Estimated number of classes to be developed   |        33                     |             
+|  A = Estimated average size per class, in LOC       |                58            | 
+| S = Estimated size of project, in LOC (= NC * A) | 1914 |
+| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 192                                     |   
+| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 5760 | 
+| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |  2                  |  
 
 # Estimate by activity decomposition
 
@@ -48,10 +60,12 @@ Class: EzGas, User, GasStation, Report, Price, FuelType, RegisterUser, Administr
 | V&V Requirements | 10 |
 | Design | 16 |
 | V&V Design | 6 |
-| Implementation | 64 |
+| Implementation | 64/192 |
 | Code inspection and Test | 60 |
 
 
 ###
-Insert here Gantt chart with above activities
+ ![Gantt chart](./images/Gantt/Gantt1.png) 
+
+ ![Gantt chart](./images/Gantt/Gantt2.png) 
 
