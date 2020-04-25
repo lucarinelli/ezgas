@@ -222,16 +222,151 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 <Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.>
 
+```plantuml
+@startuml
+package "Backend" {
 
+    package "it.polito.ezgas.service"  as ps {
+        interface GasStationService {
+            +getGasStationById()
+            +saveGasStation()
+            +getAllGasStations()
+            +deleteGasStation()
+            +getGasStationsByGasolineType()
+            +getGasStationsByProximity()
+            +getGasStationsWithCoordinates()
+            +getGasStationsWithoutCoordinates()
+            +setReport()
+            +getGasStationByCarSharing()
+        }
+        
+        interface UserService {
+            +getUserById()
+            +saveUser()
+            +getAllUsers()
+            +deleteUser()
+            +login()
+            +increaseUserReputation()
+            +decreaseUserReputation()
+        }
+        
+        class GasStationServiceImpl{
+        }
+        
+        class UserServiceImpl{
+        }
+    } 
+    
+    
+    package "it.polito.ezgas.controller" {
+        class GasStationController{
+        }
+        class UserController{
+        }
+    }
+    
+    package "it.polito.ezgas.converter" {
+        class GasStationConverter{
+        }
+        class UserConverter{
+        }
+    }
+    
+    package "it.polito.ezgas.dto" {
+        class GasStationDto{
+        }
+        class UserDto{
+        }
+        class LoginDto{
+        }
+    }
+    
+    package "it.polito.ezgas.entity" {
+        class User {
+         account_name
+         account_pwd
+         email
+         trust_level
+        }
+        class Administrator
+        class GasStation {
+         ID
+         name
+         address
+         brand
+         hasDiesel
+         hasGasoline
+         hasPremiumDiesel
+         hasPremiumGasoline
+         hasLPG
+         hasMethane
+        }
+        class GeoPoint {
+         latitude
+         longitude
+        }
+        class CarSharingCompany {
+         name
+        }
+        class PriceList {
+         time_tag
+         dieselPrice
+         gasolinePrice
+         premiumDieselPrice
+         premiumGasolinePrice
+         LPGPrice
+         methanePrice
+         trust_level
+        }
+        
+        class IdPw{
+        }
+        
+        Administrator -up-|> User
+        GasStation "*" -- "0..1" CarSharingCompany
+        GasStation  -- "0..1" PriceList
+        User -- "*" PriceList
+        User "*" -- GeoPoint
+        GeoPoint -- GasStation
+    }
+    
+    package "it.polito.ezgas.repository" {
+        class UserRepository{
+        }
+        
+        class GasStationRepository{
+        }
+        
+        class PriceListRepository{
+        }
+    }
 
+    
+}
 
+UserService <|-- UserServiceImpl
+GasStationService <|-- GasStationServiceImpl
+GasStationController <-- GasStationService
+UserController <-- UserService
+UserServiceImpl <-- UserRepository
+GasStationServiceImpl <-- GasStationRepository
 
+UserConverter o-- UserDto
+UserConverter o-- User
 
+GasStationConverter o-- GasStationDto
+GasStationConverter o-- GasStation
 
+UserService o-- UserDto
+UserServiceImpl o-- UserDto
+UserServiceImpl o-- User
+UserRepository o-- User
 
-
-
-
+GasStationService o-- GasStationDto
+GasStationServiceImpl o-- GasStationDto
+GasStationServiceImpl o-- GasStation
+GasStationRepository o-- GasStation
+```
 
 # Verification traceability matrix
 
