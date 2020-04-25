@@ -228,40 +228,61 @@ package "Backend" {
 
     package "it.polito.ezgas.service"  as ps {
         interface GasStationService {
-            +getGasStationById()
-            +saveGasStation()
-            +getAllGasStations()
-            +deleteGasStation()
-            +getGasStationsByGasolineType()
-            +getGasStationsByProximity()
-            +getGasStationsWithCoordinates()
-            +getGasStationsWithoutCoordinates()
-            +setReport()
-            +getGasStationByCarSharing()
+            +getGasStationById() : GasStationDto
+            +saveGasStation() : GasStationDto
+            +getAllGasStations() : List<GasStationDto>
+            +deleteGasStation() : Boolean
+            +getGasStationsByGasolineType() : List<GasStationDto>
+            +getGasStationsByProximity() : List<GasStationDto>
+            +getGasStationsWithCoordinates() : List<GasStationDto>
+            +getGasStationsWithoutCoordinates() : List<GasStationDto>
+            +setReport() : void
+            +getGasStationByCarSharing() : List<GasStationDto>
         }
         
         interface UserService {
-            +getUserById()
-            +saveUser()
-            +getAllUsers()
-            +deleteUser()
-            +login()
-            +increaseUserReputation()
-            +decreaseUserReputation()
+            +getUserById() : UserDto
+            +saveUser() : UserDto
+            +getAllUsers() : List<UserDto>
+            +deleteUser() : Boolean
+            +login() : LoginDto
+            +increaseUserReputation() : Integer
+            +decreaseUserReputation() : Integer
         }
         
         class GasStationServiceImpl{
+            -gasStationRepository : GasStationRepository
+            +getGasStationById() : GasStationDto
+            +saveGasStation() : GasStationDto
+            +getAllGasStations() : List<GasStationDto>
+            +deleteGasStation() : Boolean
+            +getGasStationsByGasolineType() : List<GasStationDto>
+            +getGasStationsByProximity() : List<GasStationDto>
+            +getGasStationsWithCoordinates() : List<GasStationDto>
+            +getGasStationsWithoutCoordinates() : List<GasStationDto>
+            +setReport() : void
+            +getGasStationByCarSharing() : List<GasStationDto>
         }
         
         class UserServiceImpl{
+            -userRepository : UserRepository
+            +getUserById() : UserDto
+            +saveUser() : UserDto
+            +getAllUsers() : List<UserDto>
+            +deleteUser() : Boolean
+            +login() : LoginDto
+            +increaseUserReputation() : Integer
+            +decreaseUserReputation() : Integer
         }
     } 
     
     
     package "it.polito.ezgas.controller" {
         class GasStationController{
+            -gasStationService : GasStationService
         }
         class UserController{
+            -userService : UserService
         }
     }
     
@@ -283,23 +304,26 @@ package "Backend" {
     
     package "it.polito.ezgas.entity" {
         class User {
-         account_name
-         account_pwd
-         email
-         trust_level
+            -id : Integer
+            -account_name : String
+            -email : String
+            -account_pwd : String
+            -trust_level : Integer
+            +User() : User
         }
         class Administrator
         class GasStation {
-         ID
-         name
-         address
-         brand
-         hasDiesel
-         hasGasoline
-         hasPremiumDiesel
-         hasPremiumGasoline
-         hasLPG
-         hasMethane
+            -id : Integer
+            -name : String
+            -address : String
+            -brand : String
+            -hasDiesel : Boolean
+            -hasGasoline : Boolean
+            -hasPremiumDiesel : Boolean
+            -hasPremiumGasoline : Boolean
+            -hasLPG : Boolean
+            -hasMethane : Boolean
+            +GasStation() : GasStation
         }
         class GeoPoint {
          latitude
@@ -339,6 +363,9 @@ package "Backend" {
         
         class PriceListRepository{
         }
+        
+        class CarSharingCompanyRepository{
+        }
     }
 
     
@@ -346,10 +373,10 @@ package "Backend" {
 
 UserService <|-- UserServiceImpl
 GasStationService <|-- GasStationServiceImpl
-GasStationController <-- GasStationService
-UserController <-- UserService
-UserServiceImpl <-- UserRepository
-GasStationServiceImpl <-- GasStationRepository
+GasStationController o-- GasStationService
+UserController o-- UserService
+UserServiceImpl o-- UserRepository
+GasStationServiceImpl o-- GasStationRepository
 
 UserConverter o-- UserDto
 UserConverter o-- User
@@ -366,6 +393,9 @@ GasStationService o-- GasStationDto
 GasStationServiceImpl o-- GasStationDto
 GasStationServiceImpl o-- GasStation
 GasStationRepository o-- GasStation
+
+PriceListRepository o-- PriceList
+CarSharingCompanyRepository o-- CarSharingCompany
 ```
 
 # Verification traceability matrix
