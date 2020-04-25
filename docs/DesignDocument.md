@@ -226,6 +226,8 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 @startuml
 package "Backend" {
 
+    class EZGasApplication
+
     package "it.polito.ezgas.service"  as ps {
         interface GasStationService {
             +getGasStationById() : GasStationDto
@@ -252,6 +254,8 @@ package "Backend" {
         
         class GasStationServiceImpl{
             -gasStationRepository : GasStationRepository
+            -priceListRepository : PriceListRepository
+            -carSharingCompanyRepository : CarSharingRepository
             +getGasStationById() : GasStationDto
             +saveGasStation() : GasStationDto
             +getAllGasStations() : List<GasStationDto>
@@ -266,6 +270,7 @@ package "Backend" {
         
         class UserServiceImpl{
             -userRepository : UserRepository
+            -priceListRepository : PriceListRepository
             +getUserById() : UserDto
             +saveUser() : UserDto
             +getAllUsers() : List<UserDto>
@@ -280,9 +285,24 @@ package "Backend" {
     package "it.polito.ezgas.controller" {
         class GasStationController{
             -gasStationService : GasStationService
+            -userService : UserService
+            +create() : Response
+            +edit() : Response
+            +delete() : Response
+            +showAll() : Response
+            +show() : Response
+            +search() : Response
+            +evaluatePriceList() : Response
+            
         }
         class UserController{
             -userService : UserService
+            +create() : Response
+            +edit() : Response
+            +delete() : Response
+            +showAll() : Response
+            +show() : Response
+            +search() : Response
         }
     }
     
@@ -374,9 +394,13 @@ package "Backend" {
 UserService <|-- UserServiceImpl
 GasStationService <|-- GasStationServiceImpl
 GasStationController o-- GasStationService
+GasStationController o-- UserService
 UserController o-- UserService
 UserServiceImpl o-- UserRepository
+UserServiceImpl o-- PriceListRepository
 GasStationServiceImpl o-- GasStationRepository
+GasStationServiceImpl o-- PriceListRepository
+GasStationServiceImpl o-- CarSharingCompanyRepository
 
 UserConverter o-- UserDto
 UserConverter o-- User
@@ -386,8 +410,12 @@ GasStationConverter o-- GasStation
 
 UserService o-- UserDto
 UserServiceImpl o-- UserDto
+UserService o-- LoginDto
+UserServiceImpl o-- LoginDto
 UserServiceImpl o-- User
 UserRepository o-- User
+UserServiceImpl o-- IdPw
+UserRepository o-- IdPw
 
 GasStationService o-- GasStationDto
 GasStationServiceImpl o-- GasStationDto
