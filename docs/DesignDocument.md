@@ -431,6 +431,9 @@ package "Backend" {
         
         class CarSharingCompanyRepository{
         }
+        
+        class GeoPointRepository{
+        }
     }
 
     
@@ -440,6 +443,7 @@ PagingAndSortingRepository <|-- UserRepository
 PagingAndSortingRepository <|-- GasStationRepository
 PagingAndSortingRepository <|-- PriceListRepository
 PagingAndSortingRepository <|-- CarSharingCompanyRepository
+PagingAndSortingRepository <|-- GeoPointRepository
 
 
 UserService <|-- UserServiceImpl
@@ -475,6 +479,8 @@ GasStationRepository o-- GasStation
 
 PriceListRepository o-- PriceList
 CarSharingCompanyRepository o-- CarSharingCompany
+
+GeoPointRepository o-- GeoPoint
 ```
 
 # Verification traceability matrix
