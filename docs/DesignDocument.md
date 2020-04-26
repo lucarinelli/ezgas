@@ -376,6 +376,17 @@ package "Backend" {
     
     package "it.polito.ezgas.repository" {
         class UserRepository{
+            +count() : long
+            +delete(T entity) : void
+            +deleteAll() : void
+            +deleteAll(Iterable<? extends T> entities) : void
+            +deleteById(ID id) : void
+            +existsById(ID id) : boolean
+            +findAll() : Iterable<T>
+            +findAllById(Iterable<ID> ids) : Iterable<T> 
+            +findById(ID id) : Optional<T>
+            +save(S entity) : S
+            +saveAll(Iterable<S > entities) : Iterable<S>
         }
         
         class GasStationRepository{
@@ -415,7 +426,7 @@ UserServiceImpl o-- LoginDto
 UserServiceImpl o-- User
 UserRepository o-- User
 UserServiceImpl o-- IdPw
-UserRepository o-- IdPw
+UserService o-- IdPw
 
 GasStationService o-- GasStationDto
 GasStationServiceImpl o-- GasStationDto
