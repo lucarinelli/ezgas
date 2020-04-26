@@ -224,9 +224,26 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 ```plantuml
 @startuml
+
 package "Backend" {
 
     class EZGasApplication
+    
+    interface PagingAndSortingRepository{
+        +count() : long
+        +delete(T entity) : void
+        +deleteAll() : void
+        +deleteAll(Iterable<? extends T> entities) : void
+        +deleteById(ID id) : void
+        +existsById(ID id) : boolean
+        +findAll() : Iterable<T>
+        +findAllById(Iterable<ID> ids) : Iterable<T> 
+        +findById(ID id) : Optional<T>
+        +save(S entity) : S
+        +saveAll(Iterable<S > entities) : Iterable<S>
+        +findAll(Sort sort) : Iterable<T> 
+        +findAll(Pageable pageable) : Page<T>
+    }
 
     package "it.polito.ezgas.service"  as ps {
         interface GasStationService {
@@ -256,28 +273,11 @@ package "Backend" {
             -gasStationRepository : GasStationRepository
             -priceListRepository : PriceListRepository
             -carSharingCompanyRepository : CarSharingRepository
-            +getGasStationById() : GasStationDto
-            +saveGasStation() : GasStationDto
-            +getAllGasStations() : List<GasStationDto>
-            +deleteGasStation() : Boolean
-            +getGasStationsByGasolineType() : List<GasStationDto>
-            +getGasStationsByProximity() : List<GasStationDto>
-            +getGasStationsWithCoordinates() : List<GasStationDto>
-            +getGasStationsWithoutCoordinates() : List<GasStationDto>
-            +setReport() : void
-            +getGasStationByCarSharing() : List<GasStationDto>
         }
         
         class UserServiceImpl{
             -userRepository : UserRepository
             -priceListRepository : PriceListRepository
-            +getUserById() : UserDto
-            +saveUser() : UserDto
-            +getAllUsers() : List<UserDto>
-            +deleteUser() : Boolean
-            +login() : LoginDto
-            +increaseUserReputation() : Integer
-            +decreaseUserReputation() : Integer
         }
     } 
     
@@ -308,28 +308,56 @@ package "Backend" {
     
     package "it.polito.ezgas.converter" {
         class GasStationConverter{
+            +toGasStationDto(GasStation) : GasStationDto
         }
         class UserConverter{
+            +toUserDto(User) : UserDto
         }
     }
     
     package "it.polito.ezgas.dto" {
         class GasStationDto{
+            -id : Integer
+            -name : String
+            -address : String
+            -brand : String
+            -hasDiesel : Boolean
+            -hasGasoline : Boolean
+            -hasPremiumDiesel : Boolean
+            -hasPremiumGasoline : Boolean
+            -hasLPG : Boolean
+            -hasMethane : Boolean
+            +GasStationDto() : GasStationDto
+            +Getters()
+            +Setters()
         }
         class UserDto{
+            -id : Integer
+            -account_name : String
+            -email : String
+            -account_pwd : String
+            -trust_level : Integer
+            +UserDto() : UserDto
+            +Getters()
+            +Setters()
         }
         class LoginDto{
         }
     }
     
     package "it.polito.ezgas.entity" {
+
         class User {
             -id : Integer
             -account_name : String
             -email : String
             -account_pwd : String
             -trust_level : Integer
+            -geoPoints : List<GeoPoint>
+            -priceLists : List<PriceList>
             +User() : User
+            +Getters()
+            +Setters()
         }
         class Administrator
         class GasStation {
@@ -343,24 +371,40 @@ package "Backend" {
             -hasPremiumGasoline : Boolean
             -hasLPG : Boolean
             -hasMethane : Boolean
+            -carSharingCompanies : Set<CarSharingCompany>
+            -priceList : Optional<PriceList>
+            -geoPoint : GeoPoint
             +GasStation() : GasStation
+            +Getters()
+            +Setters()
         }
         class GeoPoint {
-         latitude
-         longitude
+            -latitude : double
+            -longitude : double
+            +GeoPoint() : GeoPoint
+            +Getters()
+            +Setters()
         }
         class CarSharingCompany {
-         name
+            -name : String
+            +CarSharingCompany() : CarSharingCompany
+            +Getters()
+            +Setters()
         }
         class PriceList {
-         time_tag
-         dieselPrice
-         gasolinePrice
-         premiumDieselPrice
-         premiumGasolinePrice
-         LPGPrice
-         methanePrice
-         trust_level
+            -time_tag : Timestamp
+            -dieselPrice : double
+            -gasolinePrice : double
+            -premiumDieselPrice : double
+            -premiumGasolinePrice : double
+            -LPGPrice : double
+            -methanePrice : double
+            -trust_level : Integer
+            -gasStation : GasStation
+            -user : User
+            +PriceList() : PriceList
+            +Getters()
+            +Setters()
         }
         
         class IdPw{
@@ -376,17 +420,7 @@ package "Backend" {
     
     package "it.polito.ezgas.repository" {
         class UserRepository{
-            +count() : long
-            +delete(T entity) : void
-            +deleteAll() : void
-            +deleteAll(Iterable<? extends T> entities) : void
-            +deleteById(ID id) : void
-            +existsById(ID id) : boolean
-            +findAll() : Iterable<T>
-            +findAllById(Iterable<ID> ids) : Iterable<T> 
-            +findById(ID id) : Optional<T>
-            +save(S entity) : S
-            +saveAll(Iterable<S > entities) : Iterable<S>
+            
         }
         
         class GasStationRepository{
@@ -401,6 +435,12 @@ package "Backend" {
 
     
 }
+
+PagingAndSortingRepository <|-- UserRepository
+PagingAndSortingRepository <|-- GasStationRepository
+PagingAndSortingRepository <|-- PriceListRepository
+PagingAndSortingRepository <|-- CarSharingCompanyRepository
+
 
 UserService <|-- UserServiceImpl
 GasStationService <|-- GasStationServiceImpl
