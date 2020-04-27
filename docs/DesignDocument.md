@@ -521,9 +521,26 @@ GeoPointRepository o-- GeoPoint
 # Verification sequence diagrams 
 \<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
 
+**USE CASE 1: DEFINE A USER**
+```plantuml
+@startuml
+UserController -> UserService : create()
 
+create User
+UserService -> User : saveUser()
 
+create UserRepository
+User -> UserRepository: user()
 
+create DataBase
+UserRepository -> DataBase : save()
+
+create Dto
+UserService -> Dto : saveUser()
+Dto --> UserService : userDto()
+@enduml
+```
+The user is created and added to the DataBase via UserRepository. Lastly, a confirmation is shown by the UserDto.
 
 
 
