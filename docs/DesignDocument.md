@@ -543,4 +543,30 @@ Dto --> UserService : userDto()
 The user is created and added to the DataBase via UserRepository. Lastly, a confirmation is shown by the UserDto.
 
 
+**USE CASE 10.1: MODIFY THE TRUSTLEVEL**
+```plantuml
+@startuml
+GasStationController -> GasStationService : evaluatePriceList()
+note right : PriceIsCorrect
 
+create GasStationRepository
+GasStationService -> GasStationRepository : getGasStationById()
+
+create DataBase
+GasStationRepository -> DataBase : findById()
+
+create GasStation
+GasStationRepository -> GasStation : findById()
+
+create PriceList
+GasStation -> PriceList : get()
+
+create User
+PriceList -> User : get()
+
+create UserService
+User -> UserService : user()
+UserService ->UserService : increaseReputation()
+@enduml
+```
+User1 evaluate the price of a GasStation. The price is correct so the system increase by 1 the trust level of User2.
