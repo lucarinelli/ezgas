@@ -285,24 +285,33 @@ package "Backend" {
     package "it.polito.ezgas.controller" {
         class GasStationController{
             -gasStationService : GasStationService
-            -userService : UserService
-            +create() : Response
-            +edit() : Response
-            +delete() : Response
-            +showAll() : Response
-            +show() : Response
-            +search() : Response
-            +evaluatePriceList() : Response
-            
+            +getGasStationById() : GasStationDto
+            +getAllGasStations() : List<GasStationDto>
+            +saveGasStation() : void
+            +deleteUser() : void
+            +getGasStationsByGasolineType() : List<GasStationDto>
+            +getGasStationsByProximity() : List<GasStationDto>
+            +getGasStationsWithCoordenates() : List<GasStationDto>
+            +setGasStationReport() : void
         }
         class UserController{
             -userService : UserService
-            +create() : Response
-            +edit() : Response
-            +delete() : Response
-            +showAll() : Response
-            +show() : Response
-            +search() : Response
+            +getUserById() : UserDto
+            +getAllUsers() : List<UserDto>
+            +saveUser() : UserDto
+            +deleteUser() : Boolean
+            +increaseUserReputation() : Integer
+            +decreaseUserReputation() : Integer
+            +login() : LoginDto
+        }
+        class HomeController{
+            +admin() : String
+            +index() : String
+            +map() : String
+            +login() : String
+            +update() : String
+            +singup() : String
+            
         }
     }
     
@@ -317,105 +326,126 @@ package "Backend" {
     
     package "it.polito.ezgas.dto" {
         class GasStationDto{
-            -id : Integer
-            -name : String
-            -address : String
-            -brand : String
+            -gasStationId : Integer
+            -gasStationName : String
+            -gasStationAddress : String
             -hasDiesel : Boolean
-            -hasGasoline : Boolean
-            -hasPremiumDiesel : Boolean
-            -hasPremiumGasoline : Boolean
-            -hasLPG : Boolean
+            -hasSuperl : Boolean
+            -hasSuperPlus : Boolean
+            -hasGas : Boolean
             -hasMethane : Boolean
+            -carSharing : private String
+            -lat : double
+            -lon : double
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice : double
+            -gasPrice : double
+            -methanePrice : double
+            -reportUser : Integer
+            -UserDto : UserDto
+            -reportTimeStamp : String
+            -reportDependability : double
             +GasStationDto() : GasStationDto
             +Getters()
             +Setters()
         }
         class UserDto{
-            -id : Integer
-            -account_name : String
+            -userId : Integer
+            -userName : String
+            -userPassword : String
             -email : String
-            -account_pwd : String
-            -trust_level : Integer
+            -reputation : Integer
+            admin : Boolean
             +UserDto() : UserDto
             +Getters()
             +Setters()
         }
         class LoginDto{
+            -userId : Integer
+            -userName : String
+            -token : String
+            -email : String
+            -reputation : Integer
+            -admin : Boolean
+            +LoginDto() : LoginDto
+            +Getters()
+            +Setters()
+        }
+        class PriceReportDto{
+            -priceReportId : Integer
+            -user : User
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice: double
+            -gasPrice : double
+            -methanePrice : double
+            +PriceReportDto() : PriceReportDto
+            +Getters()
+            +Setters()
+        }
+        class IdPw{
+            -user : String
+            -pw : String
+            +IdPw() : IdPw
+            +Getters()
+            +Setters()
         }
     }
     
     package "it.polito.ezgas.entity" {
 
         class User {
-            -id : Integer
-            -account_name : String
+            -userId : Integer
+            -userName : String
+            -password : String
             -email : String
-            -account_pwd : String
-            -trust_level : Integer
-            -geoPoints : List<GeoPoint>
-            -priceLists : List<PriceList>
+            -reputation : Integer
+            -admin : Boolean
             +User() : User
             +Getters()
             +Setters()
         }
-        class Administrator
         class GasStation {
-            -id : Integer
-            -name : String
-            -address : String
-            -brand : String
+            -gasStationId : Integer
+            -gasStationName : String
+            -gasStationAddress : String
             -hasDiesel : Boolean
-            -hasGasoline : Boolean
-            -hasPremiumDiesel : Boolean
-            -hasPremiumGasoline : Boolean
-            -hasLPG : Boolean
+            -hasSuperl : Boolean
+            -hasSuperPlus : Boolean
+            -hasGas : Boolean
             -hasMethane : Boolean
-            -carSharingCompanies : Set<CarSharingCompany>
-            -priceList : Optional<PriceList>
-            -geoPoint : GeoPoint
+            -carSharing : private String
+            -lat : double
+            -lon : double
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice : double
+            -gasPrice : double
+            -methanePrice : double
+            -reportUser : Integer
+            -reportTimeStamp : String
+            -reportDependability : private double
+            -user : private User
             +GasStation() : GasStation
             +Getters()
             +Setters()
         }
-        class GeoPoint {
-            -latitude : double
-            -longitude : double
-            +GeoPoint() : GeoPoint
-            +Getters()
-            +Setters()
-        }
-        class CarSharingCompany {
-            -name : String
-            +CarSharingCompany() : CarSharingCompany
-            +Getters()
-            +Setters()
-        }
-        class PriceList {
-            -time_tag : Timestamp
+        class PriceReport {
+            -priceReportId : Integer
+            -user : User
             -dieselPrice : double
-            -gasolinePrice : double
-            -premiumDieselPrice : double
-            -premiumGasolinePrice : double
-            -LPGPrice : double
+            -superPrice : double
+            -superPlusPrice : double
+            -gasPrice : double
             -methanePrice : double
             -trust_level : Integer
             -gasStation : GasStation
             -user : User
-            +PriceList() : PriceList
+            +PriceReport() : PriceReport
             +Getters()
             +Setters()
         }
-        
-        class IdPw{
-        }
-        
-        Administrator -up-|> User
-        GasStation "*" -- "0..1" CarSharingCompany
-        GasStation  -- "0..1" PriceList
-        User -- "*" PriceList
-        User "*" -- GeoPoint
-        GeoPoint -- GasStation
     }
     
     package "it.polito.ezgas.repository" {
