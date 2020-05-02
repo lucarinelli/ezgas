@@ -54,6 +54,37 @@ Group are about 4 developer working in parallel.
 
 
 ###
- ![Gantt chart](./images/Gantt/Gantt1.png) 
+```plantuml
+@startuml
+printscale daily
+Project starts the 13th of april 2020
+
+[Requirements] lasts 5 days
+[Requirements] is colored in Lightgreen/Blue
+
+[V&V Requirements] starts the 15th of april 2020
+[V&V Requirements] lasts 3 days
+
+[Design] starts at [Requirements]'s end
+[Design] lasts 8 days
+[Design] is colored in Yellow/Blue
+
+[V&V Design] starts the 24th of april 2020
+[V&V Design] lasts 2 days
+[V&V Design] is colored in Lightyellow/Blue
+
+[Implementation] starts the 28th of april 2020
+[Implementation] lasts 15 days
+[Implementation] is colored in Red/Blue
+[Design]->[Implementation]
+
+[Code inspection and Test] starts the 13th of may 2020
+[Code inspection and Test] lasts 7 days
+[Code inspection and Test] is colored in Coral/Blue
+[Implementation]->[Code inspection and Test]
+
+@enduml
+
+```
 
 
