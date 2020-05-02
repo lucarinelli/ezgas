@@ -221,6 +221,239 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 # Low level design
 
 <Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.>
+```plantuml
+@startuml
+package "it.polito.ezgas.controller" {
+        class GasStationController{
+            -gasStationService : GasStationService
+            +getGasStationById(gasStationId : Integer) : GasStationDto
+            +getAllGasStations() : List<GasStationDto>
+            +saveGasStation(gasStationDto : GasStationDto) : void
+            +deleteGasStation(gasStationId : Integer) : void
+            +getGasStationsByGasolineType(gasolinetype : String) : List<GasStationDto>
+            +getGasStationsByProximity(myLat : Double, myLon : Double) : List<GasStationDto>
+            +getGasStationsWithCoordinates(myLat : Double, myLon : Double, gasolineType : String, carSharing : String) : List<GasStationDto>
+            +setGasStationReport(gasStationId : Integer, dieselPrice : double, superPrice : double, superPlusPrice : double, gasPrice : double, methanePrice : double, userId : Integer ) : void
+        }
+        class UserController{
+            -userService : UserService
+            +getUserById(userId : Integer) : UserDto
+            +getAllUsers() : List<UserDto>
+            +saveUser(userDto : UserDto) : UserDto
+            +deleteUser(userId : Integer) : Boolean
+            +increaseUserReputation(userId : Integer) : Integer
+            +decreaseUserReputation(userId : Integer) : Integer
+            +login(credentials : IdPw) : LoginDto
+        }
+        class HomeController{
+            +admin() : String
+            +index() : String
+            +map() : String
+            +login() : String
+            +update() : String
+            +singup() : String
+            
+        }
+    }
+@enduml
+```
+
+```plantuml
+@startuml
+package "it.polito.ezgas.service" {
+        interface GasStationService {
+            +getGasStationById(gasStationId : Integer) : GasStationDto
+            +saveGasStation( gasStationDto : GasStationDto) : GasStationDto
+            +getAllGasStations() : List<GasStationDto>
+            +deleteGasStation(gasStationId : Integer) : Boolean
+            +getGasStationsByGasolineType(gasolinetype : String) : List<GasStationDto>
+            +getGasStationsByProximity(lat : double, lon : double ) : List<GasStationDto>
+            +getGasStationsWithCoordinates(lat : double, lon : double, gasolinetype : String, carsharing : String) : List<GasStationDto>
+            +getGasStationsWithoutCoordinates(gasolinetype : String, carsharing : String) : List<GasStationDto>
+            +setReport(gasStationId : Integer, dieselPrice : double, superPrice : double, superPlusPrice : double, gasPrice : double, methanePrice : double, userId : Integer, gasolinetype : String) : void
+            +getGasStationByCarSharing(carSharing : String) : List<GasStationDto>
+        }
+        
+        interface UserService {
+            +getUserById() : UserDto
+            +saveUser() : UserDto
+            +getAllUsers() : List<UserDto>
+            +deleteUser() : Boolean
+            +login() : LoginDto
+            +increaseUserReputation() : Integer
+            +decreaseUserReputation() : Integer
+        }
+        
+        package "impl"{
+        class GasStationServiceImpl{
+            -gasStationRepository : GasStationRepository
+            -priceReportRepository : PriceReportRepository
+            -carSharingCompanyRepository : CarSharingRepository
+        }
+        
+        class UserServiceImpl{
+            -userRepository : UserRepository
+            -priceReportRepository : PriceReportRepository
+        }
+        }
+    }
+
+UserService <|-- UserServiceImpl
+GasStationService <|-- GasStationServiceImpl
+@enduml
+```
+
+```plantuml
+@startuml
+package "it.polito.ezgas.dto" {
+        class GasStationDto{
+            -gasStationId : Integer
+            -gasStationName : String
+            -gasStationAddress : String
+            -hasDiesel : Boolean
+            -hasSuperl : Boolean
+            -hasSuperPlus : Boolean
+            -hasGas : Boolean
+            -hasMethane : Boolean
+            -carSharing : private String
+            -lat : double
+            -lon : double
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice : double
+            -gasPrice : double
+            -methanePrice : double
+            -reportUser : Integer
+            -UserDto : UserDto
+            -reportTimeStamp : String
+            -reportDependability : double
+            +GasStationDto() : GasStationDto
+            +GasStationDto(...) : GasStationDto
+            + ... Getters()
+            + ... Setters()
+        }
+        class UserDto{
+            -userId : Integer
+            -userName : String
+            -userPassword : String
+            -email : String
+            -reputation : Integer
+            -admin : Boolean
+            +UserDto() : UserDto
+            + ... Getters()
+            + ... Setters()
+        }
+        class LoginDto{
+            -userId : Integer
+            -userName : String
+            -token : String
+            -email : String
+            -reputation : Integer
+            -admin : Boolean
+            +LoginDto (userId : Integer, userName : String, token : String, email : String, reputation : Integer) : LoginDto
+            +LoginDto() : LoginDto
+            +getUserId() : Integer
+            +setUserId(userId : Integer)
+            +getUserName() : String
+            +setUserName (userName : String)
+            +getToken() : String
+            +setToken(token : String)
+            +getEmail() : String
+            +setEmail(email : String)
+            +getReputation() : Integer
+            +setReputation(reputation : Integer)
+            +getAdmin() : Boolean
+            +setAdmin(admin : Boolean)
+        }
+        class PriceReportDto{
+            -priceReportId : Integer
+            -user : User
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice: double
+            -gasPrice : double
+            -methanePrice : double
+            +PriceReportDto() : PriceReportDto
+            + ... Getters()
+            + ... Setters()
+        }
+        class IdPw{
+            -user : String
+            -pw : String
+            +IdPw() : IdPw
+            +IdPw (id : String, pw : String) : IdPw
+        }
+    }
+
+GasStationDto "1" --> "1..*" PriceReportDto
+GasStationDto --> UserDto
+@enduml
+```
+
+```plantuml
+@startuml
+package "it.polito.ezgas.entity" {
+
+        class User {
+            -userId : Integer
+            -userName : String
+            -password : String
+            -email : String
+            -reputation : Integer
+            -admin : Boolean
+            +User() : User
+            +Getters()
+            +Setters()
+        }
+        class GasStation {
+            -gasStationId : Integer
+            -gasStationName : String
+            -gasStationAddress : String
+            -hasDiesel : Boolean
+            -hasSuperl : Boolean
+            -hasSuperPlus : Boolean
+            -hasGas : Boolean
+            -hasMethane : Boolean
+            -carSharing : private String
+            -lat : double
+            -lon : double
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice : double
+            -gasPrice : double
+            -methanePrice : double
+            -reportUser : Integer
+            -reportTimeStamp : String
+            -reportDependability : private double
+            -user : private User
+            +GasStation() : GasStation
+            +GasStation(...) : GasStation
+            +Getters()
+            +Setters()
+        }
+        class PriceReport {
+            -priceReportId : Integer
+            -user : User
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice : double
+            -gasPrice : double
+            -methanePrice : double
+            -trust_level : Integer
+            -gasStation : GasStation
+            -user : User
+            +PriceReport() : PriceReport
+            +PriceReport(...) : PriceReport
+            +Getters()
+            +Setters()
+        }
+    }
+
+GasStation "1..*" --> "0..1" User
+PriceReport "1..*" --> "0..1" User
+@enduml
+```
+
 
 ```plantuml
 @startuml
