@@ -27,17 +27,6 @@ Group are about 4 developer working in parallel.
 
 ### 
 
-|             | Estimate                        |             
-| ----------- | ------------------------------- |  
-| NC =  Estimated number of classes to be developed   |        11                     |             
-|  A = Estimated average size per class, in LOC       |                58            | 
-| S = Estimated size of project, in LOC (= NC * A) | 638 |
-| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 64                                     |   
-| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 1920 | 
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |  1  |               
-|  |  |
-
-Class: EzGas, User, GasStation, Report, Price, FuelType, RegisterUser, Administrator, Maps, UserService, GasStatioonService
 
 |             | Estimate                        |             
 | ----------- | ------------------------------- |  
@@ -60,12 +49,11 @@ Class: EzGas, User, GasStation, Report, Price, FuelType, RegisterUser, Administr
 | V&V Requirements | 10 |
 | Design | 16 |
 | V&V Design | 6 |
-| Implementation | 64/192 |
+| Implementation | 192 |
 | Code inspection and Test | 60 |
 
 
 ###
  ![Gantt chart](./images/Gantt/Gantt1.png) 
 
- ![Gantt chart](./images/Gantt/Gantt2.png) 
 
