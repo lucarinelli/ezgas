@@ -222,24 +222,323 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 <Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.>
 
+```plantuml
+@startuml
+
+package "Backend" {
+
+    class EZGasApplication
+    
+    interface PagingAndSortingRepository{
+        +count() : long
+        +delete(T entity) : void
+        +deleteAll() : void
+        +deleteAll(Iterable<? extends T> entities) : void
+        +deleteById(ID id) : void
+        +existsById(ID id) : boolean
+        +findAll() : Iterable<T>
+        +findAllById(Iterable<ID> ids) : Iterable<T> 
+        +findById(ID id) : Optional<T>
+        +save(S entity) : S
+        +saveAll(Iterable<S > entities) : Iterable<S>
+        +findAll(Sort sort) : Iterable<T> 
+        +findAll(Pageable pageable) : Page<T>
+    }
+
+    package "it.polito.ezgas.service"  as ps {
+        interface GasStationService {
+            +getGasStationById() : GasStationDto
+            +saveGasStation() : GasStationDto
+            +getAllGasStations() : List<GasStationDto>
+            +deleteGasStation() : Boolean
+            +getGasStationsByGasolineType() : List<GasStationDto>
+            +getGasStationsByProximity() : List<GasStationDto>
+            +getGasStationsWithCoordinates() : List<GasStationDto>
+            +getGasStationsWithoutCoordinates() : List<GasStationDto>
+            +setReport() : void
+            +getGasStationByCarSharing() : List<GasStationDto>
+        }
+        
+        interface UserService {
+            +getUserById() : UserDto
+            +saveUser() : UserDto
+            +getAllUsers() : List<UserDto>
+            +deleteUser() : Boolean
+            +login() : LoginDto
+            +increaseUserReputation() : Integer
+            +decreaseUserReputation() : Integer
+        }
+        
+        class GasStationServiceImpl{
+            -gasStationRepository : GasStationRepository
+            -priceListRepository : PriceListRepository
+            -carSharingCompanyRepository : CarSharingRepository
+        }
+        
+        class UserServiceImpl{
+            -userRepository : UserRepository
+            -priceListRepository : PriceListRepository
+        }
+    } 
+    
+    
+    package "it.polito.ezgas.controller" {
+        class GasStationController{
+            -gasStationService : GasStationService
+            +getGasStationById() : GasStationDto
+            +getAllGasStations() : List<GasStationDto>
+            +saveGasStation() : void
+            +deleteUser() : void
+            +getGasStationsByGasolineType() : List<GasStationDto>
+            +getGasStationsByProximity() : List<GasStationDto>
+            +getGasStationsWithCoordenates() : List<GasStationDto>
+            +setGasStationReport() : void
+        }
+        class UserController{
+            -userService : UserService
+            +getUserById() : UserDto
+            +getAllUsers() : List<UserDto>
+            +saveUser() : UserDto
+            +deleteUser() : Boolean
+            +increaseUserReputation() : Integer
+            +decreaseUserReputation() : Integer
+            +login() : LoginDto
+        }
+        class HomeController{
+            +admin() : String
+            +index() : String
+            +map() : String
+            +login() : String
+            +update() : String
+            +singup() : String
+            
+        }
+    }
+    
+    package "it.polito.ezgas.converter" {
+        class GasStationConverter{
+            +toGasStationDto(GasStation) : GasStationDto
+        }
+        class UserConverter{
+            +toUserDto(User) : UserDto
+        }
+    }
+    
+    package "it.polito.ezgas.dto" {
+        class GasStationDto{
+            -gasStationId : Integer
+            -gasStationName : String
+            -gasStationAddress : String
+            -hasDiesel : Boolean
+            -hasSuperl : Boolean
+            -hasSuperPlus : Boolean
+            -hasGas : Boolean
+            -hasMethane : Boolean
+            -carSharing : private String
+            -lat : double
+            -lon : double
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice : double
+            -gasPrice : double
+            -methanePrice : double
+            -reportUser : Integer
+            -UserDto : UserDto
+            -reportTimeStamp : String
+            -reportDependability : double
+            +GasStationDto() : GasStationDto
+            +Getters()
+            +Setters()
+        }
+        class UserDto{
+            -userId : Integer
+            -userName : String
+            -userPassword : String
+            -email : String
+            -reputation : Integer
+            admin : Boolean
+            +UserDto() : UserDto
+            +Getters()
+            +Setters()
+        }
+        class LoginDto{
+            -userId : Integer
+            -userName : String
+            -token : String
+            -email : String
+            -reputation : Integer
+            -admin : Boolean
+            +LoginDto() : LoginDto
+            +Getters()
+            +Setters()
+        }
+        class PriceReportDto{
+            -priceReportId : Integer
+            -user : User
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice: double
+            -gasPrice : double
+            -methanePrice : double
+            +PriceReportDto() : PriceReportDto
+            +Getters()
+            +Setters()
+        }
+        class IdPw{
+            -user : String
+            -pw : String
+            +IdPw() : IdPw
+            +Getters()
+            +Setters()
+        }
+    }
+    
+    package "it.polito.ezgas.entity" {
+
+        class User {
+            -userId : Integer
+            -userName : String
+            -password : String
+            -email : String
+            -reputation : Integer
+            -admin : Boolean
+            +User() : User
+            +Getters()
+            +Setters()
+        }
+        class GasStation {
+            -gasStationId : Integer
+            -gasStationName : String
+            -gasStationAddress : String
+            -hasDiesel : Boolean
+            -hasSuperl : Boolean
+            -hasSuperPlus : Boolean
+            -hasGas : Boolean
+            -hasMethane : Boolean
+            -carSharing : private String
+            -lat : double
+            -lon : double
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice : double
+            -gasPrice : double
+            -methanePrice : double
+            -reportUser : Integer
+            -reportTimeStamp : String
+            -reportDependability : private double
+            -user : private User
+            +GasStation() : GasStation
+            +Getters()
+            +Setters()
+        }
+        class PriceReport {
+            -priceReportId : Integer
+            -user : User
+            -dieselPrice : double
+            -superPrice : double
+            -superPlusPrice : double
+            -gasPrice : double
+            -methanePrice : double
+            -trust_level : Integer
+            -gasStation : GasStation
+            -user : User
+            +PriceReport() : PriceReport
+            +Getters()
+            +Setters()
+        }
+    }
+    
+    package "it.polito.ezgas.repository" {
+        class UserRepository{
+            
+        }
+        
+        class GasStationRepository{
+        }
+        
+        class PriceListRepository{
+        }
+        
+        class CarSharingCompanyRepository{
+        }
+        
+        class GeoPointRepository{
+        }
+    }
+
+    
+}
+
+PagingAndSortingRepository <|-- UserRepository
+PagingAndSortingRepository <|-- GasStationRepository
+PagingAndSortingRepository <|-- PriceListRepository
+PagingAndSortingRepository <|-- CarSharingCompanyRepository
+PagingAndSortingRepository <|-- GeoPointRepository
 
 
+UserService <|-- UserServiceImpl
+GasStationService <|-- GasStationServiceImpl
+GasStationController o-- GasStationService
+GasStationController o-- UserService
+UserController o-- UserService
+UserServiceImpl o-- UserRepository
+UserServiceImpl o-- PriceListRepository
+GasStationServiceImpl o-- GasStationRepository
+GasStationServiceImpl o-- PriceListRepository
+GasStationServiceImpl o-- CarSharingCompanyRepository
 
+UserConverter o-- UserDto
+UserConverter o-- User
 
+GasStationConverter o-- GasStationDto
+GasStationConverter o-- GasStation
 
+UserService o-- UserDto
+UserServiceImpl o-- UserDto
+UserService o-- LoginDto
+UserServiceImpl o-- LoginDto
+UserServiceImpl o-- User
+UserRepository o-- User
+UserServiceImpl o-- IdPw
+UserService o-- IdPw
 
+GasStationService o-- GasStationDto
+GasStationServiceImpl o-- GasStationDto
+GasStationServiceImpl o-- GasStation
+GasStationRepository o-- GasStation
 
+PriceListRepository o-- PriceList
+CarSharingCompanyRepository o-- CarSharingCompany
 
-
-
+GeoPointRepository o-- GeoPoint
+```
 
 # Verification traceability matrix
 
 \<for each functional requirement from the requirement document, list which classes concur to implement it>
 
-
-
-
+|                                                                                                      | GasStationController | UserController | GasStationServiceImpl | UserServiceImpl | GasStationConverter | UserConverter | LoginDto | GasStationDto | UserDto | CarSharingCompanyRepository | PriceListRepository | GasStationRepository | UserRepository | IdPw | User | Administrator | GeoPoint | GasStation | CarSharingCompany | PriceList | EZGasAplication |
+|------------------------------------------------------------------------------------------------------|----------------------|----------------|-----------------------|-----------------|---------------------|---------------|----------|---------------|---------|-----------------------------|---------------------|----------------------|----------------|------|------|---------------|----------|------------|-------------------|-----------|-----------------|
+| FR1 : Manage users                                                                                   |                      | X              |                       | X               |                     | X             |          |               | X       |                             |                     |                      | X              |      | X    | X             |          |            |                   |           |                 |
+| FR1.1 : Define   a new user, or modify an existing user                                              |                      | X              |                       | X               |                     | X             |          |               | X       |                             |                     |                      | X              |      | X    | X             |          |            |                   |           |                 |
+| FR1.2 : Delete a user                                                                                |                      | X              |                       | X               |                     | X             |          |               | X       |                             |                     |                      | X              |      | X    | X             |          |            |                   |           |                 |
+| FR1.3 : List   all users                                                                             |                      | X              |                       | X               |                     | X             |          |               | X       |                             |                     |                      | X              |      | X    |               |          |            |                   |           |                 |
+| FR1.4 : Search   a user                                                                              |                      | X              |                       | X               |                     | X             |          |               | X       |                             |                     |                      | X              |      | X    | X             |          |            |                   |           |                 |
+| FR2 : Manage   rights. Authorize access to functions to specific actors according to access   rights |                      | X              |                       |                 |                     |               |          |               |         |                             |                     |                      |                |      | X    | X             |          |            |                   |           |                 |
+| FR3 : Manage   gas stations                                                                          | X                    |                | X                     |                 | X                   |               |          | X             |         |                             |                     | X                    |                |      |      | X             |          | X          |                   |           |                 |
+| FR3.1 : Define   a new gas station, or modify an existing gas station                                | X                    |                | X                     |                 | X                   |               |          | X             |         |                             |                     | X                    |                |      |      | X             |          | X          |                   |           |                 |
+| FR3.2 : Delete   a gas station                                                                       | X                    |                | X                     |                 | X                   |               |          | X             |         |                             |                     | X                    |                |      |      | X             |          | X          |                   |           |                 |
+| FR3.3 : List   all gas stations                                                                      | X                    |                | X                     |                 | X                   |               |          | X             |         |                             |                     | X                    |                |      |      | X             |          | X          |                   |           |                 |
+| FR4 : Search   gas stations                                                                          | X                    |                | X                     |                 | X                   |               |          | X             |         |                             |                     | X                    |                |      |      |               | X        | X          |                   |           |                 |
+| FR4.1 :   Retrieve gas stations within radius r of a given geo point                                 | X                    |                | X                     |                 | X                   |               |          | X             |         |                             |                     | X                    |                |      |      |               | X        | X          |                   |           |                 |
+| FR4.2 :   Retrieve gas stations within radius r of a given address                                   | X                    |                | X                     |                 | X                   |               |          | X             |         |                             |                     | X                    |                |      |      |               | X        | X          |                   |           |                 |
+| FR4.3 : Show   given set of gas stations, and their fuel prices on a given map                       | X                    |                | X                     |                 | X                   |               |          | X             |         |                             |                     | X                    |                |      |      |               | X        | X          |                   |           |                 |
+| FR4.4 : Sort   given set of gas stations according to fuel type price                                | X                    |                | X                     |                 | X                   |               |          | X             |         |                             |                     | X                    |                |      |      |               |          | X          |                   |           |                 |
+| FR4.5 : Filter   out given set of gas stations according to fuel type and or car sharing   option    | X                    |                | X                     |                 | X                   |               |          | X             |         | X                           |                     | X                    |                |      |      |               |          | X          | X                 |           |                 |
+| FR5 : Manage   fuel prices and trust                                                                 | X                    |                | X                     | X               | X                   |               |          | X             |         |                             | X                   | X                    |                |      |      |               |          | X          |                   | X         |                 |
+| FR5.1 : Create   a price list, attach it to user and gas station                                     | X                    |                | X                     | X               | X                   |               |          | X             |         |                             | X                   | X                    |                |      |      |               |          | X          |                   | X         |                 |
+| FR5.2 : Update   trust level of a price list for a gas station                                       | X                    |                | X                     | X               | X                   |               |          | X             |         |                             | X                   | X                    |                |      |      |               |          | X          |                   | X         |                 |
+| FR5.3 :   Evaluate  price list for a gas station                                                     | X                    |                | X                     | X               | X                   |               |          | X             |         |                             | X                   | X                    |                |      |      |               |          | X          |                   | X         |                 |
 
 
 
@@ -250,9 +549,52 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 # Verification sequence diagrams 
 \<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
 
+**USE CASE 1: DEFINE A USER**
+```plantuml
+@startuml
+UserController -> UserService : create()
+
+create User
+UserService -> User : saveUser()
+
+create UserRepository
+User -> UserRepository: user()
+
+create DataBase
+UserRepository -> DataBase : save()
+
+create Dto
+UserService -> Dto : saveUser()
+Dto --> UserService : userDto()
+@enduml
+```
+The user is created and added to the DataBase via UserRepository. Lastly, a confirmation is shown by the UserDto.
 
 
+**USE CASE 10.1: MODIFY THE TRUSTLEVEL**
+```plantuml
+@startuml
+GasStationController -> GasStationService : evaluatePriceList()
+note right : PriceIsCorrect
 
+create GasStationRepository
+GasStationService -> GasStationRepository : getGasStationById()
 
+create DataBase
+GasStationRepository -> DataBase : findById()
 
+create GasStation
+GasStationRepository -> GasStation : findById()
 
+create PriceList
+GasStation -> PriceList : get()
+
+create User
+PriceList -> User : get()
+
+create UserService
+User -> UserService : user()
+UserService ->UserService : increaseReputation()
+@enduml
+```
+User1 evaluate the price of a GasStation. The price is correct so the system increase by 1 the trust level of User2.
