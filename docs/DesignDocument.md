@@ -1,11 +1,11 @@
 # Design Document 
 
 
-Authors: 
+Authors: Ignacio López-Perea, Luca Rinelli, Alberto Canta, Dario Licastro
 
-Date:
+Date: 03/05/2020
 
-Version:
+Version: 0
 
 
 # Contents
@@ -210,14 +210,6 @@ The Java interfaces are already defined (see file ServicePackage.zip) and the lo
 Contains Service classes that implement the Service Interfaces in the Service package.
 
 
-
-
-
-
-
-
-
-
 # Low level design
 
 <Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.>
@@ -340,6 +332,7 @@ package "it.polito.ezgas.dto" {
             -reputation : Integer
             -admin : Boolean
             +UserDto() : UserDto
+            +UserDto(...) : UserDto
             + ... Getters()
             + ... Setters()
         }
@@ -374,6 +367,7 @@ package "it.polito.ezgas.dto" {
             -gasPrice : double
             -methanePrice : double
             +PriceReportDto() : PriceReportDto
+            +PriceReportDto(...) : PriceReportDto
             + ... Getters()
             + ... Setters()
         }
@@ -402,6 +396,7 @@ package "it.polito.ezgas.entity" {
             -reputation : Integer
             -admin : Boolean
             +User() : User
+            +User(...) : User
             +Getters()
             +Setters()
         }
@@ -454,15 +449,39 @@ PriceReport "1..*" --> "0..1" User
 @enduml
 ```
 
+```plantuml
+@startuml
+package "it.polito.ezgas.converter" {
+        class GasStationConverter{
+            +toGasStationDto(GasStation) : GasStationDto
+        }
+        class UserConverter{
+            +toUserDto(User) : UserDto
+        }
+        class PriceReportConverter{
+            +toPriceReportDto(PriceReport) : PriceReportDto
+        }
+    }
+@enduml
+```
 
 ```plantuml
 @startuml
+package "it.polito.ezgas.repository" {
+        class UserRepository{
+            
+        }
+        
+        class GasStationRepository{
 
-package "Backend" {
+        }
+        
+        class PriceReportRepository{
+        }
+        
+    }
 
-    class EZGasApplication
-    
-    interface PagingAndSortingRepository{
+interface PagingAndSortingRepository{
         +count() : long
         +delete(T entity) : void
         +deleteAll() : void
@@ -478,206 +497,95 @@ package "Backend" {
         +findAll(Pageable pageable) : Page<T>
     }
 
+PagingAndSortingRepository <|-- UserRepository
+PagingAndSortingRepository <|-- GasStationRepository
+PagingAndSortingRepository <|-- PriceReportRepository
+@enduml
+```
+
+
+
+```plantuml
+@startuml
+
+package "Backend" {
+
+    class BootEZGasApplication{
+        +main(args : String[1..*])
+        +setupDbWithData()
+    }
+    
+    interface PagingAndSortingRepository{
+
+    }
+
     package "it.polito.ezgas.service"  as ps {
         interface GasStationService {
-            +getGasStationById() : GasStationDto
-            +saveGasStation() : GasStationDto
-            +getAllGasStations() : List<GasStationDto>
-            +deleteGasStation() : Boolean
-            +getGasStationsByGasolineType() : List<GasStationDto>
-            +getGasStationsByProximity() : List<GasStationDto>
-            +getGasStationsWithCoordinates() : List<GasStationDto>
-            +getGasStationsWithoutCoordinates() : List<GasStationDto>
-            +setReport() : void
-            +getGasStationByCarSharing() : List<GasStationDto>
+
         }
         
         interface UserService {
-            +getUserById() : UserDto
-            +saveUser() : UserDto
-            +getAllUsers() : List<UserDto>
-            +deleteUser() : Boolean
-            +login() : LoginDto
-            +increaseUserReputation() : Integer
-            +decreaseUserReputation() : Integer
+
         }
         
         class GasStationServiceImpl{
-            -gasStationRepository : GasStationRepository
-            -priceListRepository : PriceListRepository
-            -carSharingCompanyRepository : CarSharingRepository
+
         }
         
         class UserServiceImpl{
-            -userRepository : UserRepository
-            -priceListRepository : PriceListRepository
+
         }
     } 
     
     
     package "it.polito.ezgas.controller" {
         class GasStationController{
-            -gasStationService : GasStationService
-            +getGasStationById() : GasStationDto
-            +getAllGasStations() : List<GasStationDto>
-            +saveGasStation() : void
-            +deleteUser() : void
-            +getGasStationsByGasolineType() : List<GasStationDto>
-            +getGasStationsByProximity() : List<GasStationDto>
-            +getGasStationsWithCoordenates() : List<GasStationDto>
-            +setGasStationReport() : void
+
         }
         class UserController{
-            -userService : UserService
-            +getUserById() : UserDto
-            +getAllUsers() : List<UserDto>
-            +saveUser() : UserDto
-            +deleteUser() : Boolean
-            +increaseUserReputation() : Integer
-            +decreaseUserReputation() : Integer
-            +login() : LoginDto
+
         }
         class HomeController{
-            +admin() : String
-            +index() : String
-            +map() : String
-            +login() : String
-            +update() : String
-            +singup() : String
-            
+
         }
     }
     
     package "it.polito.ezgas.converter" {
         class GasStationConverter{
-            +toGasStationDto(GasStation) : GasStationDto
+
         }
         class UserConverter{
-            +toUserDto(User) : UserDto
+
+        }
+        class PriceReportConverter{
+            
         }
     }
     
     package "it.polito.ezgas.dto" {
         class GasStationDto{
-            -gasStationId : Integer
-            -gasStationName : String
-            -gasStationAddress : String
-            -hasDiesel : Boolean
-            -hasSuperl : Boolean
-            -hasSuperPlus : Boolean
-            -hasGas : Boolean
-            -hasMethane : Boolean
-            -carSharing : private String
-            -lat : double
-            -lon : double
-            -dieselPrice : double
-            -superPrice : double
-            -superPlusPrice : double
-            -gasPrice : double
-            -methanePrice : double
-            -reportUser : Integer
-            -UserDto : UserDto
-            -reportTimeStamp : String
-            -reportDependability : double
-            +GasStationDto() : GasStationDto
-            +Getters()
-            +Setters()
+
         }
         class UserDto{
-            -userId : Integer
-            -userName : String
-            -userPassword : String
-            -email : String
-            -reputation : Integer
-            admin : Boolean
-            +UserDto() : UserDto
-            +Getters()
-            +Setters()
+
         }
         class LoginDto{
-            -userId : Integer
-            -userName : String
-            -token : String
-            -email : String
-            -reputation : Integer
-            -admin : Boolean
-            +LoginDto() : LoginDto
-            +Getters()
-            +Setters()
+
         }
         class PriceReportDto{
-            -priceReportId : Integer
-            -user : User
-            -dieselPrice : double
-            -superPrice : double
-            -superPlusPrice: double
-            -gasPrice : double
-            -methanePrice : double
-            +PriceReportDto() : PriceReportDto
-            +Getters()
-            +Setters()
+
         }
         class IdPw{
-            -user : String
-            -pw : String
-            +IdPw() : IdPw
-            +Getters()
-            +Setters()
         }
     }
     
     package "it.polito.ezgas.entity" {
 
         class User {
-            -userId : Integer
-            -userName : String
-            -password : String
-            -email : String
-            -reputation : Integer
-            -admin : Boolean
-            +User() : User
-            +Getters()
-            +Setters()
         }
         class GasStation {
-            -gasStationId : Integer
-            -gasStationName : String
-            -gasStationAddress : String
-            -hasDiesel : Boolean
-            -hasSuperl : Boolean
-            -hasSuperPlus : Boolean
-            -hasGas : Boolean
-            -hasMethane : Boolean
-            -carSharing : private String
-            -lat : double
-            -lon : double
-            -dieselPrice : double
-            -superPrice : double
-            -superPlusPrice : double
-            -gasPrice : double
-            -methanePrice : double
-            -reportUser : Integer
-            -reportTimeStamp : String
-            -reportDependability : private double
-            -user : private User
-            +GasStation() : GasStation
-            +Getters()
-            +Setters()
         }
         class PriceReport {
-            -priceReportId : Integer
-            -user : User
-            -dieselPrice : double
-            -superPrice : double
-            -superPlusPrice : double
-            -gasPrice : double
-            -methanePrice : double
-            -trust_level : Integer
-            -gasStation : GasStation
-            -user : User
-            +PriceReport() : PriceReport
-            +Getters()
-            +Setters()
         }
     }
     
@@ -689,14 +597,9 @@ package "Backend" {
         class GasStationRepository{
         }
         
-        class PriceListRepository{
+        class PriceReportRepository{
         }
         
-        class CarSharingCompanyRepository{
-        }
-        
-        class GeoPointRepository{
-        }
     }
 
     
@@ -704,9 +607,7 @@ package "Backend" {
 
 PagingAndSortingRepository <|-- UserRepository
 PagingAndSortingRepository <|-- GasStationRepository
-PagingAndSortingRepository <|-- PriceListRepository
-PagingAndSortingRepository <|-- CarSharingCompanyRepository
-PagingAndSortingRepository <|-- GeoPointRepository
+PagingAndSortingRepository <|-- PriceReportRepository
 
 
 UserService <|-- UserServiceImpl
@@ -715,10 +616,9 @@ GasStationController o-- GasStationService
 GasStationController o-- UserService
 UserController o-- UserService
 UserServiceImpl o-- UserRepository
-UserServiceImpl o-- PriceListRepository
+UserServiceImpl o-- PriceReportRepository
 GasStationServiceImpl o-- GasStationRepository
-GasStationServiceImpl o-- PriceListRepository
-GasStationServiceImpl o-- CarSharingCompanyRepository
+GasStationServiceImpl o-- PriceReportRepository
 
 UserConverter o-- UserDto
 UserConverter o-- User
@@ -740,10 +640,7 @@ GasStationServiceImpl o-- GasStationDto
 GasStationServiceImpl o-- GasStation
 GasStationRepository o-- GasStation
 
-PriceListRepository o-- PriceList
-CarSharingCompanyRepository o-- CarSharingCompany
-
-GeoPointRepository o-- GeoPoint
+PriceReportRepository o-- PriceReport
 ```
 
 # Verification traceability matrix
