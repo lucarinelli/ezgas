@@ -725,6 +725,44 @@ deactivate uc
 ```
 The user is created and added to the DataBase via UserRepository. Lastly, a confirmation is shown by the UserDto.
 
+**Use case 8, UC8 - Obtain price of fuel for gas stations in a certain geographic area
+```plantuml
+@startuml
+
+actor "User" as au
+participant HomeController as hc
+au -> hc : Map() SET "/location"
+activate hc
+hc --> au: Response
+deactivate hc
+
+participant GasStationController as gc
+au -> gc : getGasStationsWithCoordenates() POST "/list<GasStationDto>"
+activate gc
+participant GasStationServiceImpl as gsi
+gc -> gsi ** : getGasStationsWithCoordenates()
+participant GasStationServiceRepository as gsr
+gsi -> gsr : findAll(...)
+activate gsr
+gsr --> gsi : List<GasStation>
+deactivate gsr
+
+participant GasStationServiceConverter as gsc
+gsi -> gsc : Iterate : toGasStationDto(List<GasStation>)
+activate gsc
+gsc --> gsi : List<GasStationDto>
+deactivate gsc
+
+gsi --> gsc : List<GasStationDto>
+deactivate gsi
+
+gsc --> gc : Response
+deactivate gc
+
+
+@enduml
+```
+
 
 **USE CASE 10.1: MODIFY THE TRUSTLEVEL**
 ```plantuml
