@@ -725,41 +725,38 @@ deactivate uc
 ```
 The user is created and added to the DataBase via UserRepository. Lastly, a confirmation is shown by the UserDto.
 
-**Use case 8, UC8 - Obtain price of fuel for gas stations in a certain geographic area
+## Use case 8, UC8 - Obtain price of fuel for gas stations in a certain geographic area
 ```plantuml
 @startuml
-
-actor "User" as au
-participant HomeController as hc
-au -> hc : Map() SET "/location"
-activate hc
-hc --> au: Response
-deactivate hc
+actor "Anonymous User" as au
 
 participant GasStationController as gc
-au -> gc : getGasStationsWithCoordenates() POST "/list<GasStationDto>"
+au -> gc : getGasStationsWithCoordenates()\nPOST "/getGasStationsWithCoordinates/{myLat}/{myLon}/{gasolineType}/{carSharing}"
 activate gc
 participant GasStationServiceImpl as gsi
-gc -> gsi ** : getGasStationsWithCoordenates()
+gc -> gsi : getGasStationsWithCoordinates()
+activate gsi
 participant GasStationServiceRepository as gsr
-gsi -> gsr : findAll(...)
+gsi -> gsr : findByGasolineTypeAndCarSharingAndLatBetweenAndLonBetween(...)
 activate gsr
 gsr --> gsi : List<GasStation>
 deactivate gsr
 
-participant GasStationServiceConverter as gsc
-gsi -> gsc : Iterate : toGasStationDto(List<GasStation>)
+participant GasStationConverter as gsc
+loop "over gasStationsFound"
+gsi -> gsc : toGasStationDto(gasStation)
 activate gsc
-gsc --> gsi : List<GasStationDto>
+gsc --> gsi : GasStationDto
 deactivate gsc
+end
 
-gsi --> gsc : List<GasStationDto>
+
+gsi --> gc : List<GasStationDto>
 deactivate gsi
 
-gsc --> gc : Response
+
+gc --> au : List<GasStationDto>
 deactivate gc
-
-
 @enduml
 ```
 
