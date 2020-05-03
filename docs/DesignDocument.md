@@ -469,14 +469,15 @@ package "it.polito.ezgas.converter" {
 @startuml
 package "it.polito.ezgas.repository" {
         class UserRepository{
-            
+            findByUserId(Integer) : Iterable<User>
         }
         
         class GasStationRepository{
-
+            findByGasolineTypeAndCarSharingAndLatBetweenAndLonBetween(...) : Iterable<GasStation>
         }
         
         class PriceReportRepository{
+            findByUser(User) : Iterable<PriceReport>
         }
         
     }
