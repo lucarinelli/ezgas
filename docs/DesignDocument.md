@@ -1,7 +1,7 @@
 # Design Document 
 
 
-Authors: Ignacio López-Perea, Luca Rinelli, Alberto Canta, Dario Licastro
+Authors: Luca Rinelli, Ignacio López-Perea, Alberto Canta, Dario Licastro
 
 Date: 03/05/2020
 
@@ -212,7 +212,8 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 # Low level design
 
-<Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.>
+<!--Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.
+-->
 ```plantuml
 @startuml
 package "it.polito.ezgas.controller" {
@@ -646,8 +647,8 @@ PriceReportRepository o-- PriceReport
 
 # Verification traceability matrix
 
-\<for each functional requirement from the requirement document, list which classes concur to implement it>
-
+<!--\<for each functional requirement from the requirement document, list which classes concur to implement it>
+-->
 |                                                                                                      | GasStationController | HomeController | UserController | GasStationServiceImpl | UserServiceImpl | GasStationConverter | PriceReportConverter | UserConverter | LoginDto | IdPw | PriceReportDto | GasStationDto | UserDto | PriceReportRepository | GasStationRepository | UserRepository | User | GasStation | PriceReport |
 |------------------------------------------------------------------------------------------------------|----------------------|----------------|----------------|-----------------------|-----------------|---------------------|----------------------|---------------|----------|------|----------------|---------------|---------|-----------------------|----------------------|----------------|------|------------|-------------|
 | FR1 : Manage users                                                                                   |                      | X              | X              |                       | X               |                     |                      | X             | X        | X    |                |               | X       |                       |                      | X              | X    |            |             |
@@ -676,8 +677,8 @@ PriceReportRepository o-- PriceReport
 
 
 # Verification sequence diagrams 
-\<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
-
+<!--\<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
+-->
 ## Use case 1, UC1 - Create User Account
 ```plantuml
 @startuml
