@@ -678,23 +678,49 @@ PriceReportRepository o-- PriceReport
 # Verification sequence diagrams 
 \<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
 
-**USE CASE 1: DEFINE A USER**
+## Use case 1, UC1 - Create User Account
 ```plantuml
 @startuml
-UserController -> UserService : saveUser()
 
-create User
-UserService -> User : saveUser()
+actor "Anonyous User" as au
+participant HomeController as hc
+au -> hc : signup() GET "/signup"
+activate hc
+hc --> au: Response
+deactivate hc
 
-create UserRepository
-User -> UserRepository: user()
+participant UserController as uc
+au -> uc : saveUser() POST "/saveUser"
+activate uc
+participant UserDto as ud
+uc -> ud ** : UserDto(...)
+ud --> uc : UserDto
+participant UserServiceImpl as usi
+uc -> usi : saveUser(UserDto userDto)
+activate usi
 
-create DataBase
-UserRepository -> DataBase : save()
+participant User as u
+usi -> u ** : User(...)
+u --> usi : User
+participant UserRepository as ur
+usi -> ur : save(User newUser)
+activate ur
 
-create Dto
-UserService -> Dto : saveUser()
-Dto --> UserService : userDto()
+ur --> usi : User
+deactivate ur
+
+participant UserConverter as ucv
+usi -> ucv : toUserDto(newUser)
+activate ucv
+ucv --> usi : UserDto
+deactivate ucv
+
+usi --> uc : UserDto
+deactivate usi
+
+uc --> au : Response
+deactivate uc
+
 @enduml
 ```
 The user is created and added to the DataBase via UserRepository. Lastly, a confirmation is shown by the UserDto.
