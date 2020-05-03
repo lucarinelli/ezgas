@@ -726,30 +726,81 @@ deactivate uc
 The user is created and added to the DataBase via UserRepository. Lastly, a confirmation is shown by the UserDto.
 
 
-**USE CASE 10.1: MODIFY THE TRUSTLEVEL**
+## Use case 10, UC10 - Evaluate price
 ```plantuml
 @startuml
-GasStationController -> GasStationService : evaluatePriceList()
-note right : PriceIsCorrect
 
-create GasStationRepository
-GasStationService -> GasStationRepository : getGasStationById()
+actor "User" as ua
 
-create DataBase
-GasStationRepository -> DataBase : findById()
+note left of ua
+User has selected a gas station
+and is visualizing the corresponding
+price report.
+The user wants to evaluate the price 
+marking it as correct.
+Pressing a specific button triggers
+this request.
+end note
 
-create GasStation
-GasStationRepository -> GasStation : findById()
+participant UserController as uc
+ua -> uc : increaseUserReputation(userId)
+activate uc
 
-create PriceList
-GasStation -> PriceList : get()
 
-create User
-PriceList -> User : get()
 
-create UserService
-User -> UserService : user()
-UserService ->UserService : increaseReputation()
+participant UserServiceImpl as usi
+uc -> usi : increaseUserReputation(userId)
+activate usi
+
+participant UserRepository as ur
+entity user as u_i
+
+usi -> ur : findByUserId(userId)
+activate ur
+ur --> u_i **
+u_i --> usi
+deactivate ur
+
+
+usi -> u_i : getReputation()
+u_i --> usi : reputation
+usi -> u_i : serReputation(newReputation)
+
+usi -> ur : save(user)
+activate ur
+ur --> usi : User
+deactivate ur
+
+participant PriceReportRepository as prr
+collections priceReports as prs
+
+usi -> prr : findByUser(user)
+activate prr
+prr --> prs
+prs --> usi
+deactivate prr
+
+loop
+
+usi -> prs : getTimeTag()
+prs --> usi : timeTag
+usi -> prs : setTrustLevel(trustLevel)
+
+end
+
+activate prr
+usi -> prr : saveAll(priceReports)
+prr --> usi : priceReports
+deactivate prr
+
+usi --> uc : reputation
+destroy u_i
+destroy prs
+deactivate usi
+
+uc --> ua : reputation
+deactivate uc
+
 @enduml
 ```
-User1 evaluate the price of a GasStation. The price is correct so the system increase by 1 the trust level of User2.
+User evaluates the price report for a GasStation. The prices are correct so the system increase by 1 the trust level of the user who reported the prices.
