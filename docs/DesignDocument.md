@@ -681,10 +681,10 @@ PriceReportRepository o-- PriceReport
 **USE CASE 1: DEFINE A USER**
 ```plantuml
 @startuml
-UserController -> UserService : create()
+UserController -> UserService : saveUser()
 
 create User
-UserService -> User : saveUser()
+UserService -> UserReporsitory : saveUser()
 
 create UserRepository
 User -> UserRepository: user()
