@@ -684,7 +684,7 @@ PriceReportRepository o-- PriceReport
 UserController -> UserService : saveUser()
 
 create User
-UserService -> UserReporsitory : saveUser()
+UserService -> User : saveUser()
 
 create UserRepository
 User -> UserRepository: user()
