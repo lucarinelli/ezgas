@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import exception.InvalidLoginDataException;
 import exception.InvalidUserException;
+import it.polito.ezgas.converter.LoginConverter;
 import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
@@ -86,19 +87,31 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
-		// TODO Auto-generated method stub
-		return null;
+		LoginDto login= null;
+		int a=0;
+		
+		for (User current : repositoryUser.findAll()) {
+			if(current.getEmail().equalsIgnoreCase(credentials.getUser()) && current.getPassword().equals(credentials.getPw())) {
+				login = LoginConverter.toLoginDto(current);
+				break;
+			}
+		}
+		
+		if(login == null)
+				 throw new InvalidLoginDataException("Wrong Email or Password");
+		// TODO check
+		return login;
 	}
 
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
+		// TODO check
 		return null;
 	}
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
+		// TODO check
 		return null;
 	}
 	
