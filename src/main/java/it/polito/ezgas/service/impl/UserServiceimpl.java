@@ -28,7 +28,7 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
-		if(userId==null || userId<0) {
+		if(userId==null || userId.intValue()<0) {
 			throw new InvalidUserException("Wrong userID");
 		}
 		else {
@@ -76,7 +76,7 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
-		if(userId==null || userId<0) {
+		if(userId==null || userId.intValue()<0) {
 			throw new InvalidUserException("Wrong userID");
 		}
 		else {
@@ -105,14 +105,37 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
+		if(userId == null || userId.intValue()<0) {
+			throw new InvalidUserException("Wrong userID");
+		}
+		
+		User user=repositoryUser.findOne(userId);
+		Integer reputation = user.getReputation();
+		if (reputation.intValue()<5) {
+			reputation=new Integer(reputation.intValue()+1);
+		}
+		user.setReputation(reputation);
+		repositoryUser.save(user);
+		
 		// TODO check
-		return null;
+		return reputation;
 	}
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
+		if(userId == null || userId.intValue()<0) {
+			throw new InvalidUserException("Wrong userID");
+		}
+		
+		User user=repositoryUser.findOne(userId);
+		Integer reputation = user.getReputation();
+		if (reputation.intValue()>-5) {
+			reputation=new Integer(reputation.intValue()-1);
+		}
+		user.setReputation(reputation);
+		repositoryUser.save(user);
 		// TODO check
-		return null;
+		return reputation;
 	}
 	
 }
