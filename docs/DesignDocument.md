@@ -455,12 +455,14 @@ PriceReport "1..*" --> "0..1" User
 package "it.polito.ezgas.converter" {
         class GasStationConverter{
             +toGasStationDto(GasStation) : GasStationDto
+            +toGasStation(GasStationDto) : GasStation
         }
         class UserConverter{
             +toUserDto(User) : UserDto
+            +toUser(UserDto) : User
         }
-        class PriceReportConverter{
-            +toPriceReportDto(PriceReport) : PriceReportDto
+        class LoginConverter{
+            +toLoginDto(User) : LoginDto
         }
     }
 @enduml
@@ -499,13 +501,37 @@ interface PagingAndSortingRepository{
         +findAll(Pageable pageable) : Page<T>
     }
 
-PagingAndSortingRepository <|-- UserRepository
-PagingAndSortingRepository <|-- GasStationRepository
-PagingAndSortingRepository <|-- PriceReportRepository
+interface JpaRepository{
+        +deleteInBatch(Iterable<T> entities) : void
+        +deleteAllInBatch() : void
+        +save(Iterable<S> entities) : List<S>
+        +findAll() : List<T>
+        +findAll(Iterable<ID> ids) : List<T>
+        +findAll(Sort sort) : List<T> 
+        +findAll(Example<S> example) : List<S>
+        +findAll(Example<S> example, Sort sort) : List<S>
+        +getOne(ID id) : T
+        +flush() : void
+        +saveAndFlush(S entity) : S
+    }
+
+interface QueryByExampleExecutor{
+        +findOne(Example<S> example) : S
+        +findAll(Example<S> example) : Iterable<S>
+        +findAll(Example<S> example, Sort sort) : Iterable<S>
+        +findAll(Example<S> example, Pageable pageable) : Page<S>
+        +count(Example<S> example) : long
+        +exists(Example<S> example) : boolean
+    }
+
+JpaRepository <|-- UserRepository
+JpaRepository <|-- GasStationRepository
+JpaRepository <|-- PriceReportRepository
+
+QueryByExampleExecutor <|-- JpaRepository
+PagingAndSortingRepository <|-- JpaRepository
 @enduml
 ```
-
-
 
 ```plantuml
 @startuml
