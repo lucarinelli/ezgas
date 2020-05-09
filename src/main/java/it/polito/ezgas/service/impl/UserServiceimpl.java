@@ -22,7 +22,7 @@ import it.polito.ezgas.service.UserService;
 @Service
 public class UserServiceimpl implements UserService {
 	@Autowired
-	UserRepository Repository;
+	UserRepository repositoryUser;
 	
 
 	@Override
@@ -31,7 +31,7 @@ public class UserServiceimpl implements UserService {
 			throw new InvalidUserException("Wrong userID");
 		}
 		else {
-		User user=Repository.findOne(userId);
+		User user=repositoryUser.findOne(userId);
 		if (user!=null) {
 			return UserConverter.toUserDto(user);
 		}
@@ -43,15 +43,30 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public UserDto saveUser(UserDto userDto) {
-		// TODO Auto-generated method stub
-		return null;
+		UserDto current=null;
+		
+		if(userDto.getUserId() == null) {
+			User users=UserConverter.toUser(userDto);
+			repositoryUser.save(users);
+			current=UserConverter.toUserDto(users);
+		}
+		else {
+			User users=repositoryUser.getOne(userDto.getUserId());
+			users.setUserName(userDto.getUserName());
+			users.setPassword(userDto.getPassword());
+			users.setEmail(userDto.getEmail());
+			repositoryUser.save(users);
+			current = UserConverter.toUserDto(users);
+		}
+		// TODO check
+		return current;
 	}
 
 	@Override
 	public List<UserDto> getAllUsers() {
 		List<UserDto> users= new ArrayList<UserDto>();
 		
-		for (User current : Repository.findAll()) {
+		for (User current : repositoryUser.findAll()) {
 			users.add(UserConverter.toUserDto(current));
 		}
 		// TODO Check
@@ -64,8 +79,8 @@ public class UserServiceimpl implements UserService {
 			throw new InvalidUserException("Wrong userID");
 		}
 		else {
-		Repository.delete(userId);
-		// TODO Auto-generated method stub
+		repositoryUser.delete(userId);
+		// TODO check
 		return true;}
 	}
 
