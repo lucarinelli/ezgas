@@ -1,14 +1,19 @@
 package it.polito.ezgas.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import exception.InvalidLoginDataException;
 import exception.InvalidUserException;
+import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
+import it.polito.ezgas.entity.User;
+import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.UserService;
 
 /**
@@ -16,11 +21,24 @@ import it.polito.ezgas.service.UserService;
  */
 @Service
 public class UserServiceimpl implements UserService {
+	@Autowired
+	UserRepository Repository;
+	
 
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
-		return null;
+		if(userId==null || userId<0) {
+			throw new InvalidUserException("Wrong userID");
+		}
+		else {
+		User user=Repository.findOne(userId);
+		if (user!=null) {
+			return UserConverter.toUserDto(user);
+		}
+		else {
+		// TODO check
+		return null;}
+		}
 	}
 
 	@Override
@@ -31,14 +49,24 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public List<UserDto> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		List<UserDto> users= new ArrayList<UserDto>();
+		
+		for (User current : Repository.findAll()) {
+			users.add(UserConverter.toUserDto(current));
+		}
+		// TODO Check
+		return users;
 	}
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
+		if(userId==null || userId<0) {
+			throw new InvalidUserException("Wrong userID");
+		}
+		else {
+		Repository.delete(userId);
 		// TODO Auto-generated method stub
-		return null;
+		return true;}
 	}
 
 	@Override
