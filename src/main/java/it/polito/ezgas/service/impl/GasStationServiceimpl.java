@@ -25,10 +25,20 @@ import it.polito.ezgas.converter.UserConverter;
  */
 @Service
 public class GasStationServiceimpl implements GasStationService {
-
-	ArrayList<String> listGasolineTypes = new ArrayList<String>(Arrays.asList(String Diesel, String Gasoline, PremiumGasoline, LPG, Methane));
-			
-			
+	
+	ArrayList<String> listGasolineTypes = new ArrayList<String>();
+	
+	public GasStationServiceimpl(){
+		listGasolineTypes.add("Diesel");
+		listGasolineTypes.add("Gasoline");
+		listGasolineTypes.add("PremiumGasoline");
+		listGasolineTypes.add("LPG");
+		listGasolineTypes.add("Methane");
+	}
+	
+	GasStationRepository GasStationRepository;
+	UserRepository repositoryUser;
+	
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
 		if(gasStationId==null || gasStationId<0) 
@@ -57,11 +67,11 @@ public class GasStationServiceimpl implements GasStationService {
 
 		if (gasStationDto.getGasStationId() == null) {
 			GasStation gasStations=GasStationConverter.toGasStation(gasStationDto);
-			repositoryGasStation.save(gasStations);
+			GasStationRepository.save(gasStations);
 			current=GasStationConverter.toGasStationDto(gasStations);
 		}
 		else {
-			GasStation gasStations=repositoryGasStation.getOne(gasStationDto.getGasStationId());
+			GasStation gasStations=GasStationRepository.getOne(gasStationDto.getGasStationId());
 			gasStations.setCarSharing(gasStationDto.getCarSharing());
 			gasStations.setDieselPrice(gasStationDto.getDieselPrice());
 			gasStations.setGasPrice(gasStationDto.getGasPrice());
@@ -93,7 +103,7 @@ public class GasStationServiceimpl implements GasStationService {
 	public List<GasStationDto> getAllGasStations() {
 		List<GasStationDto> gasStations= new ArrayList<GasStationDto>();
 
-		for (GasStation current : repositoryGasStation.findAll()) {
+		for (GasStation current : GasStationRepository.findAll()) {
 			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO Check
@@ -105,7 +115,7 @@ public class GasStationServiceimpl implements GasStationService {
 		if(gasStationId==null || gasStationId<0)
 			throw new InvalidGasStationException("Wrong gasStationId");
 		else {
-		repositoryGasStation.delete(gasStationId);
+			GasStationRepository.delete(gasStationId);
 		// TODO check
 		return true;
 		}
@@ -113,16 +123,16 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationsByGasolineType(String gasolinetype) throws InvalidGasTypeException {
-		List<String> gasolineTypes = new ArrayList<String>();
+		ArrayList<String> gasolineTypes = new ArrayList<String>();
 		
 		if(!listGasolineTypes.contains(gasolinetype))
 			throw new InvalidGasTypeException("Wrong gasolinetype");
 
 		List<GasStationDto> gasStations= new ArrayList<GasStationDto>();
 
-		for (GasStation current : repositoryGasStation.findAll()) {
-			ArrayList<String> listGasolineType = getListGasolineTypes(current);
-			if(listGasolineType.contains(gasolinetype))
+		for (GasStation current : GasStationRepository.findAll()) {
+			gasolineTypes = getListGasolineTypes(current);
+			if(gasolineTypes.contains(gasolinetype))
 				gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO Check
@@ -153,7 +163,7 @@ public class GasStationServiceimpl implements GasStationService {
 		
 		List<GasStationDto> gasStations= new ArrayList<GasStationDto>();
 		
-		for (GasStation current : repositoryGasStation.findAll()) {
+		for (GasStation current : GasStationRepository.findAll()) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
 			if(distance <= 1)
 				gasStations.add(GasStationConverter.toGasStationDto(current));
@@ -191,7 +201,7 @@ public class GasStationServiceimpl implements GasStationService {
 		
 		List<GasStationDto> gasStations= new ArrayList<GasStationDto>();
 		
-		for (GasStation current : repositoryGasStation.findAll()) {
+		for (GasStation current : GasStationRepository.findAll()) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
 			if(distance <= 1 && getListGasolineTypes(current).contains(gasolinetype) && current.getCarSharing() == carsharing) //Check 3 statements
 				gasStations.add(GasStationConverter.toGasStationDto(current));
@@ -209,7 +219,7 @@ public class GasStationServiceimpl implements GasStationService {
 		
 		List<GasStationDto> gasStations= new ArrayList<GasStationDto>();
 		
-		for (GasStation current : repositoryGasStation.findAll()) {
+		for (GasStation current : GasStationRepository.findAll()) {
 			if(getListGasolineTypes(current).contains(gasolinetype) && current.getCarSharing() == carsharing) //Check 2 statements
 				gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
@@ -238,7 +248,8 @@ public class GasStationServiceimpl implements GasStationService {
 		gasStation.setSuperPrice(superPrice);
 		gasStation.setSuperPlusPrice(superPlusPrice);
 		gasStation.setMethanePrice(methanePrice);
-		gasStation.setUser(UserRepository.findOne(userId));
+		User user = repositoryUser.findOne(userId);
+		gasStation.setUser(user);
 		
 		return;
 			
@@ -251,7 +262,7 @@ public class GasStationServiceimpl implements GasStationService {
 		
 		List<GasStationDto> gasStations= new ArrayList<GasStationDto>();
 		
-		for (GasStation current : repositoryGasStation.findAll()) {
+		for (GasStation current : GasStationRepository.findAll()) {
 			if(current.getCarSharing() == carSharing)
 				gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
