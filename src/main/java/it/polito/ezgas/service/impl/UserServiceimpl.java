@@ -48,16 +48,17 @@ public class UserServiceimpl implements UserService {
 		
 		if(userDto.getUserId() == null) {
 			User users=UserConverter.toUser(userDto);
-			repositoryUser.save(users);
 			current=UserConverter.toUserDto(users);
 		}
 		else {
 			User users=repositoryUser.getOne(userDto.getUserId());
-			users.setUserName(userDto.getUserName());
-			users.setPassword(userDto.getPassword());
-			users.setEmail(userDto.getEmail());
-			repositoryUser.save(users);
-			current = UserConverter.toUserDto(users);
+			if(repositoryUser.findByEmailAddress(userDto.getEmail()) != null) {
+				users.setUserName(userDto.getUserName());
+			    users.setPassword(userDto.getPassword());
+			    users.setEmail(userDto.getEmail());
+			    repositoryUser.save(users);
+			    current = UserConverter.toUserDto(users);
+			}			
 		}
 		// TODO check
 		return current;
