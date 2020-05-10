@@ -44,24 +44,24 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public UserDto saveUser(UserDto userDto) {
-		UserDto current=null;
+    UserDto current=null;
 		
 		if(userDto.getUserId() == null) {
 			User users=UserConverter.toUser(userDto);
+			repositoryUser.save(users);
 			current=UserConverter.toUserDto(users);
 		}
 		else {
 			User users=repositoryUser.getOne(userDto.getUserId());
-			if(repositoryUser.findByEmailAddress(userDto.getEmail()) != null) {
-				users.setUserName(userDto.getUserName());
-			    users.setPassword(userDto.getPassword());
-			    users.setEmail(userDto.getEmail());
-			    repositoryUser.save(users);
-			    current = UserConverter.toUserDto(users);
-			}			
+			users.setUserName(userDto.getUserName());
+			users.setPassword(userDto.getPassword());
+			users.setEmail(userDto.getEmail());
+			repositoryUser.save(users);
+			current = UserConverter.toUserDto(users);
 		}
 		// TODO check
 		return current;
+
 	}
 
 	@Override
@@ -88,18 +88,20 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
-		LoginDto login = null;
-		User users = null;
+		LoginDto login= null;
 		
-		users=repositoryUser.findByEmailAddress(credentials.getUser());
-		if(users.getPassword().equals(credentials.getPw())) {
-			login = LoginConverter.toLoginDto(users);
+		for (User current : repositoryUser.findAll()) {
+			if(current.getEmail().equalsIgnoreCase(credentials.getUser()) && current.getPassword().equals(credentials.getPw())) {
+				login = LoginConverter.toLoginDto(current);
+				break;
+			}
 		}
 		
 		if(login == null)
 				 throw new InvalidLoginDataException("Wrong Email or Password");
 		// TODO check
 		return login;
+
 	}
 
 	@Override

@@ -9,7 +9,5 @@ import it.polito.ezgas.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	  @Query(value = "SELECT * FROM USERS WHERE EMAIL_ADDRESS = ?0", nativeQuery = true)
-	  User findByEmailAddress(String emailAddress);
 	
 }
