@@ -1,10 +1,10 @@
 package it.polito.ezgas.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import exception.GPSDataException;
 import exception.InvalidGasStationException;
@@ -130,7 +130,7 @@ public class GasStationServiceimpl implements GasStationService {
 
 		List<GasStationDto> gasStations= new ArrayList<GasStationDto>();
 
-		for (GasStation current : GasStationRepository.findAll()) {
+		for (GasStation current : sortListByPrice(gasolinetype)) {
 			gasolineTypes = getListGasolineTypes(current);
 			if(gasolineTypes.contains(gasolinetype))
 				gasStations.add(GasStationConverter.toGasStationDto(current));
@@ -155,6 +155,21 @@ public class GasStationServiceimpl implements GasStationService {
 		return listGasolineType;
 	}
 	
+	private  List<GasStation> sortListByPrice(String gasolineType){
+		List<GasStation> sortedListByPrice = new ArrayList<GasStation>();
+		if(gasolineType == "Diesel")
+			 sortedListByPrice = GasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceDiesel"));
+		else if(gasolineType == "Methane")
+			 sortedListByPrice = GasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceMethane"));
+		else if(gasolineType == "LPG")
+			 sortedListByPrice = GasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceGas"));
+		else if(gasolineType == "Gasoline")
+			 sortedListByPrice = GasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceSuper"));
+		else if(gasolineType == "PremiumGasoline")
+			 sortedListByPrice = GasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceSuperPlus"));
+		return sortedListByPrice;
+		
+	}
 	
 	@Override
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon) throws GPSDataException {
