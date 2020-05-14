@@ -1,10 +1,10 @@
 # Unit Testing Documentation
 
-Authors:
+Authors: Luca Rinelli
 
-Date:
+Date: **/05/2020
 
-Version:
+Version: 0
 
 # Contents
 
@@ -26,54 +26,277 @@ Version:
     the set up of all Spring components
     >
 
- ### **Class *class_name* - method *name***
+### Class *GasStationServiceimpl* - method *getGasStationById*
 
+Queries the database and return a single gas station corresponding to the database given as parameter.
 
+Returns null if no gas station is found with the given id.
 
-**Criteria for method *name*:**
-	
+**Criteria for method *getGasStationById*:**
 
- - 
- - 
+ - Value of gasStationId
 
-
-
-
-
-**Predicates for method *name*:**
+**Predicates for method *getGasStationById*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|          |           |
-|          |           |
-|          |           |
-|          |           |
-
-
-
-
+| Value of gasStationId | a gas station with this gasStationId is present in the database |
+|          | no gas station in the database for this gasStationId |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|          |                 |
-|          |                 |
-
-
+|  |                 |
 
 **Combination of predicates**:
 
+| Value of gasStationId | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+| Is in the db | Yes | Retrieve correctly a gas station present in the db by its id |  |
+| Is not in the db | Yes | No gas station for this id in the db, the function should return null |  |
 
-| Criteria 1 | Criteria 2 | ... | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|-------|
-|||||||
-|||||||
-|||||||
-|||||||
-|||||||
+### Class *GasStationServiceimpl* - method *saveGasStation*
+
+Receives a GasStationDto and store it in the database.
+
+Throws exceptions in case of negative prices or wrong latitude and longitude values in the GasStationDto.
+
+**Criteria for method *saveGasStation*:**
+
+ - Value of prices
+ - Value latitude
+ - Value longitude
+
+**Predicates for method *saveGasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value of prices | no price is negative |
+|          | at least one price is negative |
+| Value latitude | correct [-90, +90] |
+|          | wrong (-inf, -90) U (+90, +inf) |
+| Value longitude | correct [-180, +180] |
+|          | wrong (-inf, -180) U (+180, +inf) |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+| Value of prices | price equal to 0 |
+| Value latitude | -90 |
+|          | +90 |
+| Value longitude | -180 |
+|          | +180 |
+
+**Combination of predicates**
+
+| Value of prices | Value latitude | Value longitude | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- |
+| no negative | correct | correct | Yes | Correct insertion, no exception should be generated |  |
+| no negative | correct | wrong | Yes | Correct price. Wrong longitude, an exception for GPS should be generated |  |
+| no negative | wrong | correct | Yes | Correct price. Wrong latitude, an exception for GPS should be generated |  |
+| no negative | wrong | wrong | Yes | Correct price. Wrong longitude and latitude, an exception for GPS should be generated |  |
+| at least one negative | correct | correct | Yes | Correct GPS. Negative price, an exception for price must be generated |  |
+| at least one negative | correct | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated |  |
+| at least one negative | wrong | correct | Yes | Wrong prices and GPS, an exception for one of the two error must be generated |  |
+| at least one negative | wrong | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated |  |
+
+### Class *GasStationServiceimpl* - method *getAllGasStations*
+
+Returns an ArrayList with all the GasStations stored in the database
+
+Returns an empty ArrayList if no gas station is registered in the database
+
+**Criteria for method *getAllGasStations*:**
+
+ - Number of gas stations in db
+
+**Predicates for method *getAllGasStations*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Number of gas stations in db | no gas station in the db |
+|          | one gas station in the db |
+|          | many gas station in the db |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Number of gas stations in db | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+| no gas station in the db | Yes | No gas station in db, empty list |  |
+| one gas station in the db | Yes | One gas station, list one element |  |
+| many gas station in the db | Yes | Multiple gas stations in db, list returned |  |
+
+### Class *GasStationServiceimpl* - method *deleteGasStation*
+
+Deletes from the database the GasStation with the id passed as parameter. Throws an exception in case of invalid id (<0).
+
+Returns null in case of not found gas station
 
 
+**Criteria for method *deleteGasStation*:**
+
+ - Value of gasStationId
+
+**Predicates for method *deleteGasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value of gasStationId | a gas station with this gasStationId is present in the database |
+|          | no gas station in the database for this gasStationId |
+|          | Invalid id (less than 0) |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value of gasStationId | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+| Is in the db | Yes | Delete the corresponding gas station from the db, no exception. |  |
+| Is not in the db | Yes | No gas station for this id in the db, the function should return null |  |
+| Less than 0 | Yes | Throws an InvalidGasStationException exception |  |
+
+### Class *GasStationServiceimpl* - method *getGasStationsByGasolineType*
+
+Returns all gas stations that provide the gasoline type provided as parameter, sorted by increasing price of that gasoline type.
+
+Returns an empty ArrayList if no gas station in the database provides the given gasoline type
+
+Throws an exception if an invalid gasoline type is given as parameter
+
+**Criteria for method *getGasStationsByGasolineType*:**
+
+ - String gasolinetype
+
+**Predicates for method *getGasStationsByGasolineType*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| String gasolinetype | valid, gas stations exists with this type in the db |
+|          | valid, NO gas stations exists with this type in the db |
+|          | invalid |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| String gasolinetype | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | -------|-------|-------|
+| valid, gas stations exists with this type in the db | Yes | Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type |  |
+| valid, NO gas stations exists with this type in the db | Yes | Returns an empty ArrayList |  |
+| invalid | Yes | Throws an InvalidGasTypeException |  |
+
+### Class *GasStationServiceimpl* - method *getGasStationsByProximity*
+
+Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
+
+Returns an empty ArrayList if no gas station in the database is located within 1km from that geopoint
+
+Throws an exception if an invalid value is given for latitude and/or longitude
+
+
+**Criteria for method *getGasStationsByProximity*:**
+
+ - Value latitude
+ - Value longitude
+ - Gas stations positions
+
+**Predicates for method *getGasStationsByProximity*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value latitude | correct [-90, +90] |
+|          | wrong (-inf, -90) U (+90, +inf) |
+| Value longitude | correct [-180, +180] |
+|          | wrong (-inf, -180) U (+180, +inf) |
+| Gas stations positions | gas stations are present in a range of 1km from given coordinates |
+|          | gas stations exists but are not in a range of 1km from given coordinates |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value latitude | Value longitude | Gas stations positions | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- |
+| correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
+| correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
+| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
+| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
+| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
+| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+
+### [WIP] Class *GasStationServiceimpl* - method *getGasStationsWithCoordinates*
+
+Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
+
+It receives as parameters a gasolinetype and a carsharing value.
+
+If gasolinetype is different than "null" (string), it filters the list of gas stations keeping only those providing such gasoline type
+
+If carsharing is different than "null" (string), it filters the list of gas stations keeping only those affiliated to that carsharing company
+
+Returns an empty ArrayList if no gas station is found in the database with the given parameters
+
+Throws an exception if an invalid value is given for latitude and/or longitude, gasolinetype or carsharing string parameters
+
+**Criteria for method *getGasStationsWithCoordinates*:**
+
+ - Value latitude
+ - Value longitude
+ - Gas stations positions
+ - String gasolinetype
+ - String carsharing
+
+**Predicates for method *getGasStationsWithCoordinates*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value latitude | correct [-90, +90] |
+|          | wrong (-inf, -90) U (+90, +inf) |
+| Value longitude | correct [-180, +180] |
+|          | wrong (-inf, -180) U (+180, +inf) |
+| Gas stations positions | gas stations are present in a range of 1km from given coordinates |
+|          | gas stations exists but are not in a range of 1km from given coordinates |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value latitude | Value longitude | Gas stations positions | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- |
+| correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
+| correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
+| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
+| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
+| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
+| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
 
 
 # White Box Unit Tests
