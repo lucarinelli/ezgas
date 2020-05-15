@@ -1,6 +1,6 @@
 # Unit Testing Documentation
 
-Authors: Luca Rinelli
+Authors: Luca Rinelli, Alberto Canta
 
 Date: **/05/2020
 
@@ -10,9 +10,6 @@ Version: 0
 
 - [Black Box Unit Tests](#black-box-unit-tests)
 
-
-
-
 - [White Box Unit Tests](#white-box-unit-tests)
 
 
@@ -20,9 +17,9 @@ Version: 0
 
     <Define here criteria, predicates and the combination of predicates for each function of each class.
     Define test cases to cover all equivalence classes and boundary conditions.
-    In the table, report the description of the black box test case and (traceability) the correspondence with the JUnit test case writing the 
+    In the table, report the description of the black box test case and (traceability) the correspondence with the JUnit test case writing the
     class and method name that contains the test case>
-    <JUnit test classes must be in src/test/java/it/polito/ezgas   You find here, and you can use,  class EZGasApplicationTests.java that is executed before 
+    <JUnit test classes must be in src/test/java/it/polito/ezgas   You find here, and you can use,  class EZGasApplicationTests.java that is executed before
     the set up of all Spring components
     >
 
@@ -299,10 +296,44 @@ Throws an exception if an invalid value is given for latitude and/or longitude, 
 | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
 
 
+
+### Class *UserServiceimpl* - method *getUserById(Integer userId)*
+
+
+	 Queries the database and returns the UserDto corresponding to the userId passed as parameter.
+	 Throws an exception in case of invalid (negative) userId
+	 Returns null if no user is found with the given Id
+
+   **Criteria for method *getUserById(Integer userId)*:**
+   -User Id
+   **Predicates for method *getUserById(Integer userId)*:**
+
+   | Criteria | Predicate |
+   | -------- | --------- |
+   | user Id  | illegal UserId: userId<0|
+   || consistent userId not present in db|
+   || consistent userId present in db|
+
+   **Boundaries**:
+
+   | Criteria | Boundary values |
+   | -------- | --------------- |
+   |  |  |
+
+   **Combination of predicates**
+   | Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+   | --- | --- | --- | --- |
+|||||
+
+   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
+   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
+   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
+
+
 # White Box Unit Tests
 
 ### Test cases definition
-    
+
     <JUnit test classes must be in src/test/java/it/polito/ezgas>
     <Report here all the created JUnit test cases, and the units/classes under test >
     <For traceability write the class and method name that contains the test case>
@@ -330,6 +361,3 @@ Throws an exception if an invalid value is given for latitude and/or longitude, 
 |||||
 |||||
 ||||||
-
-
-
