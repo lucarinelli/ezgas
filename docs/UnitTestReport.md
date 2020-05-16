@@ -2,7 +2,7 @@
 
 Authors: Luca Rinelli, Alberto Canta
 
-Date: **/05/2020
+Date: 18/05/2020
 
 Version: 0
 
@@ -22,6 +22,662 @@ Version: 0
     <JUnit test classes must be in src/test/java/it/polito/ezgas   You find here, and you can use,  class EZGasApplicationTests.java that is executed before
     the set up of all Spring components
     >
+
+### Class *GasStation* - method *GasStation*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setGasStationId*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationId |
+
+### Class *GasStation* - method *getGasStationId*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationId |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setGasStationName*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationName() |
+
+### Class *GasStation* - method *getGasStationName*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationName() |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setGasStationAddress*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationAddress() |
+
+### Class *GasStation* - method *getGasStationAddress*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationAddress() |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setReportDependability*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportDependability() |
+
+### Class *GasStation* - method *getReportDependability*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportDependability() |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setReportUser*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportUser() |
+
+### Class *GasStation* - method *getReportUser*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportUser() |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setReportTimestamp*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportTimestamp() |
+
+### Class *GasStation* - method *getReportTimestamp*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportTimestamp() |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setUser*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |  |
+|  |  |  |  |
+
+### Class *GasStation* - method *getUser*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |  |
+|  |  |  |  |
+
+### Class *GasStation* - method *setCarSharing*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |  |
+|  |  |  |  |
+
+### Class *GasStation* - method *getCarSharing*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |  |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setLat*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetLat() |
+
+### Class *GasStation* - method *getLat*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetLat() |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setLon*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetLon() |
+
+### Class *GasStation* - method *getLon*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetLon() |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *setHas...*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetHasDiesel() |
+|  |  |  | testSetGetHasSuper() |
+|  |  |  | testSetGetHasSuperPlus() |
+|  |  |  | testSetGetHasGas() |
+|  |  |  | testSetGetHasMethane() |
+
+### Class *GasStation* - method *getHas...*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetHasDiesel() |
+|  |  |  | testSetGetHasSuper() |
+|  |  |  | testSetGetHasSuperPlus() |
+|  |  |  | testSetGetHasGas() |
+|  |  |  | testSetGetHasMethane() |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *set...Price*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetDieselPrice() |
+|  |  |  | testSetGetSuperPrice() |
+|  |  |  | testSetGetSuperPlusPrice() |
+|  |  |  | testSetGetGasPrice() |
+|  |  |  | testSetGetMethanePrice() |
+
+### Class *GasStation* - method *get...Price*
+
+**Criteria for method *GasStation*:**
+
+ - 
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetDieselPrice() |
+|  |  |  | testSetGetSuperPrice() |
+|  |  |  | testSetGetSuperPlusPrice() |
+|  |  |  | testSetGetGasPrice() |
+|  |  |  | testSetGetMethanePrice() |
+|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
 
 ### Class *GasStationServiceimpl* - method *getGasStationById*
 

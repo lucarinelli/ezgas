@@ -20,7 +20,7 @@ public class GasStationTest {
 	private GasStation gs;
 
 	@Before
-	public void initUseCase() {
+	public void setUp() {
 		gs = new GasStation("Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, "Waymo", 37.422, -122.084, 1.99, 0, 2.99, 0, 0.99, 1, "TIMESTAMP?", 50);
 	}
 	
