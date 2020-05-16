@@ -1003,6 +1003,7 @@ Throws an exception if an invalid value is given for latitude and/or longitude, 
     <Add here the screenshot report of the statement and branch coverage obtained using
     the Eclemma tool. >
 
+![Coverage](coverage.png)
 
 ### Loop coverage analysis
 
