@@ -377,8 +377,7 @@ Version: 0
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  |  |
-|  |  |  |  |
+|  |  |  | testSetGetUser() |
 
 ### Class *GasStation* - method *getUser*
 
@@ -403,8 +402,7 @@ Version: 0
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  |  |
-|  |  |  |  |
+|  |  |  | testSetGetUser() |
 
 ### Class *GasStation* - method *setCarSharing*
 
@@ -429,8 +427,7 @@ Version: 0
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  |  |
-|  |  |  |  |
+|  |  |  | testSetGetCarSharing() |
 
 ### Class *GasStation* - method *getCarSharing*
 
@@ -455,7 +452,7 @@ Version: 0
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  |  |
+|  |  |  | testSetGetCarSharing() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setLat*
