@@ -1,4 +1,4 @@
-package it.polito.ezgas.entity;
+package it.polito.ezgas;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,8 +19,6 @@ User user = new User(userName,password,email,reputation);
 @Test
 public void tgp() {
 	assertEquals(user.getPassword(),password);
-
-
 }
 @Test
 public void tgu() {
@@ -50,7 +48,7 @@ public void tsp () {
 @Test 
 public void tsu () {
 	String passwd=password+"##";
-	user.setUserName(passwd);(passwd);
+	user.setUserName(passwd);
 	assertEquals(user.getPassword(),passwd);
 	
 }
