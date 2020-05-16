@@ -280,13 +280,11 @@ package "it.polito.ezgas.service" {
         package "impl"{
         class GasStationServiceImpl{
             -gasStationRepository : GasStationRepository
-            -priceReportRepository : PriceReportRepository
             -carSharingCompanyRepository : CarSharingRepository
         }
         
         class UserServiceImpl{
             -userRepository : UserRepository
-            -priceReportRepository : PriceReportRepository
         }
         }
     }
@@ -359,19 +357,7 @@ package "it.polito.ezgas.dto" {
             +getAdmin() : Boolean
             +setAdmin(admin : Boolean)
         }
-        class PriceReportDto{
-            -priceReportId : Integer
-            -user : User
-            -dieselPrice : double
-            -superPrice : double
-            -superPlusPrice: double
-            -gasPrice : double
-            -methanePrice : double
-            +PriceReportDto() : PriceReportDto
-            +PriceReportDto(...) : PriceReportDto
-            + ... Getters()
-            + ... Setters()
-        }
+        
         class IdPw{
             -user : String
             -pw : String
@@ -380,7 +366,7 @@ package "it.polito.ezgas.dto" {
         }
     }
 
-GasStationDto "1" --> "1..*" PriceReportDto
+
 GasStationDto --> UserDto
 @enduml
 ```
@@ -427,26 +413,10 @@ package "it.polito.ezgas.entity" {
             +Getters()
             +Setters()
         }
-        class PriceReport {
-            -priceReportId : Integer
-            -user : User
-            -dieselPrice : double
-            -superPrice : double
-            -superPlusPrice : double
-            -gasPrice : double
-            -methanePrice : double
-            -trust_level : Integer
-            -gasStation : GasStation
-            -user : User
-            +PriceReport() : PriceReport
-            +PriceReport(...) : PriceReport
-            +Getters()
-            +Setters()
-        }
+        
     }
 
 GasStation "1..*" --> "0..1" User
-PriceReport "1..*" --> "0..1" User
 @enduml
 ```
 
@@ -455,15 +425,11 @@ PriceReport "1..*" --> "0..1" User
 package "it.polito.ezgas.converter" {
         class GasStationConverter{
             +toGasStationDto(GasStation) : GasStationDto
-            +toGasStation(GasStationDto) : GasStation
         }
         class UserConverter{
             +toUserDto(User) : UserDto
-            +toUser(UserDto) : User
         }
-        class LoginConverter{
-            +toLoginDto(User) : LoginDto
-        }
+        
     }
 @enduml
 ```
@@ -472,16 +438,13 @@ package "it.polito.ezgas.converter" {
 @startuml
 package "it.polito.ezgas.repository" {
         class UserRepository{
-            findByEmail(String emailAddress) : User
+            findByUserId(Integer) : Iterable<User>
         }
         
         class GasStationRepository{
-
+            findByGasolineTypeAndCarSharingAndLatBetweenAndLonBetween(...) : Iterable<GasStation>
         }
         
-        class PriceReportRepository{
-            
-        }
         
     }
 
@@ -501,37 +464,12 @@ interface PagingAndSortingRepository{
         +findAll(Pageable pageable) : Page<T>
     }
 
-interface JpaRepository{
-        +deleteInBatch(Iterable<T> entities) : void
-        +deleteAllInBatch() : void
-        +save(Iterable<S> entities) : List<S>
-        +findAll() : List<T>
-        +findAll(Iterable<ID> ids) : List<T>
-        +findAll(Sort sort) : List<T> 
-        +findAll(Example<S> example) : List<S>
-        +findAll(Example<S> example, Sort sort) : List<S>
-        +getOne(ID id) : T
-        +flush() : void
-        +saveAndFlush(S entity) : S
-    }
-
-interface QueryByExampleExecutor{
-        +findOne(Example<S> example) : S
-        +findAll(Example<S> example) : Iterable<S>
-        +findAll(Example<S> example, Sort sort) : Iterable<S>
-        +findAll(Example<S> example, Pageable pageable) : Page<S>
-        +count(Example<S> example) : long
-        +exists(Example<S> example) : boolean
-    }
-
-JpaRepository <|-- UserRepository
-JpaRepository <|-- GasStationRepository
-JpaRepository <|-- PriceReportRepository
-
-QueryByExampleExecutor <|-- JpaRepository
-PagingAndSortingRepository <|-- JpaRepository
+PagingAndSortingRepository <|-- UserRepository
+PagingAndSortingRepository <|-- GasStationRepository
 @enduml
 ```
+
+
 
 ```plantuml
 @startuml
@@ -585,9 +523,7 @@ package "Backend" {
         class UserConverter{
 
         }
-        class PriceReportConverter{
-            
-        }
+        
     }
     
     package "it.polito.ezgas.dto" {
@@ -600,9 +536,7 @@ package "Backend" {
         class LoginDto{
 
         }
-        class PriceReportDto{
-
-        }
+        
         class IdPw{
         }
     }
@@ -612,8 +546,6 @@ package "Backend" {
         class User {
         }
         class GasStation {
-        }
-        class PriceReport {
         }
     }
     
@@ -625,8 +557,6 @@ package "Backend" {
         class GasStationRepository{
         }
         
-        class PriceReportRepository{
-        }
         
     }
 
@@ -635,7 +565,6 @@ package "Backend" {
 
 PagingAndSortingRepository <|-- UserRepository
 PagingAndSortingRepository <|-- GasStationRepository
-PagingAndSortingRepository <|-- PriceReportRepository
 
 
 UserService <|-- UserServiceImpl
@@ -646,7 +575,6 @@ UserController o-- UserService
 UserServiceImpl o-- UserRepository
 UserServiceImpl o-- PriceReportRepository
 GasStationServiceImpl o-- GasStationRepository
-GasStationServiceImpl o-- PriceReportRepository
 
 UserConverter o-- UserDto
 UserConverter o-- User
@@ -668,7 +596,6 @@ GasStationServiceImpl o-- GasStationDto
 GasStationServiceImpl o-- GasStation
 GasStationRepository o-- GasStation
 
-PriceReportRepository o-- PriceReport
 ```
 
 # Verification traceability matrix
