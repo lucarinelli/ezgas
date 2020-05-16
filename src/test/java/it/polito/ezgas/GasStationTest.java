@@ -11,10 +11,7 @@ import org.junit.Test;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.entity.User;
 
-/**
- * @author lucar
- *
- */
+
 public class GasStationTest {
 	
 	private GasStation gs;
