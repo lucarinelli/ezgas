@@ -28,12 +28,19 @@ public class UserEntityTest {
 	 */
 	@Test
 	public void testSetGetUserId() {
+		int Id=-1;
 		ur.setUserId(1);
-		assert(ur.getUserId()==1);
+		assertEquals(ur.getUserId(), (Integer) 1);
 		ur.setUserId(-1);
-		assert(ur.getUserId()==-1);//FIXME: should this fail?
+		assertEquals(ur.getUserId(), (Integer) Id);//FIXME: should this fail?
 	}
-
+	
+	@Test
+	public void testSetGetUserId2() { 
+		User usr = new User();
+		assertNull(usr.getUserId());
+	}
+	
 	/**
 	 * Test method for {@link it.polito.ezgas.entity.User#getUserName()}.
 	 * Test method for {@link it.polito.ezgas.entity.User#setUserName(java.lang.String)}.
@@ -41,7 +48,13 @@ public class UserEntityTest {
 	@Test
 	public void testSetGetUserName() {
 		ur.setUserName("ciao");
-		assert(ur.getUserName().equals("ciao"));
+		assertEquals(ur.getUserName(), "ciao");
+	}
+	
+	@Test
+	public void testSetGetUserName2() {
+		User usr = new User();
+		assertNull(usr.getUserName());
 	}
 
 	/**
@@ -51,7 +64,13 @@ public class UserEntityTest {
 	@Test
 	public void testSetGetPassword() {
 		ur.setPassword("password");
-		assert(ur.getPassword().equals("password"));
+		assertEquals(ur.getPassword(), "password");
+	}
+	
+	@Test
+	public void testSetGetPassword2() {
+		User usr = new User();
+		assertNull(usr.getPassword());
 	}
 
 	/**
@@ -61,7 +80,13 @@ public class UserEntityTest {
 	@Test
 	public void testSetGetEmail() {
 		ur.setEmail("ciao@password");
-		assert(ur.getEmail().equals("ciao@password"));
+		assertEquals(ur.getEmail(), "ciao@password");
+	}
+	
+	@Test
+	public void testSetGetEmail2() {
+		User usr = new User();
+		assertNull(usr.getEmail());
 	}
 
 	/**
@@ -71,10 +96,19 @@ public class UserEntityTest {
 	public void testUser() {
 		ur=new User("ciao", "password", "ciao@password", 3);
 		
-		assert(ur.getUserName().equals("ciao"));
-		assert(ur.getPassword().equals("password"));
-		assert(ur.getEmail().equals("ciao@password"));
-		assert(ur.getReputation().equals(3));
+		assertEquals(ur.getUserName(), "ciao");
+		assertEquals(ur.getPassword(), "password");
+		assertEquals(ur.getEmail(), "ciao@password");
+		assertEquals(ur.getReputation(), (Integer) 3);
+	}
+	
+	@Test
+	public void testUser2() {
+		ur = new User();
+		assertNull(ur.getUserName());
+		assertNull(ur.getPassword());
+		assertNull(ur.getEmail());
+		assertNull(ur.getReputation());
 	}
 
 	/**
@@ -85,18 +119,25 @@ public class UserEntityTest {
 	public void testSetGetReputation() {
 		int reputation=3;
 		ur.setReputation(1);
-		assert(ur.getReputation().equals(1));
+		assertEquals(ur.getReputation(),(Integer) 1);
 		ur.setReputation(reputation);
-		assert(ur.getReputation().equals(3));
+		assertEquals(ur.getReputation(),(Integer) 3);
 		reputation=reputation+1;
 		ur.setReputation(reputation);
-		assert(ur.getReputation().equals(4));
+		assertEquals(ur.getReputation(),(Integer) 4);
+		reputation = -5;
 		ur.setReputation(-5);
-		assert(ur.getReputation().equals(-5));
+		assertEquals(ur.getReputation(),(Integer) reputation);
 		ur.setReputation(5);
-		assert(ur.getReputation().equals(5));
+		assertEquals(ur.getReputation(),(Integer) 5);
 		ur.setReputation(6);
-		assert(ur.getReputation().equals(6));//FIXME: should this fail?
+		assertEquals(ur.getReputation(),(Integer) 6);//FIXME: should this fail?
+	}
+	
+	@Test
+	public void testSetGetReputation2() { 
+		User usr = new User();
+		assertNull(usr.getReputation());
 	}
 
 	/**
@@ -106,9 +147,15 @@ public class UserEntityTest {
 	@Test
 	public void testSetGetAdmin() {
 		ur.setAdmin(false);
-		assert(ur.getAdmin().equals(false));
+		assertEquals(ur.getAdmin(), false);
 		ur.setAdmin(true);
-		assert(ur.getAdmin().equals(true));
+		assertEquals(ur.getAdmin(), true);
+	}
+	
+	@Test
+	public void testSetGetAdmin2() { 
+		User usr = new User();
+		assertNull(usr.getAdmin());
 	}
 
 }
