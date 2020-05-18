@@ -14,7 +14,7 @@ import org.junit.Test;
 import it.polito.ezgas.entity.User;
 
 
-public class UserEntityTest {
+public class UserTest {
 	private User ur;
 
 	@Before

@@ -17,10 +17,7 @@ import it.polito.ezgas.controller.UserController;
 import it.polito.ezgas.service.impl.UserServiceimpl;
 import it.polito.ezgas.dto.UserDto;
 
-/**
- * @author dario
- *
- */
+
 public class UserServiceimplTest {
 	private User ur;
 	private UserDto ud;

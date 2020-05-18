@@ -71,7 +71,9 @@ Version: 0
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationId |
+|  |  |  | testSetGetGasStationId() |
+|  |  |  | testSetGetGasStationId1() |
+|  |  |  | testSetGetGasStationId2() |
 
 ### Class *GasStation* - method *getGasStationId*
 
@@ -97,6 +99,8 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetGasStationId |
+|  |  |  | testSetGetGasStationId1() |
+|  |  |  | testSetGetGasStationId2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setGasStationName*
@@ -123,6 +127,8 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetGasStationName() |
+|  |  |  | testSetGetGasStationName1() |
+|  |  |  | testSetGetGasStationName2() |
 
 ### Class *GasStation* - method *getGasStationName*
 
@@ -148,6 +154,8 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetGasStationName() |
+|  |  |  | testSetGetGasStationName1() |
+|  |  |  | testSetGetGasStationName2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setGasStationAddress*
@@ -174,6 +182,8 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetGasStationAddress() |
+|  |  |  | testSetGetGasStationAddress1() |
+|  |  |  | testSetGetGasStationAddress2() |
 
 ### Class *GasStation* - method *getGasStationAddress*
 
@@ -199,6 +209,8 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetGasStationAddress() |
+|  |  |  | testSetGetGasStationAddress1() |
+|  |  |  | testSetGetGasStationAddress2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setReportDependability*
@@ -225,6 +237,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetReportDependability() |
+|  |  |  | testSetGetReportDependability2() |
 
 ### Class *GasStation* - method *getReportDependability*
 
@@ -250,6 +263,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetReportDependability() |
+|  |  |  | testSetGetReportDependability2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setReportUser*
@@ -276,6 +290,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetReportUser() |
+|  |  |  | testSetGetReportUser2() |
 
 ### Class *GasStation* - method *getReportUser*
 
@@ -301,6 +316,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetReportUser() |
+|  |  |  | testSetGetReportUser2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setReportTimestamp*
@@ -327,6 +343,8 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetReportTimestamp() |
+|  |  |  | testSetGetReportTimestamp1() |
+|  |  |  | testSetGetReportTimestamp2() |
 
 ### Class *GasStation* - method *getReportTimestamp*
 
@@ -352,6 +370,8 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetReportTimestamp() |
+|  |  |  | testSetGetReportTimestamp1() |
+|  |  |  | testSetGetReportTimestamp2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setUser*
@@ -428,6 +448,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetCarSharing() |
+|  |  |  | testSetGetCarSharing2() |
 
 ### Class *GasStation* - method *getCarSharing*
 
@@ -453,6 +474,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetCarSharing() |
+|  |  |  | testSetGetCarSharing2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setLat*
@@ -479,6 +501,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetLat() |
+|  |  |  | testSetGetLat2() |
 
 ### Class *GasStation* - method *getLat*
 
@@ -504,6 +527,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetLat() |
+|  |  |  | testSetGetLat2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setLon*
@@ -530,6 +554,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetLon() |
+|  |  |  | testSetGetLon2() |
 
 ### Class *GasStation* - method *getLon*
 
@@ -555,6 +580,7 @@ Version: 0
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
 |  |  |  | testSetGetLon() |
+|  |  |  | testSetGetLon2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setHas...*
@@ -585,6 +611,11 @@ Version: 0
 |  |  |  | testSetGetHasSuperPlus() |
 |  |  |  | testSetGetHasGas() |
 |  |  |  | testSetGetHasMethane() |
+|  |  |  | testSetGetHasDiesel2() |
+|  |  |  | testSetGetHasSuper2() |
+|  |  |  | testSetGetHasSuperPlus2() |
+|  |  |  | testSetGetHasGas2() |
+|  |  |  | testSetGetHasMethane2() |
 
 ### Class *GasStation* - method *getHas...*
 
@@ -614,6 +645,11 @@ Version: 0
 |  |  |  | testSetGetHasSuperPlus() |
 |  |  |  | testSetGetHasGas() |
 |  |  |  | testSetGetHasMethane() |
+|  |  |  | testSetGetHasDiesel2() |
+|  |  |  | testSetGetHasSuper2() |
+|  |  |  | testSetGetHasSuperPlus2() |
+|  |  |  | testSetGetHasGas2() |
+|  |  |  | testSetGetHasMethane2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *set...Price*
@@ -644,6 +680,11 @@ Version: 0
 |  |  |  | testSetGetSuperPlusPrice() |
 |  |  |  | testSetGetGasPrice() |
 |  |  |  | testSetGetMethanePrice() |
+|  |  |  | testSetGetDieselPrice2() |
+|  |  |  | testSetGetSuperPrice2() |
+|  |  |  | testSetGetSuperPlusPrice2() |
+|  |  |  | testSetGetGasPrice2() |
+|  |  |  | testSetGetMethanePrice2() |
 
 ### Class *GasStation* - method *get...Price*
 
@@ -673,6 +714,11 @@ Version: 0
 |  |  |  | testSetGetSuperPlusPrice() |
 |  |  |  | testSetGetGasPrice() |
 |  |  |  | testSetGetMethanePrice() |
+|  |  |  | testSetGetDieselPrice2() |
+|  |  |  | testSetGetSuperPrice2() |
+|  |  |  | testSetGetSuperPlusPrice2() |
+|  |  |  | testSetGetGasPrice2() |
+|  |  |  | testSetGetMethanePrice2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 
@@ -948,7 +994,343 @@ Throws an exception if an invalid value is given for latitude and/or longitude, 
 | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
 | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
 
+### Class *User* - method *User*
 
+**Criteria for method *User*:**
+
+ - 
+
+**Predicates for method *User*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testUser() |
+|  |  |  |testUser2() |
+
+### Class *User* - method *getUserId()*
+
+**Criteria for method *getUserId*:**
+
+ - 
+
+**Predicates for method *getUserId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserId() |
+|  |  |  | testSetGetUserId2() |
+
+### Class *User* - method *setUserId()*
+
+**Criteria for method *setUserId*:**
+
+ - 
+
+**Predicates for method *setUserId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserId() |
+|  |  |  | testSetGetUserId2() |
+
+### Class *User* - method *getUserName()*
+
+**Criteria for method *getUserName*:**
+
+ - 
+
+**Predicates for method *getUserName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserName() |
+|  |  |  | testSetGetUserName2() |
+
+### Class *User* - method *setUserName()*
+
+**Criteria for method *setUserName*:**
+
+ - 
+
+**Predicates for method *setUserName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserName() |
+|  |  |  | testSetGetUserName2() |
+
+### Class *User* - method *getPassword()*
+
+**Criteria for method *getPassword*:**
+
+ - 
+
+**Predicates for method *getPassword*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPassword() |
+|  |  |  | testSetGetUserPassword2() |
+
+### Class *User* - method *setPassword()*
+
+**Criteria for method *setPassword*:**
+
+ - 
+
+**Predicates for method *setPassword*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPassword() |
+|  |  |  | testSetGetPassword2() |
+
+### Class *User* - method *getEmail()*
+
+**Criteria for method *getEmail*:**
+
+ - 
+
+**Predicates for method *getEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *User* - method *setEmail()*
+
+**Criteria for method *setEmail*:**
+
+ - 
+
+**Predicates for method *setEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *User* - method *getReputation()*
+
+**Criteria for method *getReputation*:**
+
+ - 
+
+**Predicates for method *getReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *User* - method *setReputation()*
+
+**Criteria for method *setReputation*:**
+
+ - 
+
+**Predicates for method *setReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *User* - method *getAdmin()*
+
+**Criteria for method *getAdmin*:**
+
+ - 
+
+**Predicates for method *getAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
+
+### Class *User* - method *setAdmin()*
+
+**Criteria for method *setAdmin*:**
+
+ - 
+
+**Predicates for method *setAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
 
 ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
 
@@ -994,9 +1376,8 @@ Throws an exception if an invalid value is given for latitude and/or longitude, 
 
 | Unit name | JUnit test case |
 |--|--|
-|||
-|||
-||||
+| GasStation.java | GasStationTest.java |
+| User.java | UserTest.java |
 
 ### Code coverage report
 
