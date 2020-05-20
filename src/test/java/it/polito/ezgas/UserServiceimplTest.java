@@ -6,7 +6,13 @@ package it.polito.ezgas;
 import static org.junit.Assert.*;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,14 +25,22 @@ import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.UserService;
 import it.polito.ezgas.controller.UserController;
+import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.service.impl.UserServiceimpl;
 import it.polito.ezgas.dto.UserDto;
 
 
 public class UserServiceimplTest {
 //	// DB managment
-//	static Connection db;
-//	static Statement st;
+	static Connection db;
+	static Statement st;
+    static String sqlCreateUserTable = "CREATE TABLE USER " +
+            "(user_id INTEGER AUTO_INCREMENT PRIMARY KEY, " +
+            "admin BOOLEAN, " +
+            "email VARCHAR(255), " +
+            "password VARCHAR(255), " +
+            "reputation INTEGER, " +
+            "user_name VARCHAR(255))";
 	//Repository
 	UserRepository userRepository;
 	//User, Admin, NotUser
@@ -36,6 +50,14 @@ public class UserServiceimplTest {
 	private UserService userService;
 	
 
+    @PostConstruct
+    @BeforeClass  // run only once
+    public static void setUpDatabase() throws SQLException {
+        db = DriverManager.getConnection("jdbc:h2:./data/test", "sa", "password");
+        st = db.createStatement();
+        st.executeUpdate("DROP TABLE IF EXISTS USER");
+        st.executeUpdate(sqlCreateUserTable);
+    }
 	
 	@Before
 	public void setUp() {
@@ -43,17 +65,22 @@ public class UserServiceimplTest {
 		
 		ur = new User("ciao", "password", "ciao@password", 3);
 		ur.setUserId(1);
-		urD = new UserDto(1, "ciao", "password", "ciao@password", 3, false);
+		urD = UserConverter.toUserDto(ur);
 		
 		aur = new User("ciao", "password", "ciao@password", 5);
 		aur.setUserId(2);
 		aur.setAdmin(true);
-		aurD = new UserDto(2,"ciao", "password", "ciao@password", 5, true);
+		aurD = UserConverter.toUserDto(aur);
 		
 		userRepository.save(ur);
 		userRepository.save(aur);
 	}
-
+	
+    @AfterClass  // run only once
+    public static void tearDown() throws SQLException {
+        st.close();
+        db.close();
+    }
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getUserById(java.lang.Integer)}.
 	 */
@@ -77,7 +104,21 @@ public class UserServiceimplTest {
 	 */
 	@Test
 	public void testSaveUser() {
-		fail("Not yet implemented"); // TODO
+		UserDto user;
+		setUp();
+		
+		urD.setUserName("Pollo");
+		user=userService.saveUser(urD);
+		assertEquals(user.getUserName(), "Pollo");
+		
+		userRepository.deleteAll();
+		urD = new UserDto(1, "ciao", "password", "ciao@password", 3, false);
+		user=userService.saveUser(urD);
+		assertEquals(user, urD);
+		
+		userRepository.deleteAll();
+		user=userService.saveUser(nonurD);
+		assertNull(user.getUserName());
 	}
 
 	/**
@@ -85,7 +126,17 @@ public class UserServiceimplTest {
 	 */
 	@Test
 	public void testGetAllUsers() {
-		fail("Not yet implemented"); // TODO
+		setUp();
+		List<UserDto> users= new ArrayList<UserDto>();
+		
+		users=userService.getAllUsers();
+		assertEquals(users.get(0), urD);
+		assertEquals(users.get(1), aurD);
+		
+		userRepository.deleteAll();
+		users=userService.getAllUsers();
+		assertNull(users);
+		
 	}
 
 	/**
@@ -106,18 +157,53 @@ public class UserServiceimplTest {
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#increaseUserReputation(java.lang.Integer)}.
+	 * @throws InvalidUserException 
 	 */
 	@Test
-	public void testIncreaseUserReputation() {
-		fail("Not yet implemented"); // TODO
+	public void testIncreaseUserReputation() throws InvalidUserException {
+		setUp();
+		int a;
+		
+		a = userService.increaseUserReputation( ur.getUserId() );
+		assertEquals((Integer) a, (Integer) 4);
+		
+        try {
+            userService.increaseUserReputation(nonur.getUserId());
+            fail("Expected InvalidUserException for userId " + nonur.getUserId());
+        } catch (InvalidUserException e) {
+            assertEquals(e.getMessage(), "Wrong userID");
+        }
+        
+        ur.setReputation(5);
+        userService.saveUser(UserConverter.toUserDto(ur));
+		a = userService.increaseUserReputation( ur.getUserId() );
+		assertEquals((Integer) a, (Integer) 5);
 	}
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#decreaseUserReputation(java.lang.Integer)}.
+	 * @throws InvalidUserException 
 	 */
 	@Test
-	public void testDecreaseUserReputation() {
-		fail("Not yet implemented"); // TODO
+	public void testDecreaseUserReputation() throws InvalidUserException {
+		setUp();
+		int a,b;
+		
+		a = userService.decreaseUserReputation( ur.getUserId() );
+		assertEquals((Integer) a, (Integer) 2);
+		
+        try {
+            userService.decreaseUserReputation(nonur.getUserId());
+            fail("Expected InvalidUserException for userId " + nonur.getUserId());
+        } catch (InvalidUserException e) {
+            assertEquals(e.getMessage(), "Wrong userID");
+        }
+        
+        ur.setReputation(-5);
+        userService.saveUser(UserConverter.toUserDto(ur));
+		a = userService.decreaseUserReputation( ur.getUserId() );
+		b = -5;
+		assertEquals((Integer) a, (Integer) b);
 	}
 
 }
