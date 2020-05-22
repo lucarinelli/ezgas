@@ -20,9 +20,7 @@ import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.converter.UserConverter;
-/**
- * Modified by Group48 on 10/5/2020.
- */
+
 @Service
 public class GasStationServiceimpl implements GasStationService {
 	
@@ -82,7 +80,7 @@ public class GasStationServiceimpl implements GasStationService {
 			current=GasStationConverter.toGasStationDto(gasStations);
 		}
 		else {
-			GasStation gasStations = gasStationRepository.getOne(gasStationDto.getGasStationId());
+			GasStation gasStations = gasStationRepository.findOne(gasStationDto.getGasStationId());
 			gasStations.setCarSharing(gasStationDto.getCarSharing());
 			gasStations.setDieselPrice(gasStationDto.getDieselPrice());
 			gasStations.setGasPrice(gasStationDto.getGasPrice());
