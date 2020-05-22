@@ -13,7 +13,7 @@ import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.entity.GasStation;
 
 /**
- * @author Luca, Dario, Alberto & Ignacio
+ * @author Ignacio
  *
  */
 public class GasStationConverterTest {
