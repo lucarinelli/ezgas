@@ -3,6 +3,8 @@
  */
 package it.polito.ezgas;
 
+import static org.mockito.Mockito.*;
+
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -10,9 +12,27 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import it.polito.ezgas.converter.GasStationConverter;
+import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.entity.GasStation;
+import it.polito.ezgas.repository.GasStationRepository;
+import it.polito.ezgas.repository.UserRepository;
+import it.polito.ezgas.service.GasStationService;
+import it.polito.ezgas.service.impl.GasStationServiceimpl;
 
 public class GasStationServiceimplTest {
+	
+	private GasStationRepository gasStationRepository;
+	
+	private UserRepository userRepository;
+	
+	private GasStationService gasStationService;
 
 	/**
 	 * @throws java.lang.Exception
@@ -33,6 +53,9 @@ public class GasStationServiceimplTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		gasStationRepository = mock(GasStationRepository.class);
+		userRepository = mock(UserRepository.class);
+		gasStationService = new GasStationServiceimpl(gasStationRepository,userRepository);
 	}
 
 	/**
@@ -55,7 +78,17 @@ public class GasStationServiceimplTest {
 	 */
 	@Test
 	public void testGetGasStationById() {
-		fail("Not yet implemented");
+		GasStation gs = new GasStation();
+		gs.setGasStationId(42);
+		GasStationDto result = null;
+		when(gasStationRepository.findOne(any(Integer.class))).thenReturn(gs);
+		try {
+			result = gasStationService.getGasStationById(42);
+		}
+		catch(Exception e) {
+			fail();
+		}
+		assertEquals(result.getGasStationId(), gs.getGasStationId());
 	}
 
 	/**

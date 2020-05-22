@@ -28,7 +28,17 @@ public class GasStationServiceimpl implements GasStationService {
 	
 	ArrayList<String> listGasolineTypes = new ArrayList<String>();
 	
-	public GasStationServiceimpl(){
+	public GasStationServiceimpl(GasStationRepository gasStationRepository, UserRepository userRepository){ // FIXME!!! Why is this here? A const/static thing would be better!!!
+		listGasolineTypes.add("Diesel");
+		listGasolineTypes.add("Gasoline");
+		listGasolineTypes.add("PremiumGasoline");
+		listGasolineTypes.add("LPG");
+		listGasolineTypes.add("Methane");
+		this.gasStationRepository=gasStationRepository;
+		this.userRepository=userRepository;
+	}
+	
+	public GasStationServiceimpl(){ // FIXME!!! Why is this here? A const/static thing would be better!!!
 		listGasolineTypes.add("Diesel");
 		listGasolineTypes.add("Gasoline");
 		listGasolineTypes.add("PremiumGasoline");
@@ -37,7 +47,7 @@ public class GasStationServiceimpl implements GasStationService {
 	}
 	
 	GasStationRepository gasStationRepository;
-	UserRepository repositoryUser;
+	UserRepository userRepository;
 	
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
@@ -266,7 +276,7 @@ public class GasStationServiceimpl implements GasStationService {
 		gasStation.setSuperPrice(superPrice);
 		gasStation.setSuperPlusPrice(superPlusPrice);
 		gasStation.setMethanePrice(methanePrice);
-		User user = repositoryUser.findOne(userId);
+		User user = userRepository.findOne(userId);
 		gasStation.setUser(user);
 		
 		return;
