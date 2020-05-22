@@ -837,9 +837,9 @@ Returns an empty ArrayList if no gas station is registered in the database
 
 | Number of gas stations in db | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- |
-| no gas station in the db | Yes | No gas station in db, empty list |  |
-| one gas station in the db | Yes | One gas station, list one element |  |
-| many gas station in the db | Yes | Multiple gas stations in db, list returned |  |
+| no gas station in the db | Yes | No gas station in db, empty list | testGetAllGasStationsNone() |
+| one gas station in the db | Yes | One gas station, list one element | skipped |
+| many gas station in the db | Yes | Multiple gas stations in db, list returned | testGetAllGasStations() |
 
 ### Class *GasStationServiceimpl* - method *deleteGasStation*
 
@@ -870,9 +870,9 @@ Returns null in case of not found gas station
 
 | Value of gasStationId | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-| Is in the db | Yes | Delete the corresponding gas station from the db, no exception. |  |
-| Is not in the db | Yes | No gas station for this id in the db, the function should return null |  |
-| Less than 0 | Yes | Throws an InvalidGasStationException exception |  |
+| Is in the db | Yes | Delete the corresponding gas station from the db, no exception. | testDeleteGasStation() |
+| Is not in the db | Yes | No gas station for this id in the db, the function should return null | testDeleteGasStationAbsent() |
+| Less than 0 | Yes | Throws an InvalidGasStationException exception | testDeleteGasStationInvalid() |
 
 ### Class *GasStationServiceimpl* - method *getGasStationsByGasolineType*
 
@@ -904,7 +904,7 @@ Throws an exception if an invalid gasoline type is given as parameter
 
 | String gasolinetype | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | -------|-------|-------|
-| valid, gas stations exists with this type in the db | Yes | Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type |  |
+| valid, gas stations exists with this type in the db | Yes | Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type | testGetGasStationsByGasolineType() |
 | valid, NO gas stations exists with this type in the db | Yes | Returns an empty ArrayList |  |
 | invalid | Yes | Throws an InvalidGasTypeException |  |
 
