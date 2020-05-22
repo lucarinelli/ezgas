@@ -749,8 +749,8 @@ Returns null if no gas station is found with the given id.
 
 | Value of gasStationId | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-| Is in the db | Yes | Retrieve correctly a gas station present in the db by its id |  |
-| Is not in the db | Yes | No gas station for this id in the db, the function should return null |  |
+| Is in the db | Yes | Retrieve correctly a gas station present in the db by its id | testGetGasStationById() |
+| Is not in the db | Yes | No gas station for this id in the db, the function should return null | testGetGasStationByIdAbsent() |
 
 ### Class *GasStationServiceimpl* - method *saveGasStation*
 
@@ -763,6 +763,7 @@ Throws exceptions in case of negative prices or wrong latitude and longitude val
  - Value of prices
  - Value latitude
  - Value longitude
+ - existing gas station
 
 **Predicates for method *saveGasStation*:**
 
@@ -774,6 +775,8 @@ Throws exceptions in case of negative prices or wrong latitude and longitude val
 |          | wrong (-inf, -90) U (+90, +inf) |
 | Value longitude | correct [-180, +180] |
 |          | wrong (-inf, -180) U (+180, +inf) |
+| existing gas station | yes |
+|          | no |
 
 **Boundaries**:
 
@@ -787,16 +790,24 @@ Throws exceptions in case of negative prices or wrong latitude and longitude val
 
 **Combination of predicates**
 
-| Value of prices | Value latitude | Value longitude | Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- | --- | --- |
-| no negative | correct | correct | Yes | Correct insertion, no exception should be generated |  |
-| no negative | correct | wrong | Yes | Correct price. Wrong longitude, an exception for GPS should be generated |  |
-| no negative | wrong | correct | Yes | Correct price. Wrong latitude, an exception for GPS should be generated |  |
-| no negative | wrong | wrong | Yes | Correct price. Wrong longitude and latitude, an exception for GPS should be generated |  |
-| at least one negative | correct | correct | Yes | Correct GPS. Negative price, an exception for price must be generated |  |
-| at least one negative | correct | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated |  |
-| at least one negative | wrong | correct | Yes | Wrong prices and GPS, an exception for one of the two error must be generated |  |
-| at least one negative | wrong | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated |  |
+| Existing gas station | Value of prices | Value latitude | Value longitude | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- | --- |
+| no | no negative | correct | correct | Yes | Correct insertion, no exception should be generated | testSaveGasStation1() |
+| no | no negative | correct | wrong | Yes | Correct price. Wrong longitude, an exception for GPS should be generated | testSaveGasStation3() |
+| no | no negative | wrong | correct | Yes | Correct price. Wrong latitude, an exception for GPS should be generated | testSaveGasStation4() |
+| no | no negative | wrong | wrong | Yes | Correct price. Wrong longitude and latitude, an exception for GPS should be generated | skipped |
+| no | at least one negative | correct | correct | Yes | Correct GPS. Negative price, an exception for price must be generated | testSaveGasStation2() |
+| no | at least one negative | correct | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated | skipped |
+| no | at least one negative | wrong | correct | Yes | Wrong prices and GPS, an exception for one of the two error must be generated | skipped |
+| no | at least one negative | wrong | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated | testSaveGasStation5() |
+| yes | no negative | correct | correct | Yes | Existing gas station. Correct insertion, no exception should be generated | testSaveGasStation6() |
+| yes | no negative | correct | wrong | Yes | Existing gas station. Correct price. Wrong longitude, an exception for GPS should be generated |  |
+| yes | no negative | wrong | correct | Yes | Existing gas station. Correct price. Wrong latitude, an exception for GPS should be generated |  |
+| yes | no negative | wrong | wrong | Yes | Existing gas station. Correct price. Wrong longitude and latitude, an exception for GPS should be generated |  |
+| yes | at least one negative | correct | correct | Yes | Existing gas station. Correct GPS. Negative price, an exception for price must be generated |  |
+| yes | at least one negative | correct | wrong | Yes | Existing gas station. Wrong prices and GPS, an exception for one of the two error must be generated |  |
+| yes | at least one negative | wrong | correct | Yes | Existing gas station. Wrong prices and GPS, an exception for one of the two error must be generated |  |
+| yes | at least one negative | wrong | wrong | Yes | Existing gas station. Wrong prices and GPS, an exception for one of the two error must be generated |  |
 
 ### Class *GasStationServiceimpl* - method *getAllGasStations*
 
