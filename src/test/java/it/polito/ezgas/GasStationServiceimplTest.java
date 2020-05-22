@@ -5,6 +5,9 @@ package it.polito.ezgas;
 
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -19,6 +22,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import exception.GPSDataException;
+import exception.InvalidGasStationException;
+import exception.InvalidGasTypeException;
 import exception.PriceException;
 import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
@@ -131,7 +136,8 @@ public class GasStationServiceimplTest {
 			fail();
 		}
 		toBeSaved.setGasStationId(43);
-		assertEquals(result,toBeSaved);
+		//TODO: this comparison is the bare minimum, a deeper equality method can be useful
+		assertEquals(result.getGasStationId(),toBeSaved.getGasStationId());
 	}
 	
 	/**
@@ -149,7 +155,7 @@ public class GasStationServiceimplTest {
 		} catch (GPSDataException e) {
 			fail();
 		} catch (PriceException e) {
-			assert(true);
+			return;
 		}
 		fail();
 	}
@@ -167,7 +173,6 @@ public class GasStationServiceimplTest {
 		try {
 			gasStationService.saveGasStation(toBeSaved);
 		} catch (GPSDataException e) {
-			assert(true);
 			return;
 		} catch (PriceException e) {
 			fail();
@@ -188,7 +193,6 @@ public class GasStationServiceimplTest {
 		try {
 			gasStationService.saveGasStation(toBeSaved);
 		} catch (GPSDataException e) {
-			assert(true);
 			return;
 		} catch (PriceException e) {
 			fail();
@@ -209,7 +213,6 @@ public class GasStationServiceimplTest {
 		try {
 			gasStationService.saveGasStation(toBeSaved);
 		} catch (GPSDataException|PriceException e) {
-			assert(true);
 			return;
 		} 
 		fail();
@@ -242,25 +245,105 @@ public class GasStationServiceimplTest {
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getAllGasStations()}.
+	 * No gas station in db, empty list
+	 */
+	@Test
+	public void testGetAllGasStationsNone() {
+		List<GasStation> listGs = new ArrayList<GasStation>();
+		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
+		List<GasStationDto> result = null;
+		when(gasStationRepository.findAll()).thenReturn(listGs);
+		result = gasStationService.getAllGasStations();
+		assertEquals(result, listDto);
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getAllGasStations()}.
+	 * Multiple gas stations in db, list returned
 	 */
 	@Test
 	public void testGetAllGasStations() {
-		fail("Not yet implemented");
+		List<GasStation> listGs = new ArrayList<GasStation>();
+		listGs.add(new GasStation());
+		listGs.add(new GasStation());
+		listGs.add(new GasStation());
+		List<GasStationDto> result = null;
+		when(gasStationRepository.findAll()).thenReturn(listGs);
+		result = gasStationService.getAllGasStations();
+		int i = 0;
+		for(GasStationDto r : result) {
+			assertEquals(r.getGasStationId(), listGs.get(i).getGasStationId());
+			i++;
+		}
 	}
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#deleteGasStation(java.lang.Integer)}.
+	 * Delete the corresponding gas station from the db, no exception.
 	 */
 	@Test
 	public void testDeleteGasStation() {
-		fail("Not yet implemented");
+		Boolean result = null;
+		doNothing().when(gasStationRepository).delete(any(Integer.class));
+		GasStation savedGs = new GasStation("TestName","TestAddress", 
+				true, true, true, true, true, "Engioi", 
+				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 
+				11, "timestamp", 50.0);
+		savedGs.setGasStationId(42);
+		when(gasStationRepository.findOne(42)).thenReturn(savedGs);
+		try {
+			result = gasStationService.deleteGasStation(42);
+		} catch (InvalidGasStationException e) {
+			fail();
+		}
+		assertEquals(result, true);
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#deleteGasStation(java.lang.Integer)}.
+	 * No gas station for this id in the db, the function should return null
+	 */
+	@Test
+	public void testDeleteGasStationAbsent() {
+		Boolean result = null;
+		doNothing().when(gasStationRepository).delete(any(Integer.class));
+		when(gasStationRepository.findOne(42)).thenReturn(null);
+		try {
+			result = gasStationService.deleteGasStation(42);
+		} catch (InvalidGasStationException e) {
+			fail();
+		}
+		assertEquals(result, null);
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#deleteGasStation(java.lang.Integer)}.
+	 * No gas station for this id in the db, the function should return null
+	 */
+	@Test
+	public void testDeleteGasStationInvalid() {
+		try {
+			gasStationService.deleteGasStation(-42);
+		} catch (InvalidGasStationException e) {
+			return;
+		}
+		fail();
 	}
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByGasolineType(java.lang.String)}.
+	 * valid, gas stations exists with this type in the db
+	 * Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type
 	 */
 	@Test
 	public void testGetGasStationsByGasolineType() {
+		String gasolinetype = "coke";
+		try {
+			gasStationService.getGasStationsByGasolineType(gasolinetype);
+		} catch (InvalidGasTypeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		fail("Not yet implemented");
 	}
 
