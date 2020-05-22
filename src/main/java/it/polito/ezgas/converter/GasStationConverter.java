@@ -54,6 +54,7 @@ public class GasStationConverter {
 				gasStationDto.getReportUser(),
 				gasStationDto.getReportTimestamp(),
 				gasStationDto.getReportDependability());
+		gasStation.setGasStationId(gasStationDto.getGasStationId());
 		return gasStation;
 	}
 	
