@@ -99,7 +99,8 @@ public class GasStationServiceimpl implements GasStationService {
 			gasStations.setReportUser(gasStationDto.getReportUser());
 			gasStations.setSuperPlusPrice(gasStationDto.getSuperPlusPrice());
 			gasStations.setSuperPrice(gasStationDto.getSuperPrice());
-			gasStations.setUser(UserConverter.toUser(gasStationDto.getUserDto()));
+			if(gasStationDto.getUserDto() != null)
+				gasStations.setUser(UserConverter.toUser(gasStationDto.getUserDto()));
 
 			gasStationRepository.save(gasStations);
 			current = GasStationConverter.toGasStationDto(gasStations);
