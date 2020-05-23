@@ -14,18 +14,39 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import exception.GPSDataException;
 import exception.PriceException;
 import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.repository.GasStationRepository;
+import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.GasStationService;
+import it.polito.ezgas.service.impl.GasStationServiceimpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@DataJpaTest
 public class GasStationServiceimplIntegrationTest {
 	
+	@TestConfiguration
+    static class GasStationServiceimplTestContextConfiguration {
+		
+		@Autowired
+		GasStationRepository gasStationRepository;
+		@Autowired
+		UserRepository userRepository;
+  
+        @Bean
+        public GasStationService gasStationService() {
+            return new GasStationServiceimpl(gasStationRepository, userRepository);
+        }
+    }
 	
 	@Autowired
 	private GasStationService gasStationService;

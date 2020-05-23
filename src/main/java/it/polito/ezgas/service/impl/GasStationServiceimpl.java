@@ -37,14 +37,14 @@ public class GasStationServiceimpl implements GasStationService {
 		this.userRepository = userRepository;
 	}
 
-	public GasStationServiceimpl() {
+	/*public GasStationServiceimpl() {
 		// FIXME!!! Why is this here? A const/static thing would be better!!!
 		listGasolineTypes.add("Diesel");
 		listGasolineTypes.add("Gasoline");
 		listGasolineTypes.add("PremiumGasoline");
 		listGasolineTypes.add("LPG");
 		listGasolineTypes.add("Methane");
-	}
+	}*/
 
 	GasStationRepository gasStationRepository;
 	UserRepository userRepository;
