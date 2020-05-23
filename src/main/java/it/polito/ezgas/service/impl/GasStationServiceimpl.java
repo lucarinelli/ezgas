@@ -77,7 +77,7 @@ public class GasStationServiceimpl implements GasStationService {
 
 		if (gasStationDto.getGasStationId() == null) {
 			GasStation gasStations = GasStationConverter.toGasStation(gasStationDto);
-			gasStationRepository.save(gasStations);
+			gasStations = gasStationRepository.save(gasStations);
 			current = GasStationConverter.toGasStationDto(gasStations);
 		} else {
 			GasStation gasStations = gasStationRepository.findOne(gasStationDto.getGasStationId());
@@ -102,7 +102,7 @@ public class GasStationServiceimpl implements GasStationService {
 			if(gasStationDto.getUserDto() != null)
 				gasStations.setUser(UserConverter.toUser(gasStationDto.getUserDto()));
 
-			gasStationRepository.save(gasStations);
+			gasStations = gasStationRepository.save(gasStations);
 			current = GasStationConverter.toGasStationDto(gasStations);
 		}
 		// TODO check
