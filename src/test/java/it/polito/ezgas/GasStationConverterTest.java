@@ -26,7 +26,7 @@ public class GasStationConverterTest {
 	@Before
 	public void setUp(){
 		gs = new GasStation("Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, "Waymo", 37.422, -122.084, 1.99, 0, 2.99, 0, 0.99, 1, "TIMESTAMP?", 50);
-		gsdto = new GasStationDto( 1 ,"Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, "Waymo", 37.422, -122.084, 1.99, 0, 2.99, 0, 0.99, 1, "TIMESTAMP?", 50);
+		gsdto = new GasStationDto( gs.getGasStationId() ,"Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, "Waymo", 37.422, -122.084, 1.99, 0, 2.99, 0, 0.99, 1, "TIMESTAMP?", 50);
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class GasStationConverterTest {
 	
 	@Test
 	public void testtoGasStationDto() {
-		gs.setGasStationId(1);
+		
 		GasStationDto gsdtotest = GasStationConverter.toGasStationDto(gs);
 		
 		assertEquals(gsdtotest.getCarSharing() ,gsdto.getCarSharing());
@@ -67,7 +67,7 @@ public class GasStationConverterTest {
 	 */
 	@Test
 	public void testtoGasStation() {
-		gs.setGasStationId(1);
+		
 		GasStation gstest = GasStationConverter.toGasStation(gsdto);
 		
 		assertEquals(gstest.getCarSharing() ,gs.getCarSharing());
@@ -91,6 +91,7 @@ public class GasStationConverterTest {
 		assertEquals(gstest.getReportUser() ,gs.getReportUser());
 		assertEquals(gstest.getUser() ,gs.getUser());
 		assertEquals(gstest.getGasStationId() , gs.getGasStationId());
+		
 	}
 
 }
