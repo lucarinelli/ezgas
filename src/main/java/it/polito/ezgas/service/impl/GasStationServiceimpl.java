@@ -170,15 +170,15 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStation> sortedListByPrice = new ArrayList<GasStation>();
 		if (gasolineType == "Diesel")// FIXME: please use something like findByHasDieselOrderByDieselPriceAsc!
 			// https://docs.spring.io/spring-data/jpa/docs/1.5.0.RELEASE/reference/html/jpa.repositories.html
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceDiesel"));
+			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "dieselPrice"));
 		else if (gasolineType == "Methane")
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceMethane"));
+			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "methanePrice"));
 		else if (gasolineType == "LPG")
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceGas"));
+			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "gasPrice"));
 		else if (gasolineType == "Gasoline")
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceSuper"));
+			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "superPrice"));
 		else if (gasolineType == "PremiumGasoline")
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "priceSuperPlus"));
+			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "superPlusPrice"));
 		return sortedListByPrice;
 
 	}

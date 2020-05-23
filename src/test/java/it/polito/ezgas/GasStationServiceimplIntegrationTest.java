@@ -5,7 +5,9 @@ package it.polito.ezgas;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import exception.GPSDataException;
+import exception.InvalidGasTypeException;
 import exception.PriceException;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.repository.GasStationRepository;
@@ -139,10 +142,30 @@ public class GasStationServiceimplIntegrationTest {
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByGasolineType(java.lang.String)}.
+	 * valid, gas stations exists with this type in the db
 	 */
 	@Test
 	public final void testGetGasStationsByGasolineType() {
-		fail("Not yet implemented"); // TODO
+		double price = 1.50;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		List<GasStationDto> result = null;
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "engioi", 0.0, 0.0, price+rand.nextDouble(), 1.0, 0.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		try {
+			result=gasStationService.getGasStationsByGasolineType("Diesel");
+		} catch (InvalidGasTypeException e) {
+			fail();
+		}
+		double previous = -1;
+		for(GasStationDto r : result) {
+			assert(r.getHasDiesel());
+			assert(r.getDieselPrice()>previous);
+			previous = r.getDieselPrice();
+		}
 	}
 
 	/**
