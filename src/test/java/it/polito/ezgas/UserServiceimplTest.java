@@ -55,8 +55,9 @@ public class UserServiceimplTest {
 	
 	@Before
 	public void setUp() {
-        userService= mock(UserServiceimpl.class);
-		ur = new User("ciao", "password", "ciao@password", 3);
+		userRepository= mock(UserRepository.class);
+		userService=  new UserServiceimpl(userRepository);
+        ur = new User("ciao", "password", "ciao@password", 3);
 		ur.setUserId(1);
 		urD = UserConverter.toUserDto(ur);
 		nonurD= new UserDto();
@@ -65,16 +66,15 @@ public class UserServiceimplTest {
 		aur.setUserId(2);
 		aur.setAdmin(true);
 		aurD = UserConverter.toUserDto(aur);
-		userService.saveUser(urD);
-		userService.saveUser(aurD);
+		when(userRepository.findOne(1)).thenReturn(ur);
+		when(userRepository.getOne(1)).thenReturn(ur);
+		when(userRepository.findOne(2)).thenReturn(aur);
+		when(userRepository.getOne(2)).thenReturn(aur);
+		
 		
 
 	}
 	
-    @AfterClass  // run only once
-    public static void tearDown() throws SQLException {
-        
-    }
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getUserById(java.lang.Integer)}.
 	 */
@@ -82,7 +82,6 @@ public class UserServiceimplTest {
 	public void testGetUserById()  throws InvalidUserException {
 	setUp();
 		UserDto result = null;
-		
 		try {
 			result = userService.getUserById(1);
 		}
@@ -98,7 +97,7 @@ public class UserServiceimplTest {
 	@Test
 	public void testGetUserById2()  throws InvalidUserException {
 
-      UserServiceimpl userSnotMockedUp=new UserServiceimpl();		
+      UserServiceimpl userSnotMockedUp=new UserServiceimpl(null);		
 		try {
 	            userSnotMockedUp.getUserById(-1);
 	            fail("Expected InvalidUserException for userId -1");
@@ -132,15 +131,16 @@ public class UserServiceimplTest {
 	@Test
 	public void testGetAllUsers() {
 		setUp();
-		List<UserDto> users= new ArrayList<UserDto>();
-     	
-		users=userService.getAllUsers();
-		assertEquals(users.get(0), urD);
-		assertEquals(users.get(1), aurD);
+		List<User> users= new ArrayList<User>();
+		List<UserDto> users1 = new ArrayList<UserDto>();
+		users.add(ur);
+		users.add(aur);
+     	when (userRepository.findAll()).thenReturn(users);
+		users1=userService.getAllUsers();
+		assertEquals(users1.get(0), urD);
+		assertEquals(users1.get(1), aurD);
 
-		users.removeAll(users);
-		assertEquals(users,Collections.emptyList());
-
+	
 	
 		
 	}
@@ -153,7 +153,7 @@ public class UserServiceimplTest {
 setUp();
 		try {
 		
-		
+
 		assertTrue(	userService.deleteUser(1));
 		userService.deleteUser(-112);
 		fail("exception not thrown");
@@ -174,6 +174,7 @@ setUp();
     try {
 	assertNotNull(userService.login(id1));
 	assertNull(userService.login(id2));
+	fail("exception InvalidLoginDataException not thrown");
     } catch (InvalidLoginDataException  I) {
     	assertEquals(I.getMessage(),"Wrong Email or Password");
     }

@@ -23,8 +23,11 @@ import it.polito.ezgas.service.UserService;
 @Service
 public class UserServiceimpl implements UserService {
 	@Autowired
-	UserRepository repositoryUser;
+	UserRepository repositoryUser; 
 	
+	public UserServiceimpl(UserRepository userRepository) {
+this.repositoryUser=userRepository;
+	}
 
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
