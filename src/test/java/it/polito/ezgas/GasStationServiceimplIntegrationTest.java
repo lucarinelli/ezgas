@@ -335,9 +335,66 @@ public class GasStationServiceimplIntegrationTest {
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsWithCoordinates(double, double, java.lang.String, java.lang.String)}.
 	 */
 	@Test
-	public final void testGetGasStationsWithCoordinates() {
-		fail("Not yet implemented"); // TODO
+	public final void testGetGasStationsWithCoordinatesOnlyCoordinates() {
+		List<GasStationDto> result = null;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, null, null);
+		} catch (InvalidGasTypeException | GPSDataException e) {
+			fail();
+		}
+		
+		assertEquals(5,result.size());
 	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsWithCoordinates(double, double, java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testGetGasStationsWithCoordinates() {
+		List<GasStationDto> result = null;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 6; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, "Diesel", "engioi");
+		} catch (InvalidGasTypeException | GPSDataException e) {
+			fail();
+		}
+		
+		assertEquals(5, result.size());
+	}
+
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsWithoutCoordinates(java.lang.String, java.lang.String)}.
@@ -360,7 +417,46 @@ public class GasStationServiceimplIntegrationTest {
 	 */
 	@Test
 	public final void testGetGasStationByCarSharing() {
-		fail("Not yet implemented"); // TODO
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		List<GasStationDto> result = null;
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "cartugo", 0.0, 0.0,1.2, 1.0, 0.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 6; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.19, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		result=gasStationService.getGasStationByCarSharing("engioi");
+		assertEquals(result.size(), 6);
+		assertEquals(result.get(0).getCarSharing(), "engioi");
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationByCarSharing(java.lang.String)}.
+	 */
+	@Test
+	public final void testGetGasStationByCarSharingAbsent() {
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		List<GasStationDto> result = null;
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "cartugo", 0.0, 0.0, 1.2, 1.0, 0.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 6; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.19, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		result=gasStationService.getGasStationByCarSharing("fake");
+		assertEquals(result.size(), 0);
 	}
 
 }
