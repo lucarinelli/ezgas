@@ -134,18 +134,14 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationsByGasolineType(String gasolinetype) throws InvalidGasTypeException {
-		ArrayList<String> gasolineTypes = new ArrayList<String>(); // FIXME: this does not seem to used! Or by the way
-																	// it's empty!
-
+		
 		if (!listGasolineTypes.contains(gasolinetype))
 			throw new InvalidGasTypeException("Wrong gasolinetype");
 
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
 		for (GasStation current : sortListByPrice(gasolinetype)) {
-			gasolineTypes = getListGasolineTypes(current);
-			if (gasolineTypes.contains(gasolinetype))
-				gasStations.add(GasStationConverter.toGasStationDto(current));
+			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO Check
 		return gasStations;
@@ -168,17 +164,16 @@ public class GasStationServiceimpl implements GasStationService {
 
 	private List<GasStation> sortListByPrice(String gasolineType) {
 		List<GasStation> sortedListByPrice = new ArrayList<GasStation>();
-		if (gasolineType == "Diesel")// FIXME: please use something like findByHasDieselOrderByDieselPriceAsc!
-			// https://docs.spring.io/spring-data/jpa/docs/1.5.0.RELEASE/reference/html/jpa.repositories.html
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "dieselPrice"));
+		if (gasolineType == "Diesel")
+			sortedListByPrice = gasStationRepository.findByHasDieselOrderByDieselPriceAsc(true);
 		else if (gasolineType == "Methane")
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "methanePrice"));
+			sortedListByPrice = gasStationRepository.findByHasMethaneOrderByMethanePriceAsc(true);
 		else if (gasolineType == "LPG")
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "gasPrice"));
+			sortedListByPrice = gasStationRepository.findByHasGasOrderByGasPriceAsc(true);
 		else if (gasolineType == "Gasoline")
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "superPrice"));
+			sortedListByPrice = gasStationRepository.findByHasSuperOrderBySuperPriceAsc(true);
 		else if (gasolineType == "PremiumGasoline")
-			sortedListByPrice = gasStationRepository.findAll(new Sort(Sort.Direction.ASC, "superPlusPrice"));
+			sortedListByPrice = gasStationRepository.findByHasSuperPlusOrderBySuperPlusPriceAsc(true);
 		return sortedListByPrice;
 
 	}
@@ -189,8 +184,10 @@ public class GasStationServiceimpl implements GasStationService {
 			throw new GPSDataException("Wrong GPSData");
 
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
+		
+		List<GasStation> result = gasStationRepository.findAll();
 
-		for (GasStation current : gasStationRepository.findAll()) {
+		for (GasStation current : result) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
 			if (distance <= 1)
 				gasStations.add(GasStationConverter.toGasStationDto(current));
