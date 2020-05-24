@@ -240,7 +240,7 @@ public class GasStationServiceimplTest {
 		} catch (PriceException | GPSDataException e) {
 			fail();
 		}
-		assertEquals(result,toBeSaved);
+		assertEquals(result.getGasStationId(),toBeSaved.getGasStationId());
 	}
 
 	/**
