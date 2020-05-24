@@ -165,15 +165,15 @@ public class GasStationServiceimpl implements GasStationService {
 	private List<GasStation> sortListByPrice(String gasolineType) {
 		List<GasStation> sortedListByPrice = new ArrayList<GasStation>();
 		if (gasolineType == "Diesel")
-			sortedListByPrice = gasStationRepository.findByHasDieselOrderByDieselPriceAsc();
+			sortedListByPrice = gasStationRepository.findByHasDieselOrderByDieselPriceAsc(true);
 		else if (gasolineType == "Methane")
-			sortedListByPrice = gasStationRepository.findByHasMethaneOrderByMethanePriceAsc();
+			sortedListByPrice = gasStationRepository.findByHasMethaneOrderByMethanePriceAsc(true);
 		else if (gasolineType == "LPG")
-			sortedListByPrice = gasStationRepository.findByHasGasOrderByGasPriceAsc();
+			sortedListByPrice = gasStationRepository.findByHasGasOrderByGasPriceAsc(true);
 		else if (gasolineType == "Gasoline")
-			sortedListByPrice = gasStationRepository.findByHasSuperPriceOrderBySuperPriceAsc();
+			sortedListByPrice = gasStationRepository.findByHasSuperOrderBySuperPriceAsc(true);
 		else if (gasolineType == "PremiumGasoline")
-			sortedListByPrice = gasStationRepository.findByHasSuperPlusPriceOrderBySuplerPlusPriceAsc();
+			sortedListByPrice = gasStationRepository.findByHasSuperPlusOrderBySuperPlusPriceAsc(true);
 		return sortedListByPrice;
 
 	}

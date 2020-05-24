@@ -12,13 +12,13 @@ public interface GasStationRepository extends JpaRepository<GasStation, Integer>
     
     List<GasStation> findByCarSharing(String carSharing);
 
-	List<GasStation> findByHasDieselOrderByDieselPriceAsc();
+	List<GasStation> findByHasDieselOrderByDieselPriceAsc(boolean hasDiesel);
 
-	List<GasStation> findByHasMethaneOrderByMethanePriceAsc();
+	List<GasStation> findByHasMethaneOrderByMethanePriceAsc(boolean hasMethane);
 
-	List<GasStation> findByHasGasOrderByGasPriceAsc();
+	List<GasStation> findByHasGasOrderByGasPriceAsc(boolean hasGas);
 
-	List<GasStation> findByHasSuperPriceOrderBySuperPriceAsc();
+	List<GasStation> findByHasSuperOrderBySuperPriceAsc(boolean hasSuper);
 
-	List<GasStation> findByHasSuperPlusPriceOrderBySuplerPlusPriceAsc();
+	List<GasStation> findByHasSuperPlusOrderBySuperPlusPriceAsc(boolean hasSuperPlus);
 }
