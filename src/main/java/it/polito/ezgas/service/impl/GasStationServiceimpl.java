@@ -189,8 +189,10 @@ public class GasStationServiceimpl implements GasStationService {
 			throw new GPSDataException("Wrong GPSData");
 
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
+		
+		List<GasStation> result = gasStationRepository.findAll();
 
-		for (GasStation current : gasStationRepository.findAll()) {
+		for (GasStation current : result) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
 			if (distance <= 1)
 				gasStations.add(GasStationConverter.toGasStationDto(current));

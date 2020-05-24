@@ -904,9 +904,9 @@ Throws an exception if an invalid gasoline type is given as parameter
 
 | String gasolinetype | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | -------|-------|-------|
-| valid, gas stations exists with this type in the db | Yes | Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type | testGetGasStationsByGasolineType() |
-| valid, NO gas stations exists with this type in the db | Yes | Returns an empty ArrayList |  |
-| invalid | Yes | Throws an InvalidGasTypeException |  |
+| valid, gas stations exists with this type in the db | Yes | Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type | Tested in integration |
+| valid, NO gas stations exists with this type in the db | Yes | Returns an empty ArrayList | Tested in integration |
+| invalid | Yes | Throws an InvalidGasTypeException | testGetGasStationsByGasolineTypeInvalid() |
 
 ### Class *GasStationServiceimpl* - method *getGasStationsByProximity*
 
@@ -944,13 +944,13 @@ Throws an exception if an invalid value is given for latitude and/or longitude
 
 | Value latitude | Value longitude | Gas stations positions | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- | --- | --- |
-| correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
-| correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
-| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
-| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
+| correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** | Tested in integration |
+| correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. | Tested in integration |
+| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. | testGetGasStationsByProximityWrongLon()  |
+| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |   |
+| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. | testGetGasStationsByProximityWrongLat() |
 | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
+| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. | testGetGasStationsByProximityWrongLonLat() |
 | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
 
 ### [WIP] Class *GasStationServiceimpl* - method *getGasStationsWithCoordinates*

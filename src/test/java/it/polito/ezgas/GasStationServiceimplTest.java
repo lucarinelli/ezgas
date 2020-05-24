@@ -336,23 +336,56 @@ public class GasStationServiceimplTest {
 	 * Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type
 	 */
 	@Test
-	public void testGetGasStationsByGasolineType() {
+	public void testGetGasStationsByGasolineTypeInvalid() {
 		String gasolinetype = "coke";
 		try {
 			gasStationService.getGasStationsByGasolineType(gasolinetype);
 		} catch (InvalidGasTypeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return;
 		}
 		fail("Not yet implemented");
 	}
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByProximity(double, double)}.
+	 * Wrong input longitude, throws GPSDataException.
 	 */
 	@Test
-	public void testGetGasStationsByProximity() {
-		fail("Not yet implemented");
+	public void testGetGasStationsByProximityWrongLon() {
+		try {
+			gasStationService.getGasStationsByProximity(242.427, 42.4275);
+		} catch (GPSDataException e) {
+			return;
+		}
+		fail();
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByProximity(double, double)}.
+	 * Wrong input latitude, throws GPSDataException.
+	 */
+	@Test
+	public void testGetGasStationsByProximityWrongLat() {
+		try {
+			gasStationService.getGasStationsByProximity(42.427, 242.4275);
+		} catch (GPSDataException e) {
+			return;
+		}
+		fail();
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByProximity(double, double)}.
+	 * Wrong input latitude and longitude, throws GPSDataException.
+	 */
+	@Test
+	public void testGetGasStationsByProximityWrongLonLat() {
+		try {
+			gasStationService.getGasStationsByProximity(-242.427, 242.4275);
+		} catch (GPSDataException e) {
+			return;
+		}
+		fail();
 	}
 
 	/**

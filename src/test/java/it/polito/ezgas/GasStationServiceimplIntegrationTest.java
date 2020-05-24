@@ -124,8 +124,7 @@ public class GasStationServiceimplIntegrationTest {
 		try {
 			gasStationService.saveGasStation(gsdto);
 		} catch (PriceException | GPSDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail();
 		}
 		list=gasStationService.getAllGasStations();
 		assertEquals(list.size(),1);
@@ -155,6 +154,14 @@ public class GasStationServiceimplIntegrationTest {
 		for(int i = 0; i < 5; i++)
 			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, 1, "timestamp", 0.50));
 		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
 		try {
 			result=gasStationService.getGasStationsByGasolineType("Diesel");
 		} catch (InvalidGasTypeException e) {
@@ -167,13 +174,161 @@ public class GasStationServiceimplIntegrationTest {
 			previous = r.getDieselPrice();
 		}
 	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByGasolineType(java.lang.String)}.
+	 * valid, NO gas stations exists with this type in the db
+	 */
+	@Test
+	public final void testGetGasStationsByGasolineTypeAbsent() {
+		double price = 1.50;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		List<GasStationDto> result = null;
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "engioi", 0.0, 0.0, price+rand.nextDouble(), 1.0, 0.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			result=gasStationService.getGasStationsByGasolineType("LPG");
+		} catch (InvalidGasTypeException e) {
+			fail();
+		}
+		assertEquals(0,result.size());
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByGasolineType(java.lang.String)}.
+	 * invalid
+	 */
+	@Test
+	public final void testGetGasStationsByGasolineTypeInvalid() {
+		double price = 1.50;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "engioi", 0.0, 0.0, price+rand.nextDouble(), 1.0, 0.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			gasStationService.getGasStationsByGasolineType("Coke");
+		} catch (InvalidGasTypeException e) {
+			return;
+		}
+		fail();
+	}
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByProximity(double, double)}.
+	 * Correct input, gas stations exists in range.
+	 * Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
+	 * Specific order?
 	 */
 	@Test
 	public final void testGetGasStationsByProximity() {
-		fail("Not yet implemented"); // TODO
+		List<GasStationDto> result = null;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			result = gasStationService.getGasStationsByProximity(42.424, 42.424);
+		} catch (GPSDataException e) {
+			fail();
+		}
+		assertEquals(5,result.size());
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByProximity(double, double)}.
+	 * Correct input, gas stations exists in range.
+	 * Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
+	 * Specific order? Boundary in
+	 */
+	@Test
+	public final void testGetGasStationsByProximityBoundaryIn() {
+		List<GasStationDto> result = null;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			// distance 0.99km
+			result = gasStationService.getGasStationsByProximity(42.427, 42.4275);
+		} catch (GPSDataException e) {
+			fail();
+		}
+		assertEquals(5,result.size());
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByProximity(double, double)}.
+	 * Correct input, NO gas stations exists in range. Returns an empty ArrayList.
+	 */
+	@Test
+	public final void testGetGasStationsByProximityAbsent() {
+		List<GasStationDto> result = null;
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			// distance 1.01km
+			result = gasStationService.getGasStationsByProximity(42.4273, 42.4273);
+		} catch (GPSDataException e) {
+			fail();
+		}
+		assertEquals(0,result.size());
 	}
 
 	/**
