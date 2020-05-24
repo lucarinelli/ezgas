@@ -97,9 +97,11 @@ LoginConverter --> LoginDto
     <The last integration step corresponds to API testing at level of Service package>
     <Tests at level of Controller package will be done later>
 
- - **Step #1**:
- - **Step #2**:
- - **Step #3**:
+A bottom up approach has been used for integration test, some mixed approach has been used for unit testing.
+
+ - **Step 1**: User, GasStation, UserDto, GasStationDto
+ - **Step 2**: GasStationConverter+GasStation+GasStationDto, UserConverter+User+UserDto
+ - **Step 3**: GasStationServiceimpl+GasStationConverter+GasStation+GasStationDto+UserConverter+User+UserDto, UserServiceimpl+UserConverter+User+UserDto
 
 #  Tests
 
