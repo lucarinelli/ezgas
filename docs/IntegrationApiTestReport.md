@@ -1,10 +1,10 @@
 # Integration and API Test Documentation
 
-Authors:
+Authors: Luca Rinelli
 
-Date:
+Date: 24/05/20
 
-Version:
+Version: 0
 
 # Contents
 
@@ -24,6 +24,71 @@ Version:
 # Dependency graph 
 
      <report the here the dependency graph of the classes in it/polito/Ezgas, using plantuml>
+
+```plantuml
+@startuml
+class BootEZGasApplication
+
+class GasStationController
+
+class UserController
+
+class HomeController
+
+package step3 <<Rectangle>> {
+class GasStationServiceimpl
+
+class UserServiceimpl
+}
+
+class GasStationRepository
+
+class UserRepository
+
+package step2 <<Rectangle>> {
+class GasStationConverter
+
+class UserConverter
+
+class LoginConverter
+}
+
+package step1 <<Rectangle>> {
+class User
+
+class GasStation
+
+class UserDto
+
+class GasStationDto
+
+class LoginDto
+}
+
+BootEZGasApplication --> GasStationController
+BootEZGasApplication --> UserController
+BootEZGasApplication --> HomeController
+GasStationController --> GasStationServiceimpl
+UserController --> UserServiceimpl
+GasStationServiceimpl --> GasStationRepository
+GasStationServiceimpl --> UserRepository
+GasStationServiceimpl --> UserConverter
+GasStationServiceimpl --> GasStationConverter
+GasStationServiceimpl --> GasStation
+GasStationServiceimpl --> GasStationDto
+GasStationConverter --> GasStation
+GasStationConverter --> GasStationDto
+GasStationRepository --> GasStation
+UserServiceimpl --> UserRepository
+UserServiceimpl --> UserConverter
+UserConverter --> User
+UserConverter --> UserDto
+UserRepository --> User
+UserServiceimpl --> User
+UserServiceimpl --> UserDto
+LoginConverter --> LoginDto
+@enduml
+```
      
 # Integration approach
 
@@ -32,7 +97,9 @@ Version:
     <The last integration step corresponds to API testing at level of Service package>
     <Tests at level of Controller package will be done later>
 
-
+ - **Step #1**:
+ - **Step #2**:
+ - **Step #3**:
 
 #  Tests
 
@@ -51,13 +118,20 @@ Version:
 |||
 
 
-## Step n API Tests
+## Step 3 API Tests
 
    <The last integration step  should correspond to API testing, or tests applied to all classes implementing the APIs defined in the Service package>
 
 | Classes  | JUnit test cases |
 |--|--|
-|||
+| GasStationServiceimpl | testGetAllGasStations() |
+|  | testGetGasStationsByGasolineType() |
+|  | testGetGasStationsByGasolineTypeAbsent() |
+|  | testGetGasStationsByGasolineTypeInvalid() |
+|  | testGetGasStationsByProximity() |
+|  | testGetGasStationsByProximityBoundaryIn() |
+|  | testGetGasStationsByProximityAbsent() |
+| UserServiceimpl |  |
 
 
 
