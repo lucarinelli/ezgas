@@ -2,7 +2,7 @@
  * 
  */
 package it.polito.ezgas;
-
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import java.sql.Connection;
@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,85 +20,95 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mock;
 
+import exception.InvalidLoginDataException;
 import exception.InvalidUserException;
+import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.UserService;
 import it.polito.ezgas.controller.UserController;
 import it.polito.ezgas.converter.UserConverter;
+import it.polito.ezgas.service.impl.GasStationServiceimpl;
 import it.polito.ezgas.service.impl.UserServiceimpl;
+import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.UserDto;
 
 
 public class UserServiceimplTest {
-//	// DB managment
-	static Connection db;
-	static Statement st;
-    static String sqlCreateUserTable = "CREATE TABLE USER " +
-            "(user_id INTEGER AUTO_INCREMENT PRIMARY KEY, " +
-            "admin BOOLEAN, " +
-            "email VARCHAR(255), " +
-            "password VARCHAR(255), " +
-            "reputation INTEGER, " +
-            "user_name VARCHAR(255))";
 	//Repository
-	UserRepository userRepository;
+
+	private UserRepository userRepository;
 	//User, Admin, NotUser
 	private User ur, aur, nonur;
 	private UserDto urD, aurD, nonurD;
 	// UserService interface
-	private UserService userService;
+	private UserServiceimpl userService;
 	
 
     @PostConstruct
     @BeforeClass  // run only once
     public static void setUpDatabase() throws SQLException {
-        db = DriverManager.getConnection("jdbc:h2:./data/test", "sa", "password");
-        st = db.createStatement();
-        st.executeUpdate("DROP TABLE IF EXISTS USER");
-        st.executeUpdate(sqlCreateUserTable);
     }
 	
 	@Before
 	public void setUp() {
-		userRepository.deleteAll();
-		
+        userService= mock(UserServiceimpl.class);
 		ur = new User("ciao", "password", "ciao@password", 3);
 		ur.setUserId(1);
 		urD = UserConverter.toUserDto(ur);
-		
+		nonurD= new UserDto();
+		nonur =new User();
 		aur = new User("ciao", "password", "ciao@password", 5);
 		aur.setUserId(2);
 		aur.setAdmin(true);
 		aurD = UserConverter.toUserDto(aur);
+		userService.saveUser(urD);
+		userService.saveUser(aurD);
 		
-		userRepository.save(ur);
-		userRepository.save(aur);
+
 	}
 	
     @AfterClass  // run only once
     public static void tearDown() throws SQLException {
-        st.close();
-        db.close();
+        
     }
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getUserById(java.lang.Integer)}.
 	 */
 	@Test
 	public void testGetUserById()  throws InvalidUserException {
-		setUp();
+	setUp();
+		UserDto result = null;
 		
-        try {
-            userService.getUserById(nonur.getUserId());
-            fail("Expected InvalidUserException for userId " + nonur.getUserId());
-        } catch (InvalidUserException e) {
-            assertEquals(e.getMessage(), "Wrong userID");
-        }
+		try {
+			result = userService.getUserById(1);
+		}
+		catch(Exception e) {
+			fail();
+		}
+		assertEquals(result.getUserId(), ur.getUserId());
+				
+   }
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getUserById(java.lang.Integer)}. throwing exception
+	 */
+	@Test
+	public void testGetUserById2()  throws InvalidUserException {
+
+      UserServiceimpl userSnotMockedUp=new UserServiceimpl();		
+		try {
+	            userSnotMockedUp.getUserById(-1);
+	            fail("Expected InvalidUserException for userId -1");
+	        } catch (InvalidUserException e) {
+	            assertEquals(e.getMessage(), "Wrong userID");
+	        }
+			
 		
-		assertEquals(userService.getUserById(ur.getUserId()).getUserId(), urD.getUserId());  
-        
-	}
+
+	}	
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#saveUser(it.polito.ezgas.dto.UserDto)}.
@@ -106,19 +117,13 @@ public class UserServiceimplTest {
 	public void testSaveUser() {
 		UserDto user;
 		setUp();
-		
 		urD.setUserName("Pollo");
+		
 		user=userService.saveUser(urD);
 		assertEquals(user.getUserName(), "Pollo");
-		
-		userRepository.deleteAll();
-		urD = new UserDto(1, "ciao", "password", "ciao@password", 3, false);
-		user=userService.saveUser(urD);
-		assertEquals(user, urD);
-		
-		userRepository.deleteAll();
-		user=userService.saveUser(nonurD);
-		assertNull(user.getUserName());
+		assertEquals(user, urD);	
+     	user=userService.saveUser(nonurD);
+	assertNull(user);
 	}
 
 	/**
@@ -128,14 +133,15 @@ public class UserServiceimplTest {
 	public void testGetAllUsers() {
 		setUp();
 		List<UserDto> users= new ArrayList<UserDto>();
-		
+     	
 		users=userService.getAllUsers();
 		assertEquals(users.get(0), urD);
 		assertEquals(users.get(1), aurD);
-		
-		userRepository.deleteAll();
-		users=userService.getAllUsers();
-		assertNull(users);
+
+		users.removeAll(users);
+		assertEquals(users,Collections.emptyList());
+
+	
 		
 	}
 
@@ -143,17 +149,35 @@ public class UserServiceimplTest {
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#deleteUser(java.lang.Integer)}.
 	 */
 	@Test
-	public void testDeleteUser() {
-		fail("Not yet implemented"); // TODO
+	public void testDeleteUser() throws InvalidUserException {
+setUp();
+		try {
+		
+		
+		assertTrue(	userService.deleteUser(1));
+		userService.deleteUser(-112);
+		fail("exception not thrown");
+		}
+		catch(InvalidUserException e){
+			assertEquals(e.getMessage(),"Wrong userID");
+		}
+		
 	}
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#login(it.polito.ezgas.dto.IdPw)}.
 	 */
 	@Test
-	public void testLogin() {
-		fail("Not yet implemented"); // TODO
-	}
+	public void testLogin() throws InvalidLoginDataException {
+	setUp();
+	IdPw id1=new IdPw(ur.getEmail(),ur.getPassword()),id2= new IdPw(ur.getEmail()+"wrong",ur.getPassword());
+    try {
+	assertNotNull(userService.login(id1));
+	assertNull(userService.login(id2));
+    } catch (InvalidLoginDataException  I) {
+    	assertEquals(I.getMessage(),"Wrong Email or Password");
+    }
+    }
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#increaseUserReputation(java.lang.Integer)}.
@@ -168,8 +192,8 @@ public class UserServiceimplTest {
 		assertEquals((Integer) a, (Integer) 4);
 		
         try {
-            userService.increaseUserReputation(nonur.getUserId());
-            fail("Expected InvalidUserException for userId " + nonur.getUserId());
+            userService.increaseUserReputation(-1);
+            fail("Expected InvalidUserException for userId ");
         } catch (InvalidUserException e) {
             assertEquals(e.getMessage(), "Wrong userID");
         }
@@ -188,10 +212,10 @@ public class UserServiceimplTest {
 	public void testDecreaseUserReputation() throws InvalidUserException {
 		setUp();
 		int a,b;
-		
+		userService.saveUser(urD);
 		a = userService.decreaseUserReputation( ur.getUserId() );
 		assertEquals((Integer) a, (Integer) 2);
-		
+	
         try {
             userService.decreaseUserReputation(nonur.getUserId());
             fail("Expected InvalidUserException for userId " + nonur.getUserId());
@@ -204,6 +228,7 @@ public class UserServiceimplTest {
 		a = userService.decreaseUserReputation( ur.getUserId() );
 		b = -5;
 		assertEquals((Integer) a, (Integer) b);
+
 	}
 
 }
