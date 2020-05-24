@@ -1005,6 +1005,109 @@ Throws an exception if an invalid value is given for latitude and/or longitude, 
 | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
 | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
 
+### [WIP] Class *GasStationServiceimpl* - method *getGasStationsWithoutCoordinates*
+
+Returns all gas stations of a car sharing and having one specific gasoline type.
+
+It receives as parameters a gasolinetype and a carsharing value.
+
+If gasolinetype is different than "null" (string), it filters the list of gas stations keeping only those providing such gasoline type.
+
+If carsharing is different than "null" (string), it filters the list of gas stations, previously filtered by gasolinetype, keeping only those affiliated to that carsharing company.
+
+Returns an empty ArrayList if no gas station is found in the database with the given parameters.
+
+Throws an exception if an invalid value is given for gasolinetype or carsharing string parameters.
+
+**Criteria for method *getGasStationsWithoutCoordinates*:**
+
+ - String gasolinetype
+ - String carsharing
+
+**Predicates for method *getGasStationsWithoutCoordinates*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| String gasolinetype | valid, gas stations exists with this type in the db |
+|          | invalid, NO gas stations exists with this type in the db |
+| String carsharing | valid, alfanumeric words |
+|          | invalid, null |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| String gasolinetype | String carsharing  | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- |
+| correct  | correct |  Yes | Correct input, gas stations exists in range. Returns all gas stations with right car sharing company and gasoline type whose car sharing company and gasoline type are passed as parameters. **Specific order?** |  |
+| correct | wrong, null |  Yes | No gas stations for this car sharing Company |  |
+| wrong, gasoline type not in list | correct |  Yes | Wrong input gasoline type, InvalidGasTypeException |  |
+| wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException |
+
+
+### [WIP] Class *GasStationServiceimpl* - method *SetReport*
+
+Set a report for price update by an user for a gas station.
+
+It receives as parameters an integer gas station ID value, an integer user ID and the price value of the gasoline type.
+
+If ID of gas station and user are valid, so they are not null and positive and if gas type price are positive, a report is gonna create.
+
+Throws an exception if one of that value is wrong.
+
+**Criteria for method *SetReport*:**
+
+ - Value gasStationId
+ - Value userId
+ - Value dieselPrice
+ - Value superPrice
+ - Value superPlusPrice
+ - Value gasPrice
+ - Value methanePrice
+
+**Predicates for method *SetReport*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value gasStationId | valid, >0 and not null |
+|          | invalid, <0 or null |
+| Value userId | valid, >0 and not null |
+|          | invalid, <0 or null |
+| Value dieselPrice | valid, >0 |
+|          | invalid, <0 |
+| Value superPrice | valid, >0 |
+|          | invalid, <0 |
+| Value superPlusPrice | valid, >0 |
+|          | invalid, <0 |
+| Value gasPrice | valid, >0 |
+|          | invalid, <0 |
+| Value methanePrice | valid, >0 |
+|          | invalid, <0 |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value gasStationId | Value userId | Value dieselPrice | Value superPrice | Value superPlusPrice | Value gasPrice | Value methanePrice | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| correct | correct | correct  | correct | correct  | correct | correct |  Yes | Correct input and report is setted |  |
+| correct | correct | correct  | correct | correct  | correct | wrong |  Yes | wrong methanePrice, PriceException |  |
+| correct | correct | correct | correct | correct | wrong | correct | Skipped | wrong gasPrice, PriceException |  |
+| correct | correct | correct | correct | wrong | correct | correct | Skipped | wrong superPlusPrice, PriceException |  |
+| correct | correct | correct | wrong | correct | correct | correct | Skipped | wrong superPrice, PriceException |  |
+| correct | correct | wrong | correct | correct | correct | correct | Skipped | wrong dieselPrice, PriceException |  |
+| correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException |  |
+| wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException |  |
+
+
 ### Class *User* - method *User*
 
 **Criteria for method *User*:**
