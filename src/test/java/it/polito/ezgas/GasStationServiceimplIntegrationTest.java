@@ -696,7 +696,9 @@ public class GasStationServiceimplIntegrationTest {
 	public final void testSetReport() {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		GasStationDto gs = new GasStationDto();
+		GasStationDto result = null;
 		int a;
+		double DELTA = 1e-15;
 		
 		for(int i = 0; i < 5; i++)
 			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));		
@@ -712,11 +714,22 @@ public class GasStationServiceimplIntegrationTest {
 		a=gs.getGasStationId();
 		
 		try {
-			gasStationService.setReport(a, 0.0, 0.0, 0.0, 0.0, 0.0, 1);
+			gasStationService.setReport(a, 9.0, 9.0, 9.0, 9.0, 9.0, 1);
 		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
 			fail();
 		}	
 		
+		try {
+			result = gasStationService.getGasStationById( a );
+		} catch (InvalidGasStationException e) {
+			fail();
+		}
+		
+		assertEquals(result.getDieselPrice() , 9.0, 0);
+		assertEquals(result.getGasPrice() , 9.0, DELTA);
+		assertEquals(result.getMethanePrice() , 9.0, DELTA);
+		assertEquals(result.getSuperPrice() , 9.0, DELTA);
+		assertEquals(result.getSuperPlusPrice() , 9.0, DELTA);
 	}
 	
 	@Test
