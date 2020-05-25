@@ -163,10 +163,13 @@ userD=    userService.saveUser(nonurD);
      	when (userRepository.findAll()).thenReturn(users);
 		users2=userService.getAllUsers();
 		Collection<UserDto> collection = new ArrayList<UserDto>(users2);
-		assert(users2.containsAll(collection));
+		Collection<User> collection2 = new ArrayList<User>(users);
 		
-
-	
+		assert(users2.containsAll(collection));
+		users2.removeAll(collection);
+	users.removeAll(collection2);	
+	users2=userService.getAllUsers();
+	assert(users2).isEmpty();
 	
 		
 	}
@@ -201,6 +204,7 @@ setUp();
     when(userRepository.findByEmail("ciao")).thenReturn(ur);
 	try {
 	assertNotNull(userService.login(id1));
+	assertEquals(userService.login(id1),id1);
 	userService.login(id2);
 	fail("exception InvalidLoginDataException not thrown");
     } catch (InvalidLoginDataException  I) {

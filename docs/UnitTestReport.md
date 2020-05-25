@@ -1676,14 +1676,14 @@ Throws an exception if one of that value is wrong.
    **Combination of predicates**
    | Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
    | --- | --- | --- | --- |
-|userId present|V||testGetUserById()|
-|userId not present|V||testGetUserById3()|
-|invalid userId|I||testGetUserById2()|
+|userId present|V||testGetUserById()-returns UserDto object|
+|userId not present|V||testGetUserById3()->returns null|
+|invalid userId|I||testGetUserById2()->throws InvalidUserException|
 ### Class *UserServiceimpl* - method *testSaveUser()*
 Saves the User object into the database and returns the saved object.
-**Criteria for method *getUserById(Integer userId)*:**
+**Criteria for method *saveUser(User Dto)*:**
 -User object
-**Predicates for method *getUserById(Integer userId)*:**
+**Predicates for method *saveUser(User Dto)*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
@@ -1700,9 +1700,136 @@ Saves the User object into the database and returns the saved object.
 **Combination of predicates**
 | Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- |
-|user present|V||testSaveUser()|
-|user not present|I||testSaveUser1()|
+|user present|V||testSaveUser()->returns UserDto|
+|user not present|I||testSaveuser1()->returns null|
 
+### Class *UserServiceimpl* - method *getAllUsers()*
+get list of all users in UserDto format;
+**Criteria for method *getAllUsers(UserDto users)*:**
+-UserDto object
+**Predicates for method *getAllUsers(UserDto users)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+
+|UserDto |more than one into the repository|
+||0 UserDto into repository|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|users present|V||testGetAllUser()->list of all users|
+|users not present|V||testGetAllUser()->isEmpty=true|
+
+### Class *UserServiceimpl* - method *deleteUser(integer id)*
+remove user from repository.
+**Criteria for method *deleteUser(integer id)*:**
+-Integer id
+**Predicates for method *deleteUser(integer id)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+
+|Integer Id |valid|
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|id present|V||testDeleteUser(id)->return true|
+|id not present|V||testDeleteUser(id)->wrong userId exception|
+|id non valid| I|testDeleteUser(id)->wrong userId exception|
+### Class *UserServiceimpl* - method *Login(IdPw id)*
+check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+**Criteria for method *Login(IdPw id)*:**
+-IdPw object
+**Predicates for method *Login(IdPw id)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+
+|IdPw object|valid|
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+| Value IdPw |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|IdPw present and valid|V||testLogin(idPw)->return idPw|
+|IdPw not valid |V||testLogin(idPw)->invalid LoginData exception|
+
+### Class *UserServiceimpl* - method *increaseUserReputation(integer UserId)*
+check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+**Criteria for method *increaseUserReputation(integer UserId)*:**
+- userId
+- userReputation
+**Predicates for method *increaseUserReputation(integer UserId)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+
+|userReputation|valid|
+||invalid|
+|userId |valid |
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+| Value UserId | value of reputation |   Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- |
+|UserId valid|3|V||testIncreaseUserReputation(id)->user reputation 4|
+|UserId valid |5|V||testIncreaseUserReputation(id)->5|
+|UserId Ivalid |-1|V||testIncreaseUserReputation(id)->throw invalidUserexception|
+
+### Class *UserServiceimpl* - method *decreaseUserReputation(integer UserId)*
+check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+**Criteria for method *decreaseUserReputation(integer UserId)*:**
+- userId
+- userReputation
+**Predicates for method *decreaseUserReputation(integer UserId)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+
+|userReputation|valid|
+||invalid|
+|userId |valid |
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+| Value UserId | value of reputation |   Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- |
+|UserId valid|3|V||testDecreaseUserReputation(id)->user reputation 2|
+|UserId valid |-5|V||testDecreaseUserReputation(id)->-5|
+|UserId Ivalid |-1|V||testDecreaseUserReputation(id)->throw invalidUserexception|
 
 
 # White Box Unit Tests
