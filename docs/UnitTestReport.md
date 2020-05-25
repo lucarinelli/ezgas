@@ -27,7 +27,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -52,7 +52,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -79,7 +79,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -107,7 +107,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -134,7 +134,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -162,7 +162,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -189,7 +189,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -217,7 +217,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -243,7 +243,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -270,7 +270,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -296,7 +296,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -323,7 +323,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -350,7 +350,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -378,7 +378,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -403,7 +403,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -428,7 +428,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -454,7 +454,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -481,7 +481,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -507,7 +507,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -534,7 +534,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -560,7 +560,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -587,7 +587,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -621,7 +621,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -656,7 +656,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -690,7 +690,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -1315,7 +1315,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *User*:**
 
- - 
+ -
 
 **Predicates for method *User*:**
 
@@ -1341,14 +1341,15 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getUserId*:**
 
- - 
+ - value of Id
 
 **Predicates for method *getUserId*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| value Id | -1 (invalid) |
+|          | 1 (valid) |
+|| no value |
 
 **Boundaries**:
 
@@ -1360,14 +1361,14 @@ Throws an exception if one of that value is wrong.
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetUserId() |
-|  |  |  | testSetGetUserId2() |
+|  |  |  | testSetGetUserId() (test valid and invalid Id) |
+|  |  |  | testSetGetUserId2() (test null Id)|
 
 ### Class *User* - method *setUserId()*
 
 **Criteria for method *setUserId*:**
 
- - 
+ -
 
 **Predicates for method *setUserId*:**
 
@@ -1393,7 +1394,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getUserName*:**
 
- - 
+ -
 
 **Predicates for method *getUserName*:**
 
@@ -1419,7 +1420,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setUserName*:**
 
- - 
+ -
 
 **Predicates for method *setUserName*:**
 
@@ -1445,7 +1446,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getPassword*:**
 
- - 
+ -
 
 **Predicates for method *getPassword*:**
 
@@ -1471,7 +1472,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setPassword*:**
 
- - 
+ -
 
 **Predicates for method *setPassword*:**
 
@@ -1497,7 +1498,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getEmail*:**
 
- - 
+ -
 
 **Predicates for method *getEmail*:**
 
@@ -1523,7 +1524,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setEmail*:**
 
- - 
+ -
 
 **Predicates for method *setEmail*:**
 
@@ -1549,7 +1550,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getReputation*:**
 
- - 
+ -
 
 **Predicates for method *getReputation*:**
 
@@ -1575,7 +1576,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setReputation*:**
 
- - 
+ -
 
 **Predicates for method *setReputation*:**
 
@@ -1601,7 +1602,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getAdmin*:**
 
- - 
+ -
 
 **Predicates for method *getAdmin*:**
 
@@ -1627,7 +1628,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setAdmin*:**
 
- - 
+ -
 
 **Predicates for method *setAdmin*:**
 
@@ -1652,7 +1653,7 @@ Throws an exception if one of that value is wrong.
 ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
 
 
-	 Queries the database and returns the UserDto corresponding to the userId passed as parameter.
+	  returns the UserDto corresponding to the userId passed as parameter.
 	 Throws an exception in case of invalid (negative) userId
 	 Returns null if no user is found with the given Id
 
@@ -1675,11 +1676,33 @@ Throws an exception if one of that value is wrong.
    **Combination of predicates**
    | Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
    | --- | --- | --- | --- |
-|||||
+|userId present|V||testGetUserById()|
+|userId not present|V||testGetUserById3()|
+|invalid userId|I||testGetUserById2()|
+### Class *UserServiceimpl* - method *testSaveUser()*
+Saves the User object into the database and returns the saved object.
+**Criteria for method *getUserById(Integer userId)*:**
+-User object
+**Predicates for method *getUserById(Integer userId)*:**
 
-   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
-   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
-   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
+| Criteria | Predicate |
+| -------- | --------- |
+
+|user object|consistent user object not present in db|
+|| consistent user present in db|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|user present|V||testSaveUser()|
+|user not present|I||testSaveUser1()|
+
 
 
 # White Box Unit Tests
