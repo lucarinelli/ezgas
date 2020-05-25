@@ -1120,10 +1120,10 @@ Throws an exception if an invalid value is given for gasolinetype or carsharing 
 
 | String gasolinetype | String carsharing  | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- | --- | --- |
-| correct  | correct |  Yes | Correct input, gas stations exists in range. Returns all gas stations with right car sharing company and gasoline type whose car sharing company and gasoline type are passed as parameters. **Specific order?** |  |
-| correct | wrong, null |  Yes | No gas stations for this car sharing Company |  |
-| wrong, gasoline type not in list | correct |  Yes | Wrong input gasoline type, InvalidGasTypeException |  |
-| wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException |
+| correct  | correct |  Yes | Correct input, gas stations exists in range. Returns all gas stations with right car sharing company and gasoline type whose car sharing company and gasoline type are passed as parameters. **Specific order?** | testGetGasStationsWithoutCoordinates (Integration test) |
+| correct | wrong, null |  Yes | No gas stations for this car sharing Company | testGetGasStationsWithoutCoordinates2 (Integration test) |
+| wrong, gasoline type not in list | correct |  Yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates3 (Integration test) |
+| wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates1 (Integration test) |
 
 
 ### Class *GasStationServiceimpl* - method *SetReport*
@@ -1183,6 +1183,132 @@ Throws an exception if one of that value is wrong.
 | correct | correct | wrong | correct | correct | correct | correct | Skipped | wrong dieselPrice, PriceException |  |
 | correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException | testSetReport3(Integration Test) |
 | wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException | testSetReport1(Integration Test) |
+
+### Class *UserConverter* - method *toUserDto*
+
+**Criteria for method *toUserDto*:**
+
+ - Make a UserDto with User's value
+
+**Predicates for method *toUserDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoUserDto() |
+
+### Class *GasStationConverter* - method *toGasStation*
+
+**Criteria for method *toGasStation*:**
+
+ - Make a GasStation with GasStationDto's value
+
+**Predicates for method *toGasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoGasStation() |
+
+### Class *GasStationConverter* - method *toGasStationDto*
+
+**Criteria for method *toGasStationDto*:**
+
+ - Make a GasStationDto with GasStation's value
+
+**Predicates for method *toGasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoGasStationDto() |
+
+### Class *LoginConverter* - method *testtoLoginDto*
+
+**Criteria for method *testtoLoginDto*:**
+
+ - Make a LoginDto with User's value
+
+**Predicates for method *testtoLoginDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtesttoLoginDto() |
+
+### Class *UserConverter* - method *toUser*
+
+**Criteria for method *toUser*:**
+
+ - Make a User with UserDto's value
+
+**Predicates for method *toUser*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoUser() |
+
 
 
 ### Class *User* - method *User*
