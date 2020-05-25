@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,9 +56,7 @@ public class UserServiceimplTest {
 	
 	@Before
 	public void setUp() {
-		userRepository= mock(UserRepository.class);
-		userService=  new UserServiceimpl(userRepository);
-        ur = new User("ciao", "password", "ciao@password", 3);
+		ur = new User("ciao", "password", "ciao@password", 3);
 		ur.setUserId(1);
 		urD = UserConverter.toUserDto(ur);
 		nonurD= new UserDto();
@@ -66,12 +65,10 @@ public class UserServiceimplTest {
 		aur.setUserId(2);
 		aur.setAdmin(true);
 		aurD = UserConverter.toUserDto(aur);
-		when(userRepository.findOne(1)).thenReturn(ur);
-		when(userRepository.getOne(1)).thenReturn(ur);
-		when(userRepository.findOne(2)).thenReturn(aur);
-		when(userRepository.getOne(2)).thenReturn(aur);
 		
-		
+		userRepository= mock(UserRepository.class);
+		userService=  new UserServiceimpl(userRepository);
+	    
 
 	}
 	
@@ -81,6 +78,10 @@ public class UserServiceimplTest {
 	@Test
 	public void testGetUserById()  throws InvalidUserException {
 	setUp();
+	
+	when(userRepository.findOne(1)).thenReturn(ur);
+	when(userRepository.getOne(1)).thenReturn(ur);
+	
 		UserDto result = null;
 		try {
 			result = userService.getUserById(1);
@@ -90,6 +91,19 @@ public class UserServiceimplTest {
 		}
 		assertEquals(result.getUserId(), ur.getUserId());
 				
+   }
+@Test
+	public void testGetUserById3()  throws InvalidUserException {
+	setUp();
+	when(userRepository.findOne(10)).thenReturn(null);
+		UserDto result = null;
+		try {
+			result = userService.getUserById(10);
+		}
+		catch(Exception e) {
+		}
+		assertNull(result);
+					
    }
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getUserById(java.lang.Integer)}. throwing exception
@@ -114,18 +128,24 @@ public class UserServiceimplTest {
 	 */
 	@Test
 	public void testSaveUser() {
-		User userToSave=new User("String userName","String password", "String email", 3);
-		UserDto userD, userToSaveD;
+		UserDto userD;
+		User users;
 		setUp();
-		userToSave.setUserId(19);
-		
-		userToSaveD=UserConverter.toUserDto(userToSave);
-		userD=userService.saveUser(userToSaveD);
-		assertEquals(userD, userToSaveD);	
-     	userD=userService.saveUser(null);
-        assertNull(userD);
-	}
-
+	
+		when(userRepository.getOne(ur.getUserId())).thenReturn(ur);
+       userService.saveUser(urD);
+    userD=   userService.saveUser(urD);
+    
+         assertNotNull(userD);
+	}	
+@Test 
+public void testSaveUser1() {
+	setUp();
+	UserDto userD;
+	when(userRepository.getOne(ur.getUserId())).thenReturn(ur);
+userD=    userService.saveUser(nonurD);
+   assertNull(userD); //FIXME it should return null. test fails
+}
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getAllUsers()}.
 	 */
@@ -134,14 +154,16 @@ public class UserServiceimplTest {
 		setUp();
 		List<User> users= new ArrayList<User>();
 		List<UserDto> users1 = new ArrayList<UserDto>();
+		List <UserDto> users2= new ArrayList<UserDto>();
 		users.add(aur);
 		users.add(ur);
 		users1.add(aurD);
 		users1.add(urD);
 		
      	when (userRepository.findAll()).thenReturn(users);
-		
-		assertTrue(userService.getAllUsers().containsAll(users1));
+		users2=userService.getAllUsers();
+		Collection<UserDto> collection = new ArrayList<UserDto>(users2);
+		assert(users2.containsAll(collection));
 		
 
 	
@@ -195,7 +217,9 @@ setUp();
 	public void testIncreaseUserReputation() throws InvalidUserException {
 		setUp();
 		int a;
-		
+		when(userRepository.findOne(ur.getUserId())).thenReturn(ur);
+		when(userRepository.getOne(ur.getUserId())).thenReturn(ur);
+
 		a = userService.increaseUserReputation( ur.getUserId() );
 		assertEquals((Integer) a, (Integer) 4);
 		
@@ -220,7 +244,9 @@ setUp();
 	public void testDecreaseUserReputation() throws InvalidUserException {
 		setUp();
 		int a,b;
-		userService.saveUser(urD);
+		when(userRepository.findOne(ur.getUserId())).thenReturn(ur);
+		when(userRepository.getOne(ur.getUserId())).thenReturn(ur);
+
 		a = userService.decreaseUserReputation( ur.getUserId() );
 		assertEquals((Integer) a, (Integer) 2);
 	
