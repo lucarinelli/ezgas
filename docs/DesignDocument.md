@@ -359,19 +359,6 @@ package "it.polito.ezgas.dto" {
             +getAdmin() : Boolean
             +setAdmin(admin : Boolean)
         }
-        class PriceReportDto{
-            -priceReportId : Integer
-            -user : User
-            -dieselPrice : double
-            -superPrice : double
-            -superPlusPrice: double
-            -gasPrice : double
-            -methanePrice : double
-            +PriceReportDto() : PriceReportDto
-            +PriceReportDto(...) : PriceReportDto
-            + ... Getters()
-            + ... Setters()
-        }
         class IdPw{
             -user : String
             -pw : String
@@ -380,7 +367,6 @@ package "it.polito.ezgas.dto" {
         }
     }
 
-GasStationDto "1" --> "1..*" PriceReportDto
 GasStationDto --> UserDto
 @enduml
 ```
@@ -427,26 +413,9 @@ package "it.polito.ezgas.entity" {
             +Getters()
             +Setters()
         }
-        class PriceReport {
-            -priceReportId : Integer
-            -user : User
-            -dieselPrice : double
-            -superPrice : double
-            -superPlusPrice : double
-            -gasPrice : double
-            -methanePrice : double
-            -trust_level : Integer
-            -gasStation : GasStation
-            -user : User
-            +PriceReport() : PriceReport
-            +PriceReport(...) : PriceReport
-            +Getters()
-            +Setters()
-        }
     }
 
 GasStation "1..*" --> "0..1" User
-PriceReport "1..*" --> "0..1" User
 @enduml
 ```
 
@@ -455,12 +424,14 @@ PriceReport "1..*" --> "0..1" User
 package "it.polito.ezgas.converter" {
         class GasStationConverter{
             +toGasStationDto(GasStation) : GasStationDto
+            +toGasStation(GasStationDto) : GasStation
         }
         class UserConverter{
             +toUserDto(User) : UserDto
+            +toUser(UserDto) : User
         }
-        class PriceReportConverter{
-            +toPriceReportDto(PriceReport) : PriceReportDto
+        class LoginConverter{
+            +toLoginDto(User) : LoginDto
         }
     }
 @enduml
@@ -470,16 +441,14 @@ package "it.polito.ezgas.converter" {
 @startuml
 package "it.polito.ezgas.repository" {
         class UserRepository{
-            findByUserId(Integer) : Iterable<User>
+            findByEmail(String emailAddress) : User
         }
         
         class GasStationRepository{
-            findByGasolineTypeAndCarSharingAndLatBetweenAndLonBetween(...) : Iterable<GasStation>
+
         }
         
-        class PriceReportRepository{
-            findByUser(User) : Iterable<PriceReport>
-        }
+       
         
     }
 
@@ -499,13 +468,36 @@ interface PagingAndSortingRepository{
         +findAll(Pageable pageable) : Page<T>
     }
 
-PagingAndSortingRepository <|-- UserRepository
-PagingAndSortingRepository <|-- GasStationRepository
-PagingAndSortingRepository <|-- PriceReportRepository
+interface JpaRepository{
+        +deleteInBatch(Iterable<T> entities) : void
+        +deleteAllInBatch() : void
+        +save(Iterable<S> entities) : List<S>
+        +findAll() : List<T>
+        +findAll(Iterable<ID> ids) : List<T>
+        +findAll(Sort sort) : List<T> 
+        +findAll(Example<S> example) : List<S>
+        +findAll(Example<S> example, Sort sort) : List<S>
+        +getOne(ID id) : T
+        +flush() : void
+        +saveAndFlush(S entity) : S
+    }
+
+interface QueryByExampleExecutor{
+        +findOne(Example<S> example) : S
+        +findAll(Example<S> example) : Iterable<S>
+        +findAll(Example<S> example, Sort sort) : Iterable<S>
+        +findAll(Example<S> example, Pageable pageable) : Page<S>
+        +count(Example<S> example) : long
+        +exists(Example<S> example) : boolean
+    }
+
+JpaRepository <|-- UserRepository
+JpaRepository <|-- GasStationRepository
+
+QueryByExampleExecutor <|-- JpaRepository
+PagingAndSortingRepository <|-- JpaRepository
 @enduml
 ```
-
-
 
 ```plantuml
 @startuml
@@ -559,9 +551,7 @@ package "Backend" {
         class UserConverter{
 
         }
-        class PriceReportConverter{
-            
-        }
+       
     }
     
     package "it.polito.ezgas.dto" {
@@ -574,9 +564,7 @@ package "Backend" {
         class LoginDto{
 
         }
-        class PriceReportDto{
-
-        }
+        
         class IdPw{
         }
     }
@@ -587,8 +575,7 @@ package "Backend" {
         }
         class GasStation {
         }
-        class PriceReport {
-        }
+       
     }
     
     package "it.polito.ezgas.repository" {
@@ -599,8 +586,7 @@ package "Backend" {
         class GasStationRepository{
         }
         
-        class PriceReportRepository{
-        }
+        
         
     }
 
@@ -609,7 +595,6 @@ package "Backend" {
 
 PagingAndSortingRepository <|-- UserRepository
 PagingAndSortingRepository <|-- GasStationRepository
-PagingAndSortingRepository <|-- PriceReportRepository
 
 
 UserService <|-- UserServiceImpl
@@ -618,9 +603,7 @@ GasStationController o-- GasStationService
 GasStationController o-- UserService
 UserController o-- UserService
 UserServiceImpl o-- UserRepository
-UserServiceImpl o-- PriceReportRepository
 GasStationServiceImpl o-- GasStationRepository
-GasStationServiceImpl o-- PriceReportRepository
 
 UserConverter o-- UserDto
 UserConverter o-- User
@@ -642,36 +625,34 @@ GasStationServiceImpl o-- GasStationDto
 GasStationServiceImpl o-- GasStation
 GasStationRepository o-- GasStation
 
-PriceReportRepository o-- PriceReport
 ```
 
 # Verification traceability matrix
 
 <!--\<for each functional requirement from the requirement document, list which classes concur to implement it>
 -->
-|                                                                                                      | GasStationController | HomeController | UserController | GasStationServiceImpl | UserServiceImpl | GasStationConverter | PriceReportConverter | UserConverter | LoginDto | IdPw | PriceReportDto | GasStationDto | UserDto | PriceReportRepository | GasStationRepository | UserRepository | User | GasStation | PriceReport |
-|------------------------------------------------------------------------------------------------------|----------------------|----------------|----------------|-----------------------|-----------------|---------------------|----------------------|---------------|----------|------|----------------|---------------|---------|-----------------------|----------------------|----------------|------|------------|-------------|
-| FR1 : Manage users                                                                                   |                      | X              | X              |                       | X               |                     |                      | X             | X        | X    |                |               | X       |                       |                      | X              | X    |            |             |
-| FR1.1 : Define   a new user, or modify an existing user                                              |                      | X              | X              |                       | X               |                     |                      | X             | X        | X    |                |               | X       |                       |                      | X              | X    |            |             |
-| FR1.2 : Delete a user                                                                                |                      | X              | X              |                       | X               |                     |                      | X             | X        | X    |                |               | X       |                       |                      | X              | X    |            |             |
-| FR1.3 : List   all users                                                                             |                      | X              | X              |                       | X               |                     |                      | X             | X        | X    |                |               | X       |                       |                      | X              | X    |            |             |
-| FR1.4 : Search   a user                                                                              |                      | X              | X              |                       | X               |                     |                      | X             | X        | X    |                |               | X       |                       |                      | X              | X    |            |             |
-| FR2 : Manage   rights. Authorize access to functions to specific actors according to access   rights |                      | X              | X              |                       | X               |                     |                      | X             | X        | X    |                |               |         |                       |                      | X              | X    |            |             |
-| FR3 : Manage   gas stations                                                                          | X                    | X              |                | X                     |                 | X                   |                      |               | X        | X    |                | X             |         |                       | X                    |                |      | X          |             |
-| FR3.1 : Define   a new gas station, or modify an existing gas station                                | X                    | X              |                | X                     |                 | X                   |                      |               | X        | X    |                | X             |         |                       | X                    |                |      | X          |             |
-| FR3.2 : Delete   a gas station                                                                       | X                    | X              |                | X                     |                 | X                   |                      |               | X        | X    |                | X             |         |                       | X                    |                |      | X          |             |
-| FR3.3 : List   all gas stations                                                                      | X                    | X              |                | X                     |                 | X                   |                      |               | X        | X    |                | X             |         |                       | X                    |                |      | X          |             |
-| FR4 : Search   gas stations                                                                          | X                    |                |                | X                     |                 | X                   |                      |               |          |      |                | X             |         |                       | X                    |                |      | X          |             |
-| FR4.1 :   Retrieve gas stations within radius r of a given geo point                                 | X                    |                |                | X                     |                 | X                   |                      |               |          |      |                | X             |         |                       | X                    |                |      | X          |             |
-| FR4.2 :   Retrieve gas stations within radius r of a given address                                   | X                    |                |                | X                     |                 | X                   |                      |               |          |      |                | X             |         |                       | X                    |                |      | X          |             |
-| FR4.3 : Show   given set of gas stations, and their fuel prices on a given map                       | X                    |                |                | X                     |                 | X                   |                      |               |          |      |                | X             |         |                       | X                    |                |      | X          |             |
-| FR4.4 : Sort   given set of gas stations according to fuel type price                                | X                    |                |                | X                     |                 | X                   |                      |               |          |      |                | X             |         |                       | X                    |                |      | X          |             |
-| FR4.5 : Filter   out given set of gas stations according to fuel type and or car sharing   option    | X                    |                |                | X                     |                 | X                   |                      |               |          |      |                | X             |         |                       | X                    |                |      | X          |             |
-| FR5 : Manage   fuel prices and trust                                                                 | X                    | X              |                | X                     | X               | X                   | X                    |               | X        | X    | X              | X             |         | X                     | X                    |                |      | X          | X           |
-| FR5.1 : Create   a price list, attach it to user and gas station                                     | X                    | X              |                | X                     | X               | X                   | X                    |               | X        | X    | X              | X             |         | X                     | X                    |                |      | X          | X           |
-| FR5.2 : Update   trust level of a price list for a gas station                                       | X                    | X              |                | X                     | X               | X                   | X                    |               | X        | X    | X              | X             |         | X                     | X                    |                |      | X          | X           |
-| FR5.3 :   Evaluate  price list for a gas station                                                     | X                    | X              |                | X                     | X               | X                   | X                    |               | X        | X    | X              | X             |         | X                     | X                    |                |      | X          | X           |
-
+|                                                                                                      | GasStationController | HomeController | UserController | GasStationServiceImpl | UserServiceImpl | GasStationConverter | UserConverter | LoginDto | IdPw | GasStationDto | UserDto | GasStationRepository | UserRepository | User | GasStation |
+|------------------------------------------------------------------------------------------------------|----------------------|----------------|----------------|-----------------------|-----------------|---------------------|---------------|----------|------|---------------|---------|----------------------|----------------|------|------------|
+| FR1 : Manage users                                                                                   |                      | X              | X              |                       | X               |                     | X             | X        | X    |               | X       |                      | X              | X    |            |
+| FR1.1 : Define   a new user, or modify an existing user                                              |                      | X              | X              |                       | X               |                     | X             | X        | X    |               | X       |                      | X              | X    |            |
+| FR1.2 : Delete a user                                                                                |                      | X              | X              |                       | X               |                     | X             | X        | X    |               | X       |                      | X              | X    |            |
+| FR1.3 : List   all users                                                                             |                      | X              | X              |                       | X               |                     | X             | X        | X    |               | X       |                      | X              | X    |            |
+| FR1.4 : Search   a user                                                                              |                      | X              | X              |                       | X               |                     | X             | X        | X    |               | X       |                      | X              | X    |            |
+| FR2 : Manage   rights. Authorize access to functions to specific actors according to access   rights |                      | X              | X              |                       | X               |                     | X             | X        | X    |               |         |                      | X              | X    |            |
+| FR3 : Manage   gas stations                                                                          | X                    | X              |                | X                     |                 | X                   |               | X        | X    | X             |         | X                    |                |      | X          |
+| FR3.1 : Define   a new gas station, or modify an existing gas station                                | X                    | X              |                | X                     |                 | X                   |               | X        | X    | X             |         | X                    |                |      | X          |
+| FR3.2 : Delete   a gas station                                                                       | X                    | X              |                | X                     |                 | X                   |               | X        | X    | X             |         | X                    |                |      | X          |
+| FR3.3 : List   all gas stations                                                                      | X                    | X              |                | X                     |                 | X                   |               | X        | X    | X             |         | X                    |                |      | X          |
+| FR4 : Search   gas stations                                                                          | X                    |                |                | X                     |                 | X                   |               |          |      | X             |         | X                    |                |      | X          |
+| FR4.1 :   Retrieve gas stations within radius r of a given geo point                                 | X                    |                |                | X                     |                 | X                   |               |          |      | X             |         | X                    |                |      | X          |
+| FR4.2 :   Retrieve gas stations within radius r of a given address                                   | X                    |                |                | X                     |                 | X                   |               |          |      | X             |         | X                    |                |      | X          |
+| FR4.3 : Show   given set of gas stations, and their fuel prices on a given map                       | X                    |                |                | X                     |                 | X                   |               |          |      | X             |         | X                    |                |      | X          |
+| FR4.4 : Sort   given set of gas stations according to fuel type price                                | X                    |                |                | X                     |                 | X                   |               |          |      | X             |         | X                    |                |      | X          |
+| FR4.5 : Filter   out given set of gas stations according to fuel type and or car sharing   option    | X                    |                |                | X                     |                 | X                   |               |          |      | X             |         | X                    |                |      | X          |
+| FR5 : Manage   fuel prices and trust                                                                 | X                    | X              |                | X                     | X               | X                   |               | X        | X    | X             |         | X                    |                |      | X          |
+| FR5.1 : Create   a price list, attach it to user and gas station                                     | X                    | X              |                | X                     | X               | X                   |               | X        | X    | X             |         | X                    |                |      | X          |
+| FR5.2 : Update   trust level of a price list for a gas station                                       | X                    | X              |                | X                     | X               | X                   |               | X        | X    | X             |         | X                    |                |      | X          |
+| FR5.3 :   Evaluate  price list for a gas station                                                     | X                    | X              |                | X                     | X               | X                   |               | X        | X    | X             |         | X                    |                |      | X          |
 
 
 
