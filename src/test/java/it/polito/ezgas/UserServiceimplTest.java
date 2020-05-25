@@ -114,15 +114,16 @@ public class UserServiceimplTest {
 	 */
 	@Test
 	public void testSaveUser() {
-		UserDto user;
+		User userToSave=new User("String userName","String password", "String email", 3);
+		UserDto userD, userToSaveD;
 		setUp();
-		urD.setUserName("Pollo");
+		userToSave.setUserId(19);
 		
-		user=userService.saveUser(urD);
-		assertEquals(user.getUserName(), "Pollo");
-		assertEquals(user, urD);	
-     	user=userService.saveUser(nonurD);
-	assertNull(user);
+		userToSaveD=UserConverter.toUserDto(userToSave);
+		userD=userService.saveUser(userToSaveD);
+		assertEquals(userD, userToSaveD);	
+     	userD=userService.saveUser(null);
+        assertNull(userD);
 	}
 
 	/**
@@ -133,12 +134,15 @@ public class UserServiceimplTest {
 		setUp();
 		List<User> users= new ArrayList<User>();
 		List<UserDto> users1 = new ArrayList<UserDto>();
-		users.add(ur);
 		users.add(aur);
+		users.add(ur);
+		users1.add(aurD);
+		users1.add(urD);
+		
      	when (userRepository.findAll()).thenReturn(users);
-		users1=userService.getAllUsers();
-		assertEquals(users1.get(0), urD);
-		assertEquals(users1.get(1), aurD);
+		
+		assertTrue(userService.getAllUsers().containsAll(users1));
+		
 
 	
 	
@@ -170,14 +174,17 @@ setUp();
 	@Test
 	public void testLogin() throws InvalidLoginDataException {
 	setUp();
-	IdPw id1=new IdPw(ur.getEmail(),ur.getPassword()),id2= new IdPw(ur.getEmail()+"wrong",ur.getPassword());
-    try {
+	IdPw id1=new IdPw("ciao","ciao@password"),id2= new IdPw("ciao@password Wrong","ciao");
+    assertNotNull(id1);
+    when(userRepository.findByEmail("ciao")).thenReturn(ur);
+	try {
 	assertNotNull(userService.login(id1));
-	assertNull(userService.login(id2));
+	userService.login(id2);
 	fail("exception InvalidLoginDataException not thrown");
     } catch (InvalidLoginDataException  I) {
     	assertEquals(I.getMessage(),"Wrong Email or Password");
     }
+    
     }
 
 	/**
