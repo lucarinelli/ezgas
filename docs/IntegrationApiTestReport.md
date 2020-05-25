@@ -167,12 +167,17 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  ..         | FRx                             |             |             
-|  ..         | FRy                             |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+| UC7.1       | FR5.1                           |             |
+| UC7.1       | FR5.2                           |             |             
+| UC8.1       | FR4.1                           |             |
+| UC8.2       | FR4.1                           |             |
+| UC8.2       | FR4.5                           |             |
+| UC8.3       | FR4.1                           |             |
+| UC8.3       | FR4.5                           |             |            
+| UC10.1      | FR5.2                           |             |   
+| UC10.1      | FR5.3                           |             |    
+| UC10.2      | FR5.2                           |             |   
+| UC10.2      | FR5.3                           |             |            
 
 
 
