@@ -27,7 +27,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -52,7 +52,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -79,7 +79,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -107,7 +107,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -134,7 +134,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -162,7 +162,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -189,7 +189,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -217,7 +217,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -243,7 +243,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -270,7 +270,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -296,7 +296,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -323,7 +323,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -350,7 +350,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -378,7 +378,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -403,7 +403,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -428,7 +428,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -454,7 +454,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -481,7 +481,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -507,7 +507,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -534,7 +534,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -560,7 +560,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -587,7 +587,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -621,7 +621,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -656,7 +656,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -690,7 +690,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -1120,13 +1120,13 @@ Throws an exception if an invalid value is given for gasolinetype or carsharing 
 
 | String gasolinetype | String carsharing  | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- | --- | --- |
-| correct  | correct |  Yes | Correct input, gas stations exists in range. Returns all gas stations with right car sharing company and gasoline type whose car sharing company and gasoline type are passed as parameters. **Specific order?** |  |
-| correct | wrong, null |  Yes | No gas stations for this car sharing Company |  |
-| wrong, gasoline type not in list | correct |  Yes | Wrong input gasoline type, InvalidGasTypeException |  |
-| wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException |
+| correct  | correct |  Yes | Correct input, gas stations exists in range. Returns all gas stations with right car sharing company and gasoline type whose car sharing company and gasoline type are passed as parameters. **Specific order?** | testGetGasStationsWithoutCoordinates (Integration test) |
+| correct | wrong, null |  Yes | No gas stations for this car sharing Company | testGetGasStationsWithoutCoordinates2 (Integration test) |
+| wrong, gasoline type not in list | correct |  Yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates3 (Integration test) |
+| wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates1 (Integration test) |
 
 
-### [WIP] Class *GasStationServiceimpl* - method *SetReport*
+### Class *GasStationServiceimpl* - method *SetReport*
 
 Set a report for price update by an user for a gas station.
 
@@ -1175,21 +1175,147 @@ Throws an exception if one of that value is wrong.
 
 | Value gasStationId | Value userId | Value dieselPrice | Value superPrice | Value superPlusPrice | Value gasPrice | Value methanePrice | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| correct | correct | correct  | correct | correct  | correct | correct |  Yes | Correct input and report is setted |  |
-| correct | correct | correct  | correct | correct  | correct | wrong |  Yes | wrong methanePrice, PriceException |  |
+| correct | correct | correct  | correct | correct  | correct | correct |  Yes | Correct input and report is setted | testSetReport(Integration Test) |
+| correct | correct | correct  | correct | correct  | correct | wrong |  Yes | wrong methanePrice, PriceException | testSetReport2(Integration Test) |
 | correct | correct | correct | correct | correct | wrong | correct | Skipped | wrong gasPrice, PriceException |  |
 | correct | correct | correct | correct | wrong | correct | correct | Skipped | wrong superPlusPrice, PriceException |  |
 | correct | correct | correct | wrong | correct | correct | correct | Skipped | wrong superPrice, PriceException |  |
 | correct | correct | wrong | correct | correct | correct | correct | Skipped | wrong dieselPrice, PriceException |  |
-| correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException |  |
-| wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException |  |
+| correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException | testSetReport3(Integration Test) |
+| wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException | testSetReport1(Integration Test) |
+
+### Class *UserConverter* - method *toUserDto*
+
+**Criteria for method *toUserDto*:**
+
+ - Make a UserDto with User's value
+
+**Predicates for method *toUserDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoUserDto() |
+
+### Class *GasStationConverter* - method *toGasStation*
+
+**Criteria for method *toGasStation*:**
+
+ - Make a GasStation with GasStationDto's value
+
+**Predicates for method *toGasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoGasStation() |
+
+### Class *GasStationConverter* - method *toGasStationDto*
+
+**Criteria for method *toGasStationDto*:**
+
+ - Make a GasStationDto with GasStation's value
+
+**Predicates for method *toGasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoGasStationDto() |
+
+### Class *LoginConverter* - method *testtoLoginDto*
+
+**Criteria for method *testtoLoginDto*:**
+
+ - Make a LoginDto with User's value
+
+**Predicates for method *testtoLoginDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtesttoLoginDto() |
+
+### Class *UserConverter* - method *toUser*
+
+**Criteria for method *toUser*:**
+
+ - Make a User with UserDto's value
+
+**Predicates for method *toUser*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoUser() |
+
 
 
 ### Class *User* - method *User*
 
 **Criteria for method *User*:**
 
- - 
+ -
 
 **Predicates for method *User*:**
 
@@ -1215,14 +1341,15 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getUserId*:**
 
- - 
+ - value of Id
 
 **Predicates for method *getUserId*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| value Id | -1 (invalid) |
+|          | 1 (valid) |
+|| no value |
 
 **Boundaries**:
 
@@ -1234,14 +1361,14 @@ Throws an exception if one of that value is wrong.
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetUserId() |
-|  |  |  | testSetGetUserId2() |
+|  |  |  | testSetGetUserId() (test valid and invalid Id) |
+|  |  |  | testSetGetUserId2() (test null Id)|
 
 ### Class *User* - method *setUserId()*
 
 **Criteria for method *setUserId*:**
 
- - 
+ -
 
 **Predicates for method *setUserId*:**
 
@@ -1267,7 +1394,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getUserName*:**
 
- - 
+ -
 
 **Predicates for method *getUserName*:**
 
@@ -1293,7 +1420,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setUserName*:**
 
- - 
+ -
 
 **Predicates for method *setUserName*:**
 
@@ -1319,7 +1446,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getPassword*:**
 
- - 
+ -
 
 **Predicates for method *getPassword*:**
 
@@ -1345,7 +1472,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setPassword*:**
 
- - 
+ -
 
 **Predicates for method *setPassword*:**
 
@@ -1371,7 +1498,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getEmail*:**
 
- - 
+ -
 
 **Predicates for method *getEmail*:**
 
@@ -1397,7 +1524,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setEmail*:**
 
- - 
+ -
 
 **Predicates for method *setEmail*:**
 
@@ -1423,7 +1550,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getReputation*:**
 
- - 
+ -
 
 **Predicates for method *getReputation*:**
 
@@ -1449,7 +1576,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setReputation*:**
 
- - 
+ -
 
 **Predicates for method *setReputation*:**
 
@@ -1475,7 +1602,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getAdmin*:**
 
- - 
+ -
 
 **Predicates for method *getAdmin*:**
 
@@ -1501,7 +1628,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setAdmin*:**
 
- - 
+ -
 
 **Predicates for method *setAdmin*:**
 
@@ -1526,7 +1653,7 @@ Throws an exception if one of that value is wrong.
 ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
 
 
-	 Queries the database and returns the UserDto corresponding to the userId passed as parameter.
+	  returns the UserDto corresponding to the userId passed as parameter.
 	 Throws an exception in case of invalid (negative) userId
 	 Returns null if no user is found with the given Id
 
@@ -1549,11 +1676,33 @@ Throws an exception if one of that value is wrong.
    **Combination of predicates**
    | Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
    | --- | --- | --- | --- |
-|||||
+|userId present|V||testGetUserById()|
+|userId not present|V||testGetUserById3()|
+|invalid userId|I||testGetUserById2()|
+### Class *UserServiceimpl* - method *testSaveUser()*
+Saves the User object into the database and returns the saved object.
+**Criteria for method *getUserById(Integer userId)*:**
+-User object
+**Predicates for method *getUserById(Integer userId)*:**
 
-   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
-   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
-   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
+| Criteria | Predicate |
+| -------- | --------- |
+
+|user object|consistent user object not present in db|
+|| consistent user present in db|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|user present|V||testSaveUser()|
+|user not present|I||testSaveUser1()|
+
 
 
 # White Box Unit Tests

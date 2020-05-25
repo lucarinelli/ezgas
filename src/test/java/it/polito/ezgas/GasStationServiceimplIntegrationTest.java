@@ -24,9 +24,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import exception.GPSDataException;
+import exception.InvalidGasStationException;
 import exception.InvalidGasTypeException;
+import exception.InvalidUserException;
 import exception.PriceException;
 import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.GasStationService;
@@ -401,7 +404,124 @@ public class GasStationServiceimplIntegrationTest {
 	 */
 	@Test
 	public final void testGetGasStationsWithoutCoordinates() {
-		fail("Not yet implemented"); // TODO
+		List<GasStationDto> result = null;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 6; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			result = gasStationService.getGasStationsWithoutCoordinates( "Diesel", "engioi");
+		} catch (InvalidGasTypeException e) {
+			fail();
+		}
+		
+		assertEquals(5, result.size());
+	}
+	
+	@Test
+	public final void testGetGasStationsWithoutCoordinates1() {
+		List<GasStationDto> result = null;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 6; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			result = gasStationService.getGasStationsWithoutCoordinates( null, null);
+		} catch (InvalidGasTypeException e) {
+			assertEquals(e.getMessage(), "Wrong gasolinetype");
+		}
+		
+	}
+	
+	@Test
+	public final void testGetGasStationsWithoutCoordinates2() {
+		List<GasStationDto> result = null;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 6; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			result = gasStationService.getGasStationsWithoutCoordinates( "Diesel", null);
+		} catch (InvalidGasTypeException e) {
+			fail();
+		}
+		
+		assertEquals(0, result.size());
+	}
+	
+	@Test
+	public final void testGetGasStationsWithoutCoordinates3() {
+		List<GasStationDto> result = null;
+		Random rand = new Random();
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 6; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 1, "timestamp", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			result = gasStationService.getGasStationsWithoutCoordinates( null, "engioi");
+		} catch (InvalidGasTypeException e) {
+			assertEquals(e.getMessage(), "Wrong gasolinetype");
+		}
+		
 	}
 
 	/**
@@ -409,9 +529,100 @@ public class GasStationServiceimplIntegrationTest {
 	 */
 	@Test
 	public final void testSetReport() {
-		fail("Not yet implemented"); // TODO
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		GasStationDto gs = new GasStationDto();
+		int a;
+		
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));		
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gs=gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		a=gs.getGasStationId();
+		
+		try {
+			gasStationService.setReport(a, 0.0, 0.0, 0.0, 0.0, 0.0, 1);
+		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
+			fail();
+		}	
+		
+	}
+	
+	@Test
+	public final void testSetReport1() {
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));		
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			gasStationService.setReport(-1, 0.0, 0.0, 0.0, 0.0, 0.0, 1);
+		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
+			assertEquals(e.getMessage(), "Wrong gasStationId");
+		}	
+		
+	}
+	
+	@Test
+	public final void testSetReport2() {
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));		
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			gasStationService.setReport(1, 0.0, 0.0, 0.0, 0.0, -1, 0);
+		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
+			assertEquals(e.getMessage(), "Wrong Price");
+		}	
+		
 	}
 
+	@Test
+	public final void testSetReport3() {
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 1, "timestamp", 0.50));		
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			gasStationService.setReport(1, 0.0, 0.0, 0.0, 0.0, 0, null);
+		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
+			assertEquals(e.getMessage(), "Wrong userId");
+		}	
+		
+	}
+	
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationByCarSharing(java.lang.String)}.
 	 */

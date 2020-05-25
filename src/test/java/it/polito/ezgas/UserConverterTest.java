@@ -20,7 +20,8 @@ public class UserConverterTest {
 	@Before
 	public void setUp() {
 		ur = new User("ciao", "password", "ciao@password", 3);
-		urdto = new UserDto(ur.getUserId(),"ciao", "password", "ciao@password", 3);
+		ur.setAdmin(true);
+		urdto = new UserDto(ur.getUserId(),"ciao", "password", "ciao@password", 3, true);
 	}
 
 	/**
@@ -42,11 +43,10 @@ public class UserConverterTest {
 	@Test
 	public void testtoUser() {
 		User urtest = userConverter.toUser(urdto);
-		assertEquals(urdto.getAdmin() , urtest.getAdmin());
-		assertEquals(urdto.getEmail() , urtest.getEmail());
-		assertEquals(urdto.getPassword() , urtest.getPassword());
-		assertEquals(urdto.getUserId() , urtest.getUserId());
-		assertEquals(urdto.getUserName() , urtest.getUserName());
+		assertEquals(ur.getEmail() , urtest.getEmail());
+		assertEquals(ur.getPassword() , urtest.getPassword());
+		assertEquals(ur.getUserId() , urtest.getUserId());
+		assertEquals(ur.getUserName() , urtest.getUserName());
 		
 	}
 }
