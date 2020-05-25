@@ -1126,7 +1126,7 @@ Throws an exception if an invalid value is given for gasolinetype or carsharing 
 | wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException |
 
 
-### [WIP] Class *GasStationServiceimpl* - method *SetReport*
+### Class *GasStationServiceimpl* - method *SetReport*
 
 Set a report for price update by an user for a gas station.
 
@@ -1175,14 +1175,14 @@ Throws an exception if one of that value is wrong.
 
 | Value gasStationId | Value userId | Value dieselPrice | Value superPrice | Value superPlusPrice | Value gasPrice | Value methanePrice | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| correct | correct | correct  | correct | correct  | correct | correct |  Yes | Correct input and report is setted |  |
-| correct | correct | correct  | correct | correct  | correct | wrong |  Yes | wrong methanePrice, PriceException |  |
+| correct | correct | correct  | correct | correct  | correct | correct |  Yes | Correct input and report is setted | testSetReport(Integration Test) |
+| correct | correct | correct  | correct | correct  | correct | wrong |  Yes | wrong methanePrice, PriceException | testSetReport2(Integration Test) |
 | correct | correct | correct | correct | correct | wrong | correct | Skipped | wrong gasPrice, PriceException |  |
 | correct | correct | correct | correct | wrong | correct | correct | Skipped | wrong superPlusPrice, PriceException |  |
 | correct | correct | correct | wrong | correct | correct | correct | Skipped | wrong superPrice, PriceException |  |
 | correct | correct | wrong | correct | correct | correct | correct | Skipped | wrong dieselPrice, PriceException |  |
-| correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException |  |
-| wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException |  |
+| correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException | testSetReport3(Integration Test) |
+| wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException | testSetReport1(Integration Test) |
 
 
 ### Class *User* - method *User*
