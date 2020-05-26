@@ -264,13 +264,18 @@ public class GasStationServiceimplTest {
 	@Test
 	public void testGetAllGasStations() {
 		List<GasStation> listGs = new ArrayList<GasStation>();
+		int i = 0;
 		listGs.add(new GasStation());
 		listGs.add(new GasStation());
 		listGs.add(new GasStation());
+		for(GasStation l : listGs) {
+			i++;
+			l.setGasStationId(i);
+		}
 		List<GasStationDto> result = null;
 		when(gasStationRepository.findAll()).thenReturn(listGs);
 		result = gasStationService.getAllGasStations();
-		int i = 0;
+		i = 0;
 		for(GasStationDto r : result) {
 			assertEquals(r.getGasStationId(), listGs.get(i).getGasStationId());
 			i++;
@@ -313,7 +318,7 @@ public class GasStationServiceimplTest {
 		} catch (InvalidGasStationException e) {
 			fail();
 		}
-		assertEquals(result, null);
+		assertNull(result);
 	}
 	
 	/**

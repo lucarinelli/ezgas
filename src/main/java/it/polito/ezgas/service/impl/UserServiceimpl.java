@@ -23,44 +23,42 @@ import it.polito.ezgas.service.UserService;
 @Service
 public class UserServiceimpl implements UserService {
 	@Autowired
-	UserRepository repositoryUser; 
-	
+	UserRepository repositoryUser;
+
 	public UserServiceimpl(UserRepository userRepository) {
-this.repositoryUser=userRepository;
+		this.repositoryUser = userRepository;
 	}
 
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
-		if(userId==null || userId.intValue()<0) {
+		if (userId == null || userId.intValue() < 0) {
 			throw new InvalidUserException("Wrong userID");
-		}
-		else {
-		User user=repositoryUser.findOne(userId);
-		if (user!=null) {
-			return UserConverter.toUserDto(user);
-		}
-		else {
-		// TODO check
-		return null;}
+		} else {
+			User user = repositoryUser.findOne(userId);
+			if (user != null) {
+				return UserConverter.toUserDto(user);
+			} else {
+				// TODO check
+				return null;
+			}
 		}
 	}
 
 	@Override
 	public UserDto saveUser(UserDto userDto) {
-    UserDto current=null;
-		
-		if(userDto.getUserId() == null) {
-			User users=UserConverter.toUser(userDto);
-			repositoryUser.save(users);
-			current=UserConverter.toUserDto(users);
-		}
-		else {
-			User users=repositoryUser.getOne(userDto.getUserId());
-			users.setUserName(userDto.getUserName());
-			users.setPassword(userDto.getPassword());
-			users.setEmail(userDto.getEmail());
-			repositoryUser.save(users);
-			current = UserConverter.toUserDto(users);
+		UserDto current = null;
+
+		if (userDto.getUserId() == null) {
+			User user = UserConverter.toUser(userDto);
+			user = repositoryUser.save(user);
+			current = UserConverter.toUserDto(user);
+		} else {
+			User user = repositoryUser.getOne(userDto.getUserId());
+			user.setUserName(userDto.getUserName());
+			user.setPassword(userDto.getPassword());
+			user.setEmail(userDto.getEmail());
+			user = repositoryUser.save(user);
+			current = UserConverter.toUserDto(user);
 		}
 		// TODO check
 		return current;
@@ -69,8 +67,8 @@ this.repositoryUser=userRepository;
 
 	@Override
 	public List<UserDto> getAllUsers() {
-		List<UserDto> users= new ArrayList<UserDto>();
-		
+		List<UserDto> users = new ArrayList<UserDto>();
+
 		for (User current : repositoryUser.findAll()) {
 			users.add(UserConverter.toUserDto(current));
 		}
@@ -80,27 +78,27 @@ this.repositoryUser=userRepository;
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
-		if(userId==null || userId.intValue()<0) {
+		if (userId == null || userId.intValue() < 0) {
 			throw new InvalidUserException("Wrong userID");
+		} else {
+			repositoryUser.delete(userId);
+			// TODO check
+			return true;
 		}
-		else {
-		repositoryUser.delete(userId);
-		// TODO check
-		return true;}
 	}
 
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
 		LoginDto login = null;
 		User users = null;
-		
-		users=repositoryUser.findByEmail(credentials.getUser());
-		if(users.getPassword().equals(credentials.getPw())) {
+
+		users = repositoryUser.findByEmail(credentials.getUser());
+		if (users.getPassword().equals(credentials.getPw())) {
 			login = LoginConverter.toLoginDto(users);
 		}
-		
-		if(login == null)
-				 throw new InvalidLoginDataException("Wrong Email or Password");
+
+		if (login == null)
+			throw new InvalidLoginDataException("Wrong Email or Password");
 		// TODO check
 		return login;
 
@@ -108,37 +106,37 @@ this.repositoryUser=userRepository;
 
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
-		if(userId == null || userId.intValue()<0) {
+		if (userId == null || userId.intValue() < 0) {
 			throw new InvalidUserException("Wrong userID");
 		}
-		
-		User user=repositoryUser.findOne(userId);
+
+		User user = repositoryUser.findOne(userId);
 		Integer reputation = user.getReputation();
-		if (reputation.intValue()<5) {
-			reputation=new Integer(reputation.intValue()+1);
+		if (reputation.intValue() < 5) {
+			reputation = new Integer(reputation.intValue() + 1);
 		}
 		user.setReputation(reputation);
 		repositoryUser.save(user);
-		
+
 		// TODO check
 		return reputation;
 	}
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
-		if(userId == null || userId.intValue()<0) {
+		if (userId == null || userId.intValue() < 0) {
 			throw new InvalidUserException("Wrong userID");
 		}
-		
-		User user=repositoryUser.findOne(userId);
+
+		User user = repositoryUser.findOne(userId);
 		Integer reputation = user.getReputation();
-		if (reputation.intValue()>-5) {
-			reputation=new Integer(reputation.intValue()-1);
+		if (reputation.intValue() > -5) {
+			reputation = new Integer(reputation.intValue() - 1);
 		}
 		user.setReputation(reputation);
 		repositoryUser.save(user);
 		// TODO check
 		return reputation;
 	}
-	
+
 }
