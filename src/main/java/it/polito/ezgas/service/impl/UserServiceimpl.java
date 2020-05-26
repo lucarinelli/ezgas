@@ -81,14 +81,14 @@ public class UserServiceimpl implements UserService {
 		User user = repositoryUser.findOne(userId);
 		if (userId == null || userId.intValue() < 0) {
 			throw new InvalidUserException("Wrong userID");
-		} else {
-			if (user == null) {
-				return null;
-			}
+		}
+		if (user == null) {
+			return null;
+		}
 			repositoryUser.delete(userId);
 			// TODO check
 			return true;
-		}
+		
 	}
 
 	@Override
