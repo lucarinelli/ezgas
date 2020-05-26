@@ -260,7 +260,7 @@ public class GasStationServiceimpl implements GasStationService {
 		if (gasStationId == null || gasStationId < 0)
 			throw new InvalidGasStationException("Wrong gasStationId");
 
-		if (userId == null || gasStationId < 0)
+		if (userId == null || userId < 0)
 			throw new InvalidUserException("Wrong userId");
 
 		if (dieselPrice < 0 || superPrice < 0 || superPlusPrice < 0 || gasPrice < 0 || methanePrice < 0)
@@ -274,7 +274,7 @@ public class GasStationServiceimpl implements GasStationService {
 		gasStation.setSuperPlusPrice(superPlusPrice);
 		gasStation.setMethanePrice(methanePrice);
 		gasStation.setReportTimestamp(reportTimestamp);
-		User user = userRepository.findByUserId(userId);
+		User user = userRepository.findOne(userId);
 		gasStation.setReportDependability(((user.getReputation()+5)*5)+50);
 		gasStation.setUser(user);
 

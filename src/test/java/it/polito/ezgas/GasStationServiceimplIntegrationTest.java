@@ -28,12 +28,16 @@ import exception.InvalidGasStationException;
 import exception.InvalidGasTypeException;
 import exception.InvalidUserException;
 import exception.PriceException;
+import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.GasStationService;
+import it.polito.ezgas.service.UserService;
 import it.polito.ezgas.service.impl.GasStationServiceimpl;
+import it.polito.ezgas.service.impl.UserServiceimpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -52,10 +56,21 @@ public class GasStationServiceimplIntegrationTest {
         public GasStationService gasStationService() {
             return new GasStationServiceimpl(gasStationRepository, userRepository);
         }
+        
+        @Bean
+	    public UserService userService() {
+	    	return new UserServiceimpl(userRepository);
+	    }
+	   
     }
 	
 	@Autowired
 	private GasStationService gasStationService;
+	
+	@Autowired
+	private UserService userService;
+	
+	
 
 	/**
 	 * @throws java.lang.Exception
@@ -88,18 +103,18 @@ public class GasStationServiceimplIntegrationTest {
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#GasStationServiceimpl(it.polito.ezgas.repository.GasStationRepository, it.polito.ezgas.repository.UserRepository)}.
 	 */
-	@Test
+/*	@Test
 	public final void testGasStationServiceimplGasStationRepositoryUserRepository() {
 		fail("Not yet implemented"); // TODO
-	}
+	}*/
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#GasStationServiceimpl()}.
 	 */
-	@Test
+/*	@Test
 	public final void testGasStationServiceimpl() {
 		fail("Not yet implemented"); // TODO
-	}
+	}*/
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationById(java.lang.Integer)}.
@@ -711,10 +726,16 @@ public class GasStationServiceimplIntegrationTest {
 			}
 		}
 		
+		//create user for test
+		User user = new User("ciao", "password", "ciao@password", 3);
+		UserDto userDto = UserConverter.toUserDto(user);
+		userDto = userService.saveUser(userDto);
+		
+		
 		a=gs.getGasStationId();
 		
 		try {
-			gasStationService.setReport(a, 9.0, 9.0, 9.0, 9.0, 9.0, 1);
+			gasStationService.setReport(a, 9.0, 9.0, 9.0, 9.0, 9.0, userDto.getUserId());
 		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
 			fail();
 		}	
