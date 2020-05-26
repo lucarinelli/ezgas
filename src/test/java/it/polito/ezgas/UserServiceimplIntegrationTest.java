@@ -289,31 +289,37 @@ public class UserServiceimplIntegrationTest {
 	public void testIncreaseUserReputation() throws InvalidUserException {
 		User ur, aur,nonur;	
 		UserDto urD, aurD, nonurD;
-		ur = new User("ciao", "password", "ciao@password", 3);
+		ur = new User("ciao", "password", "ciao@password", 0);
 		urD = UserConverter.toUserDto(ur);
-		nonurD= new UserDto();
-		nonur =new User();
-		aur = new User("ciao", "password", "ciao@password", 5);
-		aur.setAdmin(true);
-		aurD = UserConverter.toUserDto(aur);
 		
-		int a;
-		ur=UserConverter.toUser(userService.saveUser(UserConverter.toUserDto(ur)));
+		int a,b;
 		
-		a = userService.increaseUserReputation( ur.getUserId() );
-		assertEquals((Integer) a, (Integer) 4);
+		urD=userService.saveUser(UserConverter.toUserDto(ur));
+		b=urD.getReputation()+1;
+		a = userService.increaseUserReputation( urD.getUserId() );
+		assertEquals(a,b);
+		
+		a = userService.increaseUserReputation( urD.getUserId() );
 		
         try {
-            userService.increaseUserReputation(-1);
-            fail("Expected InvalidUserException for userId ");
+            userService.decreaseUserReputation(-12);
+            fail("Expected InvalidUserException for userId " );
         } catch (InvalidUserException e) {
             assertEquals(e.getMessage(), "Wrong userID");
         }
         
         ur.setReputation(5);
-        ur=UserConverter.toUser(userService.saveUser(UserConverter.toUserDto(ur)));
-		a = userService.increaseUserReputation( ur.getUserId() );
-		assertEquals((Integer) a, (Integer) 5);
+        urD=userService.saveUser(UserConverter.toUserDto(ur));
+
+        userService.increaseUserReputation( urD.getUserId());
+        userService.increaseUserReputation( urD.getUserId());
+        userService.increaseUserReputation( urD.getUserId());
+        userService.increaseUserReputation( urD.getUserId());
+        userService.increaseUserReputation( urD.getUserId());
+        userService.increaseUserReputation( urD.getUserId());
+		a = userService.increaseUserReputation( urD.getUserId());
+		b = 5;
+		assertEquals( a, b);
 	}
 
 	/**
@@ -326,32 +332,21 @@ public class UserServiceimplIntegrationTest {
 		UserDto urD, aurD, nonurD;
 		ur = new User("ciao", "password", "ciao@password", 0);
 		urD = UserConverter.toUserDto(ur);
-		nonurD= new UserDto();
-		nonur =new User();
-		aur = new User("ciao", "password", "ciao@password", 0);
-		aur.setAdmin(true);
-		aurD = UserConverter.toUserDto(aur);
 		
 		int a,b,c,d;
 		c = -1;
 		d = -2;
-		aurD=userService.saveUser(UserConverter.toUserDto(aur));
-		b=aurD.getReputation()-1;
-		a = userService.decreaseUserReputation( aurD.getUserId() );
+		urD=userService.saveUser(UserConverter.toUserDto(ur));
+		b=urD.getReputation()-1;
+		a = userService.decreaseUserReputation( urD.getUserId() );
 		assertEquals((Integer) a, (Integer) c);
 		assertEquals(a,b);
 		
-		a = userService.decreaseUserReputation( aurD.getUserId() );
-		/*assertEquals((Integer) a, (Integer) d);
-		assertEquals((Integer) a, (Integer) -1);
-		assertEquals((Integer) a, (Integer) -1);
-		assertEquals((Integer) a, (Integer) -1);
-		assertEquals((Integer) a, (Integer) -1);
+		a = userService.decreaseUserReputation( urD.getUserId() );
 		
-	*/
         try {
             userService.decreaseUserReputation(-12);
-            fail("Expected InvalidUserException for userId " + nonur.getUserId());
+            fail("Expected InvalidUserException for userId " );
         } catch (InvalidUserException e) {
             assertEquals(e.getMessage(), "Wrong userID");
         }
@@ -368,7 +363,6 @@ public class UserServiceimplIntegrationTest {
 		a = userService.decreaseUserReputation( urD.getUserId());
 		b = -5;
 		assertEquals( a, b);
-
 	}
 
 	/**
