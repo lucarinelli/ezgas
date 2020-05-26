@@ -94,22 +94,20 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
 		LoginDto login = null;
-		User users = null;
+		User user = null;
 
-		users = repositoryUser.findByEmail(credentials.getUser());
-		if (users.getPassword().equals(credentials.getPw())) {
-			login = LoginConverter.toLoginDto(users);
+		user = repositoryUser.findByEmail(credentials.getUser());
+		if (user == null)
+			throw new InvalidLoginDataException("Wrong Email or Password");
+		
+		if (user.getPassword().equals(credentials.getPw())) {
+			login = LoginConverter.toLoginDto(user);
 		}
 		else {
 			throw new InvalidLoginDataException("Wrong Email or Password");
 		}
 
-		if (login == null)
-			throw new InvalidLoginDataException("Wrong Email or Password");
-
-		// TODO check
 		return login;
-
 	}
 
 	@Override
