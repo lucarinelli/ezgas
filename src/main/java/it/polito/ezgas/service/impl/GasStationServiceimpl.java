@@ -69,7 +69,7 @@ public class GasStationServiceimpl implements GasStationService {
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
 		GasStationDto current = null;
 
-		if (gasStationDto.getPriceReportDtos() != null && ( gasStationDto.getDieselPrice() < 0 || gasStationDto.getSuperPlusPrice() < 0 
+		if (gasStationDto.getGasStationId() != null && ( gasStationDto.getDieselPrice() < 0 || gasStationDto.getSuperPlusPrice() < 0 
 				|| gasStationDto.getSuperPrice() < 0 || gasStationDto.getGasPrice() < 0 || gasStationDto.getMethanePrice() < 0))
 			throw new PriceException("Wrong PriceReport");
 
