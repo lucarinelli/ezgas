@@ -78,9 +78,13 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
+		User user = repositoryUser.findOne(userId);
 		if (userId == null || userId.intValue() < 0) {
 			throw new InvalidUserException("Wrong userID");
 		} else {
+			if (user == null) {
+				return null;
+			}
 			repositoryUser.delete(userId);
 			// TODO check
 			return true;
@@ -96,9 +100,13 @@ public class UserServiceimpl implements UserService {
 		if (users.getPassword().equals(credentials.getPw())) {
 			login = LoginConverter.toLoginDto(users);
 		}
+		else {
+			throw new InvalidLoginDataException("Wrong Email or Password");
+		}
 
 		if (login == null)
 			throw new InvalidLoginDataException("Wrong Email or Password");
+
 		// TODO check
 		return login;
 
