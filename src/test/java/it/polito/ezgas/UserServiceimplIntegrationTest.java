@@ -1,5 +1,8 @@
 package it.polito.ezgas;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import exception.InvalidUserException;
 import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
@@ -33,20 +37,20 @@ import it.polito.ezgas.service.impl.UserServiceimpl;
 public class UserServiceimplIntegrationTest {
 	@TestConfiguration
     static class UserServiceimplIntegrationTestContextConfiguration {
-
+		
 		@Autowired
 		private UserRepository userRepository;
-	    @Autowired
-		private UserService userService;
+	    
+	    @Bean
 	    public UserService userService() {
 	    	return new UserServiceimpl(userRepository);
 	    }
+	   
         
     }
+	
 	@Autowired
 	private UserService userService;
-	private User ur, aur, nonur;
-	private UserDto urD, aurD, nonurD;
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -66,7 +70,20 @@ public class UserServiceimplIntegrationTest {
 	 */
 	@Before
 	public void setUp() {
-		List<UserDto> inserted = new ArrayList<UserDto>();	
+		
+		
+		
+	}
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getUserById(java.lang.Integer)}.
+	 * @throws InvalidUserException 
+	 */
+	@Test
+	public final void testGetUserById() throws InvalidUserException {
+		User ur, aur;	
+		UserDto urD, aurD, nonurD,result;
+		
+		
 		ur = new User("ciao", "password", "ciao@password", 3);
 		ur.setUserId(1);
 		urD = UserConverter.toUserDto(ur);
@@ -74,18 +91,17 @@ public class UserServiceimplIntegrationTest {
 		aur.setUserId(2);
 		aur.setAdmin(true);
 		aurD = UserConverter.toUserDto(aur);
-		
-		
-	}
-	/**
-	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getUserById(java.lang.Integer)}.
-	 */
-	@Test
-	public final void testGetUserById(Integer userId) {
-		setUp();
-	userService.saveUser(urD);
-	userService.saveUser(aurD);
-	
+		try {
+		userService.getUserById(-12);
+		fail("InvalidUserException not thrown");
+		}
+		catch (InvalidUserException  e){
+		assertEquals(e.getMessage(),"Wrong userID");	
+		}
+		result=userService.saveUser(urD);
+		result=userService.getUserById(ur.getUserId());
+		assertEquals(result,urD);	
+			
 		
   }
 	/**
