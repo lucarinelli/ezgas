@@ -33,15 +33,15 @@ public class UserServiceimpl implements UserService {
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
 		if (userId == null || userId.intValue() < 0) {
 			throw new InvalidUserException("Wrong userID");
-		} else {
-			User user = repositoryUser.findOne(userId);
-			if (user != null) {
+		}
+
+		User user = repositoryUser.findOne(userId);
+		if (user != null) {
 				return UserConverter.toUserDto(user);
 			} else {
 				// TODO check
 				return null;
 			}
-		}
 	}
 
 	@Override
