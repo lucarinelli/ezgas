@@ -25,8 +25,10 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import exception.GPSDataException;
 import exception.InvalidLoginDataException;
 import exception.InvalidUserException;
+import exception.PriceException;
 import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.UserDto;
@@ -119,7 +121,7 @@ public class UserServiceimplIntegrationTest {
 	 * @throws InvalidUserException 
 	 */
 	@Test
-	public void testSaveUser() throws InvalidUserException {
+	public void testSaveUser1() throws InvalidUserException {
 		
 		User ur, aur;	
 		UserDto urD, result,result1;
@@ -141,10 +143,37 @@ public class UserServiceimplIntegrationTest {
 }
 	
 	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#saveUser(it.polito.ezgas.dto.UserDto)}.
+	 * @throws InvalidUserException 
+	 */
+	@Test
+	public void testSaveUser2() throws InvalidUserException {
+		
+		User ur, aur;	
+		UserDto urD, result,result1;
+		
+		ur = new User("ciao", "password", "ciao@password", 3);
+		urD = UserConverter.toUserDto(ur);
+		result= userService.saveUser(urD);
+
+		
+		urD= userService.getUserById(result.getUserId());
+		
+		assertEquals(result.getAdmin(),urD.getAdmin());
+		assertEquals(result.getEmail(),urD.getEmail());
+		assertEquals(result.getPassword(),urD.getPassword());
+		assertEquals(result.getReputation(),urD.getReputation());
+		assertEquals(result.getUserId(),urD.getUserId());
+		assertEquals(result.getUserName(),urD.getUserName());
+		
+		
+}
+	
+	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getAllUsers()}.
 	 */
 	@Test
-	public void testGetAllUsers() {
+	public void testGetAllUsers1() {
 		User ur, aur,nonur;	
 		UserDto urD, aurD, nonurD;
 		ur = new User("ciao", "password", "ciao@password", 3);
@@ -175,6 +204,44 @@ public class UserServiceimplIntegrationTest {
 		
 	}
 
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getAllUsers()}.
+	 * UserId is null, should throw an exception
+	 */
+	@Test
+	public void testGetUserById2() {
+		User ur;
+		UserDto urD;
+		ur = new User();
+		
+		try {
+			urD = userService.getUserById(ur.getUserId());
+		} catch (InvalidUserException e) {
+			return;
+		}
+		fail();
+	}
+
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#getAllUsers()}.
+	 * UserId is negative, should throw an exception
+	 */
+	@Test
+	public void testGetUserById3() {
+		User ur;
+		UserDto urD;
+		ur = new User();
+		ur.setUserId(-1);
+		
+		try {
+			urD = userService.getUserById(ur.getUserId());
+		} catch (InvalidUserException e) {
+			return;
+		}
+		fail();
+	}
+	
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.UserServiceimpl#deleteUser(java.lang.Integer)}.
 	 */

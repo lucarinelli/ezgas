@@ -69,8 +69,8 @@ public class GasStationServiceimpl implements GasStationService {
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
 		GasStationDto current = null;
 
-		if (gasStationDto.getGasStationId() != null && ( gasStationDto.getDieselPrice() < 0 || gasStationDto.getSuperPlusPrice() < 0 
-				|| gasStationDto.getSuperPrice() < 0 || gasStationDto.getGasPrice() < 0 || gasStationDto.getMethanePrice() < 0))
+		if ( (gasStationDto.getDieselPrice() < 0 && gasStationDto.getDieselPrice()!=-1) || (gasStationDto.getSuperPlusPrice() < 0 && gasStationDto.getSuperPlusPrice()!=-1)
+				|| (gasStationDto.getSuperPrice() < 0 && gasStationDto.getSuperPrice()!=-1) || (gasStationDto.getGasPrice() < 0 && gasStationDto.getGasPrice()!=-1) || (gasStationDto.getMethanePrice() < 0 && gasStationDto.getMethanePrice()!=-1))
 			throw new PriceException("Wrong PriceReport");
 
 		if (Math.abs(gasStationDto.getLat()) > 90.0 || Math.abs(gasStationDto.getLon()) > 180.0)
@@ -123,15 +123,15 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public Boolean deleteGasStation(Integer gasStationId) throws InvalidGasStationException {
-		GasStation gs = gasStationRepository.findOne(gasStationId);
 		if (gasStationId == null || gasStationId < 0)
 			throw new InvalidGasStationException("Wrong gasStationId");
+		
+		GasStation gs = gasStationRepository.findOne(gasStationId);
 		
 			gasStationRepository.delete(gasStationId);
 			if (gs == null) {
 				return null;
 			}
-			gasStationRepository.delete(gs);
 				// TODO check
 				return true;
 			
