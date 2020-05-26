@@ -117,7 +117,11 @@ A bottom up approach has been used for integration test, some mixed approach has
 ## Step 2
 | Classes  | JUnit test cases |
 |--|--|
-|||
+|GasStationConverter|testtoGasStationDto|
+||testtoGasStation|
+|UserConverter|testtoUserDto|
+||testtoUser|
+|LoginConverter|testtoLoginDto|
 
 
 ## Step 3 API Tests
