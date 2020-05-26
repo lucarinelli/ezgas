@@ -536,7 +536,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, null, null);
+			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, "null", "null");
 		} catch (InvalidGasTypeException | GPSDataException e) {
 			fail();
 		}
@@ -636,7 +636,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			result = gasStationService.getGasStationsWithoutCoordinates( null, null);
+			result = gasStationService.getGasStationsWithoutCoordinates( "null", null);
 		} catch (InvalidGasTypeException e) {
 			assertEquals(e.getMessage(), "Wrong gasolinetype");
 		}
@@ -666,7 +666,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			result = gasStationService.getGasStationsWithoutCoordinates( "Diesel", null);
+			result = gasStationService.getGasStationsWithoutCoordinates( "Diesel", "null");
 		} catch (InvalidGasTypeException e) {
 			fail();
 		}
@@ -697,7 +697,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			result = gasStationService.getGasStationsWithoutCoordinates( null, "engioi");
+			result = gasStationService.getGasStationsWithoutCoordinates( "null", "engioi");
 		} catch (InvalidGasTypeException e) {
 			assertEquals(e.getMessage(), "Wrong gasolinetype");
 		}

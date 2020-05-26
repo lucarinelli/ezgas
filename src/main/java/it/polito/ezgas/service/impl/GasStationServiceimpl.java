@@ -29,8 +29,8 @@ public class GasStationServiceimpl implements GasStationService {
 	public GasStationServiceimpl(GasStationRepository gasStationRepository, UserRepository userRepository) { 
 		// FIXME!!! Why is this here? A const/static thing would be better!!!
 		listGasolineTypes.add("Diesel");
-		listGasolineTypes.add("Gasoline");
-		listGasolineTypes.add("PremiumGasoline");
+		listGasolineTypes.add("Super");
+		listGasolineTypes.add("SuperPlus");
 		listGasolineTypes.add("LPG");
 		listGasolineTypes.add("Methane");
 		this.gasStationRepository = gasStationRepository;
@@ -149,7 +149,7 @@ public class GasStationServiceimpl implements GasStationService {
 
 	private static ArrayList<String> getListGasolineTypes(GasStation gasStation) {
 		ArrayList<String> listGasolineType = new ArrayList<String>();
-		if (gasStation.getHasDiesel())
+		/*if (gasStation.getHasDiesel())
 			listGasolineType.add("Diesel");
 		if (gasStation.getHasMethane())
 			listGasolineType.add("Methane");
@@ -158,7 +158,17 @@ public class GasStationServiceimpl implements GasStationService {
 		if (gasStation.getHasSuper())
 			listGasolineType.add("Gasoline");
 		if (gasStation.getHasSuperPlus())
-			listGasolineType.add("PremiumGasoline");
+			listGasolineType.add("PremiumGasoline");*/
+		if (gasStation.getHasDiesel())
+			listGasolineType.add("Diesel");
+		if (gasStation.getHasMethane())
+			listGasolineType.add("Methane");
+		if (gasStation.getHasGas())
+			listGasolineType.add("LPG");
+		if (gasStation.getHasSuper())
+			listGasolineType.add("Super");
+		if (gasStation.getHasSuperPlus())
+			listGasolineType.add("SuperPlus");
 		return listGasolineType;
 	}
 
@@ -219,6 +229,12 @@ public class GasStationServiceimpl implements GasStationService {
 
 		if (Math.abs(lat) > 90.0 || Math.abs(lon) > 180.0)
 			throw new GPSDataException("Wrong GPSData");
+		
+		if(gasolinetype==null||gasolinetype.equals("null"))
+			gasolinetype=null;
+		
+		if(carsharing==null||carsharing.equals("null"))
+			carsharing=null;
 
 		if (!listGasolineTypes.contains(gasolinetype) && gasolinetype != null)
 			throw new InvalidGasTypeException("Wrong gasolinetype");
@@ -228,7 +244,7 @@ public class GasStationServiceimpl implements GasStationService {
 		for (GasStation current : gasStationRepository.findAll()) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
 			if (distance <= 1 && (getListGasolineTypes(current).contains(gasolinetype) || gasolinetype == null)
-					&& (current.getCarSharing() == carsharing || carsharing == null))
+					&& (current.getCarSharing().equals(carsharing) || carsharing == null))
 				gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO checked
@@ -238,6 +254,12 @@ public class GasStationServiceimpl implements GasStationService {
 	@Override
 	public List<GasStationDto> getGasStationsWithoutCoordinates(String gasolinetype, String carsharing)
 			throws InvalidGasTypeException {
+		
+		if(gasolinetype==null||gasolinetype.equals("null"))
+			gasolinetype=null;
+		
+		if(carsharing==null||carsharing.equals("null"))
+			carsharing=null;
 
 		if (!listGasolineTypes.contains(gasolinetype))
 			throw new InvalidGasTypeException("Wrong gasolinetype");
