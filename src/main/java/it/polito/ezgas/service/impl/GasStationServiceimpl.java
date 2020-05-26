@@ -69,8 +69,8 @@ public class GasStationServiceimpl implements GasStationService {
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
 		GasStationDto current = null;
 
-		if (gasStationDto.getPriceReportDtos() == null || gasStationDto.getDieselPrice()< 0 || gasStationDto.getGasPrice() < 0 || 
-				gasStationDto.getMethanePrice() < 0 || gasStationDto.getSuperPlusPrice() < 0 || gasStationDto.getSuperPrice() < 0)
+		if (gasStationDto.getPriceReportDtos() == null|| gasStationDto.getDieselPrice() < 0 || gasStationDto.getSuperPlusPrice() < 0 
+				|| gasStationDto.getSuperPrice() < 0 || gasStationDto.getGasPrice() < 0 || gasStationDto.getMethanePrice() < 0)
 			throw new PriceException("Wrong PriceReport");
 
 		if (Math.abs(gasStationDto.getLat()) > 90.0 || Math.abs(gasStationDto.getLon()) > 180.0)
@@ -266,21 +266,23 @@ public class GasStationServiceimpl implements GasStationService {
 		if (dieselPrice < 0 || superPrice < 0 || superPlusPrice < 0 || gasPrice < 0 || methanePrice < 0)
 			throw new PriceException("Wrong Price");
 
-		GasStation gasStation = gasStationRepository.findOne(gasStationId);
-
+		GasStation gasStation = gasStationRepository.findById(gasStationId);
+		String reportTimestamp = new java.text.SimpleDateFormat("dd/MM/yyy HH:mm:ss").format(new java.util.Date());
 		gasStation.setDieselPrice(dieselPrice);
 		gasStation.setGasPrice(gasPrice);
 		gasStation.setSuperPrice(superPrice);
 		gasStation.setSuperPlusPrice(superPlusPrice);
 		gasStation.setMethanePrice(methanePrice);
-		User user = userRepository.findOne(userId);
+		gasStation.setReportTimestamp(reportTimestamp);
+		User user = userRepository.findByUserId(userId);
+		gasStation.setReportDependability(((user.getReputation()+5)*5)+50);
 		gasStation.setUser(user);
 
 		return;
 
 		// TODO checked
-
 	}
+	
 
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
