@@ -266,7 +266,7 @@ public class GasStationServiceimpl implements GasStationService {
 		if (dieselPrice < 0 || superPrice < 0 || superPlusPrice < 0 || gasPrice < 0 || methanePrice < 0)
 			throw new PriceException("Wrong Price");
 
-		GasStation gasStation = gasStationRepository.findById(gasStationId);
+		GasStation gasStation = gasStationRepository.findOne(gasStationId);
 		String reportTimestamp = new java.text.SimpleDateFormat("dd/MM/yyy HH:mm:ss").format(new java.util.Date());
 		gasStation.setDieselPrice(dieselPrice);
 		gasStation.setGasPrice(gasPrice);
