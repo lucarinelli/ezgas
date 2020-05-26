@@ -123,13 +123,19 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public Boolean deleteGasStation(Integer gasStationId) throws InvalidGasStationException {
+		GasStation gs = gasStationRepository.findOne(gasStationId);
 		if (gasStationId == null || gasStationId < 0)
 			throw new InvalidGasStationException("Wrong gasStationId");
-		else {
+		
 			gasStationRepository.delete(gasStationId);
-			// TODO check
-			return true;
-		}
+			if (gs == null) {
+				return null;
+			}
+			gasStationRepository.delete(gs);
+				// TODO check
+				return true;
+			
+		
 	}
 
 	@Override
