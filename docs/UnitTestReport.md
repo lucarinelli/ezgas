@@ -1652,30 +1652,34 @@ Throws an exception if one of that value is wrong.
 
 ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
 
+returns the UserDto corresponding to the userId passed as parameter.
 
-	  returns the UserDto corresponding to the userId passed as parameter.
-	 Throws an exception in case of invalid (negative) userId
-	 Returns null if no user is found with the given Id
+Throws an exception in case of invalid (negative) userId
 
-   **Criteria for method *getUserById(Integer userId)*:**
-   -User Id
-   **Predicates for method *getUserById(Integer userId)*:**
+Returns null if no user is found with the given Id
 
-   | Criteria | Predicate |
-   | -------- | --------- |
-   | user Id  | illegal UserId: userId<0|
-   || consistent userId not present in db|
-   || consistent userId present in db|
+**Criteria for method *getUserById(Integer userId)*:**
 
-   **Boundaries**:
+-User Id
 
-   | Criteria | Boundary values |
-   | -------- | --------------- |
-   |  |  |
+**Predicates for method *getUserById(Integer userId)*:**
 
-   **Combination of predicates**
-   | Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
-   | --- | --- | --- | --- |
+| Criteria | Predicate |
+| -------- | --------- |
+| user Id  | illegal UserId: userId<0|
+|| consistent userId not present in db|
+|| consistent userId present in db|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+   
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
 |userId present|V||testGetUserById()-returns UserDto object|
 |userId not present|V||testGetUserById3()->returns null|
 |invalid userId|I||testGetUserById2()->throws InvalidUserException|
@@ -1730,6 +1734,7 @@ get list of all users in UserDto format;
 |  |  |
 
 **Combination of predicates**
+
 | Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- |
 | users present | V |  | testGetAllUser()->list of all users |
@@ -1757,6 +1762,7 @@ remove user from repository.
 |  |  |
 
 **Combination of predicates**
+
 | Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- |
 |id present|V||testDeleteUser(id)->return true|
