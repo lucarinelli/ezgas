@@ -287,14 +287,15 @@ public class GasStationServiceimpl implements GasStationService {
 
 		if (gasStationId == null || gasStationId < 0)
 			throw new InvalidGasStationException("Wrong gasStationId");
+		
+		GasStation gasStation = gasStationRepository.findOne(gasStationId);
 
 		if (userId == null || userId < 0)
 			throw new InvalidUserException("Wrong userId");
 
-		if (dieselPrice < 0 || superPrice < 0 || superPlusPrice < 0 || gasPrice < 0 || methanePrice < 0)
+		if ((gasStation.getHasDiesel() && dieselPrice < 0) || (gasStation.getHasSuper() && superPrice < 0) || (gasStation.getHasSuperPlus() && superPlusPrice < 0) || (gasStation.getHasGas() && gasPrice < 0) || (gasStation.getHasMethane() && methanePrice < 0))
 			throw new PriceException("Wrong Price");
-
-		GasStation gasStation = gasStationRepository.findOne(gasStationId);
+		
 		String reportTimestamp = new java.text.SimpleDateFormat("dd/MM/yyy HH:mm:ss").format(new java.util.Date());
 		gasStation.setDieselPrice(dieselPrice);
 		gasStation.setGasPrice(gasPrice);
@@ -303,9 +304,10 @@ public class GasStationServiceimpl implements GasStationService {
 		gasStation.setMethanePrice(methanePrice);
 		gasStation.setReportTimestamp(reportTimestamp);
 		User user = userRepository.findOne(userId);
+		gasStation.setReportUser(user.getUserId());
 		gasStation.setReportDependability(((user.getReputation()+5)*5)+50);
 		gasStation.setUser(user);
-
+		gasStationRepository.save(gasStation);
 		return;
 
 		// TODO checked
