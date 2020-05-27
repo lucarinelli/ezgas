@@ -1,7 +1,12 @@
 package it.polito.ezgas.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
@@ -29,14 +34,14 @@ public class GasStationServiceimpl implements GasStationService {
 	public GasStationServiceimpl(GasStationRepository gasStationRepository, UserRepository userRepository) { 
 		// FIXME!!! Why is this here? A const/static thing would be better!!!
 		listGasolineTypes.add("Diesel");
-		listGasolineTypes.add("Gasoline");
-		listGasolineTypes.add("PremiumGasoline");
+		listGasolineTypes.add("Super");
+		listGasolineTypes.add("SuperPlus");
 		listGasolineTypes.add("LPG");
 		listGasolineTypes.add("Methane");
 		this.gasStationRepository = gasStationRepository;
 		this.userRepository = userRepository;
 	}
-
+	
 	/*public GasStationServiceimpl() {
 		// FIXME!!! Why is this here? A const/static thing would be better!!!
 		listGasolineTypes.add("Diesel");
@@ -69,8 +74,8 @@ public class GasStationServiceimpl implements GasStationService {
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
 		GasStationDto current = null;
 
-		if (gasStationDto.getPriceReportDtos() == null || gasStationDto.getDieselPrice()< 0 || gasStationDto.getGasPrice() < 0 || 
-				gasStationDto.getMethanePrice() < 0 || gasStationDto.getSuperPlusPrice() < 0 || gasStationDto.getSuperPrice() < 0)
+		if ( (gasStationDto.getDieselPrice() < 0 && gasStationDto.getDieselPrice()!=-1) || (gasStationDto.getSuperPlusPrice() < 0 && gasStationDto.getSuperPlusPrice()!=-1)
+				|| (gasStationDto.getSuperPrice() < 0 && gasStationDto.getSuperPrice()!=-1) || (gasStationDto.getGasPrice() < 0 && gasStationDto.getGasPrice()!=-1) || (gasStationDto.getMethanePrice() < 0 && gasStationDto.getMethanePrice()!=-1))
 			throw new PriceException("Wrong PriceReport");
 
 		if (Math.abs(gasStationDto.getLat()) > 90.0 || Math.abs(gasStationDto.getLon()) > 180.0)
@@ -115,6 +120,7 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
 		for (GasStation current : gasStationRepository.findAll()) {
+			refreshReportDependability(current);
 			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO Check
@@ -125,11 +131,17 @@ public class GasStationServiceimpl implements GasStationService {
 	public Boolean deleteGasStation(Integer gasStationId) throws InvalidGasStationException {
 		if (gasStationId == null || gasStationId < 0)
 			throw new InvalidGasStationException("Wrong gasStationId");
-		else {
+		
+		GasStation gs = gasStationRepository.findOne(gasStationId);
+		
 			gasStationRepository.delete(gasStationId);
-			// TODO check
-			return true;
-		}
+			if (gs == null) {
+				return null;
+			}
+				// TODO check
+				return true;
+			
+		
 	}
 
 	@Override
@@ -141,6 +153,7 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
 		for (GasStation current : sortListByPrice(gasolinetype)) {
+			refreshReportDependability(current);
 			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO Check
@@ -149,7 +162,7 @@ public class GasStationServiceimpl implements GasStationService {
 
 	private static ArrayList<String> getListGasolineTypes(GasStation gasStation) {
 		ArrayList<String> listGasolineType = new ArrayList<String>();
-		if (gasStation.getHasDiesel())
+		/*if (gasStation.getHasDiesel())
 			listGasolineType.add("Diesel");
 		if (gasStation.getHasMethane())
 			listGasolineType.add("Methane");
@@ -158,7 +171,17 @@ public class GasStationServiceimpl implements GasStationService {
 		if (gasStation.getHasSuper())
 			listGasolineType.add("Gasoline");
 		if (gasStation.getHasSuperPlus())
-			listGasolineType.add("PremiumGasoline");
+			listGasolineType.add("PremiumGasoline");*/
+		if (gasStation.getHasDiesel())
+			listGasolineType.add("Diesel");
+		if (gasStation.getHasMethane())
+			listGasolineType.add("Methane");
+		if (gasStation.getHasGas())
+			listGasolineType.add("LPG");
+		if (gasStation.getHasSuper())
+			listGasolineType.add("Super");
+		if (gasStation.getHasSuperPlus())
+			listGasolineType.add("SuperPlus");
 		return listGasolineType;
 	}
 
@@ -189,8 +212,10 @@ public class GasStationServiceimpl implements GasStationService {
 
 		for (GasStation current : result) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
-			if (distance <= 1)
+			if (distance <= 1) {
+				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
+			}
 		}
 
 		// TODO checked
@@ -219,6 +244,12 @@ public class GasStationServiceimpl implements GasStationService {
 
 		if (Math.abs(lat) > 90.0 || Math.abs(lon) > 180.0)
 			throw new GPSDataException("Wrong GPSData");
+		
+		if(gasolinetype==null||gasolinetype.equals("null"))
+			gasolinetype=null;
+		
+		if(carsharing==null||carsharing.equals("null"))
+			carsharing=null;
 
 		if (!listGasolineTypes.contains(gasolinetype) && gasolinetype != null)
 			throw new InvalidGasTypeException("Wrong gasolinetype");
@@ -228,8 +259,10 @@ public class GasStationServiceimpl implements GasStationService {
 		for (GasStation current : gasStationRepository.findAll()) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
 			if (distance <= 1 && (getListGasolineTypes(current).contains(gasolinetype) || gasolinetype == null)
-					&& (current.getCarSharing() == carsharing || carsharing == null))
+					&& (current.getCarSharing().equals(carsharing) || carsharing == null)) {
+				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
+			}
 		}
 		// TODO checked
 		return gasStations;
@@ -238,6 +271,12 @@ public class GasStationServiceimpl implements GasStationService {
 	@Override
 	public List<GasStationDto> getGasStationsWithoutCoordinates(String gasolinetype, String carsharing)
 			throws InvalidGasTypeException {
+		
+		if(gasolinetype==null||gasolinetype.equals("null"))
+			gasolinetype=null;
+		
+		if(carsharing==null||carsharing.equals("null"))
+			carsharing=null;
 
 		if (!listGasolineTypes.contains(gasolinetype))
 			throw new InvalidGasTypeException("Wrong gasolinetype");
@@ -245,8 +284,10 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
 		for (GasStation current : gasStationRepository.findByCarSharing(carsharing)) {
-			if (getListGasolineTypes(current).contains(gasolinetype))
+			if (getListGasolineTypes(current).contains(gasolinetype)) {
+				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
+			}
 		}
 		// TODO checked
 		return gasStations;
@@ -260,27 +301,38 @@ public class GasStationServiceimpl implements GasStationService {
 		if (gasStationId == null || gasStationId < 0)
 			throw new InvalidGasStationException("Wrong gasStationId");
 
-		if (userId == null || gasStationId < 0)
+		if (userId == null || userId < 0)
 			throw new InvalidUserException("Wrong userId");
 
-		if (dieselPrice < 0 || superPrice < 0 || superPlusPrice < 0 || gasPrice < 0 || methanePrice < 0)
-			throw new PriceException("Wrong Price");
-
 		GasStation gasStation = gasStationRepository.findOne(gasStationId);
-
+		
+		if(gasStation==null)
+			throw new InvalidGasStationException("Wrong gasStationId");
+		
+		if ((gasStation.getHasDiesel() && dieselPrice < 0) || (gasStation.getHasSuper() && superPrice < 0) || (gasStation.getHasSuperPlus() && superPlusPrice < 0) || (gasStation.getHasGas() && gasPrice < 0) || (gasStation.getHasMethane() && methanePrice < 0))
+			throw new PriceException("Wrong Price");
+		
+		User user = userRepository.findOne(userId);
+		if(user==null)
+			throw new InvalidUserException("Wrong userId");
+		
+		String reportTimestamp = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date());
 		gasStation.setDieselPrice(dieselPrice);
 		gasStation.setGasPrice(gasPrice);
 		gasStation.setSuperPrice(superPrice);
 		gasStation.setSuperPlusPrice(superPlusPrice);
 		gasStation.setMethanePrice(methanePrice);
-		User user = userRepository.findOne(userId);
+		gasStation.setReportTimestamp(reportTimestamp);
+		
+		gasStation.setReportUser(user.getUserId());
+		gasStation.setReportDependability(refreshReportDependability(gasStation));
 		gasStation.setUser(user);
-
+		gasStationRepository.save(gasStation);
 		return;
 
 		// TODO checked
-
 	}
+	
 
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
@@ -292,6 +344,33 @@ public class GasStationServiceimpl implements GasStationService {
 		}
 		// TODO checked
 		return gasStations;
+	}
+	
+	private double refreshReportDependability(GasStation g) {
+		if(g.getReportUser()==null)
+			return 0.0;
+		
+		Date dateTimestamp = null;
+		try {
+			dateTimestamp = new SimpleDateFormat("dd/MM/yyyy").parse(g.getReportTimestamp());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    User user = userRepository.findOne(g.getReportUser());
+	    int reputation = user.getReputation();
+		g.setReportDependability(computeReportDependability(dateTimestamp, reputation));
+		return g.getReportDependability();
+	}
+	
+private double computeReportDependability(Date timestamp, Integer reputation) {
+		Date now = new Date();
+		long diffInMillies = Math.abs(now.getTime() - timestamp.getTime());
+	    long diffDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+	    int obsolescence = 0;
+	    if(diffDays<=7)
+	    	obsolescence = (int) (1 - diffDays/7);
+		return 50*(reputation+5)/10 + 50*obsolescence;
 	}
 
 }

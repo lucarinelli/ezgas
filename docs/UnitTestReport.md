@@ -1,6 +1,6 @@
 # Unit Testing Documentation
 
-Authors: Luca Rinelli, Alberto Canta
+Authors: Luca Rinelli, Alberto Canta, Ignacio Lopez-Perea Villacanas, Dario Licastro
 
 Date: 18/05/2020
 
@@ -27,7 +27,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -52,7 +52,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -79,7 +79,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -107,7 +107,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -134,7 +134,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -162,7 +162,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -189,7 +189,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -217,7 +217,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -243,7 +243,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -270,7 +270,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -296,7 +296,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -323,7 +323,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -350,7 +350,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -378,7 +378,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -403,7 +403,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -428,7 +428,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -454,7 +454,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -481,7 +481,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -507,7 +507,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -534,7 +534,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -560,7 +560,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -587,7 +587,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -621,7 +621,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -656,7 +656,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -690,7 +690,7 @@ Version: 0
 
 **Criteria for method *GasStation*:**
 
- - 
+ -
 
 **Predicates for method *GasStation*:**
 
@@ -721,6 +721,692 @@ Version: 0
 |  |  |  | testSetGetMethanePrice2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
+### Class *GasStationDto* - method *GasStationDto*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStationDto* - method *setGasStationDtoId*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationDtoId() |
+|  |  |  | testSetGetGasStationDtoId1() |
+|  |  |  | testSetGetGasStationDtoId2() |
+
+### Class *GasStationDto* - method *getGasStationDtoId*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationDtoId |
+|  |  |  | testSetGetGasStationDtoId1() |
+|  |  |  | testSetGetGasStationDtoId2() |
+
+### Class *GasStationDto* - method *setGasStationDtoName*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationDtoName() |
+|  |  |  | testSetGetGasStationDtoName1() |
+|  |  |  | testSetGetGasStationDtoName2() |
+
+### Class *GasStationDto* - method *getGasStationDtoName*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationDtoName() |
+|  |  |  | testSetGetGasStationDtoName1() |
+|  |  |  | testSetGetGasStationDtoName2() |
+
+### Class *GasStationDto* - method *setGasStationDtoAddress*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationDtoAddress() |
+|  |  |  | testSetGetGasStationDtoAddress1() |
+|  |  |  | testSetGetGasStationDtoAddress2() |
+
+### Class *GasStationDto* - method *getGasStationDtoAddress*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetGasStationDtoAddress() |
+|  |  |  | testSetGetGasStationDtoAddress1() |
+|  |  |  | testSetGetGasStationDtoAddress2() |
+
+### Class *GasStationDto* - method *setReportDependability*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportDependability() |
+|  |  |  | testSetGetReportDependability2() |
+
+### Class *GasStationDto* - method *getReportDependability*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportDependability() |
+|  |  |  | testSetGetReportDependability2() |
+
+### Class *GasStationDto* - method *setReportUser*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportUser() |
+|  |  |  | testSetGetReportUser2() |
+
+### Class *GasStationDto* - method *getReportUser*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportUser() |
+|  |  |  | testSetGetReportUser2() |
+
+### Class *GasStationDto* - method *setReportTimestamp*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportTimestamp() |
+|  |  |  | testSetGetReportTimestamp1() |
+|  |  |  | testSetGetReportTimestamp2() |
+
+### Class *GasStationDto* - method *getReportTimestamp*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReportTimestamp() |
+|  |  |  | testSetGetReportTimestamp1() |
+|  |  |  | testSetGetReportTimestamp2() |
+
+### Class *GasStationDto* - method *setUser*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUser() |
+
+### Class *GasStationDto* - method *getUser*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUser() |
+
+### Class *GasStationDto* - method *setCarSharing*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetCarSharing() |
+|  |  |  | testSetGetCarSharing2() |
+
+### Class *GasStationDto* - method *getCarSharing*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetCarSharing() |
+|  |  |  | testSetGetCarSharing2() |
+
+### Class *GasStationDto* - method *setLat*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetLat() |
+|  |  |  | testSetGetLat2() |
+
+### Class *GasStationDto* - method *getLat*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetLat() |
+|  |  |  | testSetGetLat2() |
+
+### Class *GasStationDto* - method *setLon*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetLon() |
+|  |  |  | testSetGetLon2() |
+
+### Class *GasStationDto* - method *getLon*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetLon() |
+|  |  |  | testSetGetLon2() |
+
+### Class *GasStationDto* - method *setHas...*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetHasDiesel() |
+|  |  |  | testSetGetHasSuper() |
+|  |  |  | testSetGetHasSuperPlus() |
+|  |  |  | testSetGetHasGas() |
+|  |  |  | testSetGetHasMethane() |
+|  |  |  | testSetGetHasDiesel2() |
+|  |  |  | testSetGetHasSuper2() |
+|  |  |  | testSetGetHasSuperPlus2() |
+|  |  |  | testSetGetHasGas2() |
+|  |  |  | testSetGetHasMethane2() |
+
+### Class *GasStationDto* - method *getHas...*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetHasDiesel() |
+|  |  |  | testSetGetHasSuper() |
+|  |  |  | testSetGetHasSuperPlus() |
+|  |  |  | testSetGetHasGas() |
+|  |  |  | testSetGetHasMethane() |
+|  |  |  | testSetGetHasDiesel2() |
+|  |  |  | testSetGetHasSuper2() |
+|  |  |  | testSetGetHasSuperPlus2() |
+|  |  |  | testSetGetHasGas2() |
+|  |  |  | testSetGetHasMethane2() |
+
+### Class *GasStationDto* - method *set...Price*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetDieselPrice() |
+|  |  |  | testSetGetSuperPrice() |
+|  |  |  | testSetGetSuperPlusPrice() |
+|  |  |  | testSetGetGasPrice() |
+|  |  |  | testSetGetMethanePrice() |
+|  |  |  | testSetGetDieselPrice2() |
+|  |  |  | testSetGetSuperPrice2() |
+|  |  |  | testSetGetSuperPlusPrice2() |
+|  |  |  | testSetGetGasPrice2() |
+|  |  |  | testSetGetMethanePrice2() |
+
+### Class *GasStationDto* - method *get...Price*
+
+**Criteria for method *GasStationDto*:**
+
+ -
+
+**Predicates for method *GasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetDieselPrice() |
+|  |  |  | testSetGetSuperPrice() |
+|  |  |  | testSetGetSuperPlusPrice() |
+|  |  |  | testSetGetGasPrice() |
+|  |  |  | testSetGetMethanePrice() |
+|  |  |  | testSetGetDieselPrice2() |
+|  |  |  | testSetGetSuperPrice2() |
+|  |  |  | testSetGetSuperPlusPrice2() |
+|  |  |  | testSetGetGasPrice2() |
+|  |  |  | testSetGetMethanePrice2() |
 
 ### Class *GasStationServiceimpl* - method *getGasStationById*
 
@@ -1120,13 +1806,13 @@ Throws an exception if an invalid value is given for gasolinetype or carsharing 
 
 | String gasolinetype | String carsharing  | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- | --- | --- |
-| correct  | correct |  Yes | Correct input, gas stations exists in range. Returns all gas stations with right car sharing company and gasoline type whose car sharing company and gasoline type are passed as parameters. **Specific order?** |  |
-| correct | wrong, null |  Yes | No gas stations for this car sharing Company |  |
-| wrong, gasoline type not in list | correct |  Yes | Wrong input gasoline type, InvalidGasTypeException |  |
-| wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException |
+| correct  | correct |  Yes | Correct input, gas stations exists in range. Returns all gas stations with right car sharing company and gasoline type whose car sharing company and gasoline type are passed as parameters. **Specific order?** | testGetGasStationsWithoutCoordinates (Integration test) |
+| correct | wrong, null |  Yes | No gas stations for this car sharing Company | testGetGasStationsWithoutCoordinates2 (Integration test) |
+| wrong, gasoline type not in list | correct |  Yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates3 (Integration test) |
+| wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates1 (Integration test) |
 
 
-### [WIP] Class *GasStationServiceimpl* - method *SetReport*
+### Class *GasStationServiceimpl* - method *SetReport*
 
 Set a report for price update by an user for a gas station.
 
@@ -1175,21 +1861,610 @@ Throws an exception if one of that value is wrong.
 
 | Value gasStationId | Value userId | Value dieselPrice | Value superPrice | Value superPlusPrice | Value gasPrice | Value methanePrice | Valid / Invalid | Description of the test case | JUnit test case |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| correct | correct | correct  | correct | correct  | correct | correct |  Yes | Correct input and report is setted |  |
-| correct | correct | correct  | correct | correct  | correct | wrong |  Yes | wrong methanePrice, PriceException |  |
+| correct | correct | correct  | correct | correct  | correct | correct |  Yes | Correct input and report is setted | testSetReport(Integration Test) |
+| correct | correct | correct  | correct | correct  | correct | wrong |  Yes | wrong methanePrice, PriceException | testSetReport2(Integration Test) |
 | correct | correct | correct | correct | correct | wrong | correct | Skipped | wrong gasPrice, PriceException |  |
 | correct | correct | correct | correct | wrong | correct | correct | Skipped | wrong superPlusPrice, PriceException |  |
 | correct | correct | correct | wrong | correct | correct | correct | Skipped | wrong superPrice, PriceException |  |
 | correct | correct | wrong | correct | correct | correct | correct | Skipped | wrong dieselPrice, PriceException |  |
-| correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException |  |
-| wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException |  |
+| correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException | testSetReport3(Integration Test) |
+| wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException | testSetReport1(Integration Test) |
 
+### Class *UserConverter* - method *toUserDto*
+
+**Criteria for method *toUserDto*:**
+
+ - Make a UserDto with User's value
+
+**Predicates for method *toUserDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoUserDto() |
+
+### Class *GasStationConverter* - method *toGasStation*
+
+**Criteria for method *toGasStation*:**
+
+ - Make a GasStation with GasStationDto's value
+
+**Predicates for method *toGasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoGasStation() |
+
+### Class *GasStationConverter* - method *toGasStationDto*
+
+**Criteria for method *toGasStationDto*:**
+
+ - Make a GasStationDto with GasStation's value
+
+**Predicates for method *toGasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoGasStationDto() |
+
+### Class *LoginConverter* - method *testtoLoginDto*
+
+**Criteria for method *testtoLoginDto*:**
+
+ - Make a LoginDto with User's value
+
+**Predicates for method *testtoLoginDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtesttoLoginDto() |
+
+### Class *UserConverter* - method *toUser*
+
+**Criteria for method *toUser*:**
+
+ - Make a User with UserDto's value
+
+**Predicates for method *toUser*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoUser() |
+
+### Class *LoginDto* - method *LoginDto*
+
+**Criteria for method *LoginDto*:**
+
+ -
+
+**Predicates for method *LoginDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testLoginDto() |
+|  |  |  |testLoginDtoIntegerStringStringStringInteger() |
+
+### Class *LoginDto* - method *getLoginDtoId()*
+
+**Criteria for method *getLoginDtoId*:**
+
+ - value of Id
+
+**Predicates for method *getLoginDtoId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| value Id | -1 (invalid) |
+|          | 1 (valid) |
+|| no value |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserId() (test valid and invalid Id) |
+|  |  |  | testSetGetUserId2() (test null Id)|
+
+### Class *LoginDto* - method *setLoginDtoId()*
+
+**Criteria for method *setLoginDtoId*:**
+
+ -
+
+**Predicates for method *setLoginDtoId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserId() |
+|  |  |  | testSetGetUserId2() |
+
+### Class *LoginDto* - method *getLoginDtoName()*
+
+**Criteria for method *getLoginDtoName*:**
+
+ -
+
+**Predicates for method *getLoginDtoName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserName() |
+|  |  |  | testSetGetUserName2() |
+
+### Class *LoginDto* - method *setLoginDtoName()*
+
+**Criteria for method *setLoginDtoName*:**
+
+ -
+
+**Predicates for method *setLoginDtoName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserName() |
+|  |  |  | testSetGetUserName2() |
+
+### Class *LoginDto* - method *getToken()*
+
+**Criteria for method *getToken*:**
+
+ -
+
+**Predicates for method *getToken*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetToken() |
+|  |  |  | testSetGetToken2() |
+
+### Class *LoginDto* - method *setToken()*
+
+**Criteria for method *setToken*:**
+
+ -
+
+**Predicates for method *setToken*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetToken() |
+|  |  |  | testSetGetToken2() |
+
+### Class *LoginDto* - method *getEmail()*
+
+**Criteria for method *getEmail*:**
+
+ -
+
+**Predicates for method *getEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *LoginDto* - method *setEmail()*
+
+**Criteria for method *setEmail*:**
+
+ -
+
+**Predicates for method *setEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *LoginDto* - method *getReputation()*
+
+**Criteria for method *getReputation*:**
+
+ -
+
+**Predicates for method *getReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *LoginDto* - method *setReputation()*
+
+**Criteria for method *setReputation*:**
+
+ -
+
+**Predicates for method *setReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *LoginDto* - method *getAdmin()*
+
+**Criteria for method *getAdmin*:**
+
+ -
+
+**Predicates for method *getAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
+
+### Class *LoginDto* - method *setAdmin()*
+
+**Criteria for method *setAdmin*:**
+
+ -
+
+**Predicates for method *setAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
+
+### Class *IdPw* - method *IdPw*
+
+**Criteria for method *IdPw*:**
+
+ -
+
+**Predicates for method *IdPw*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testIdPw() |
+|  |  |  |testIdPwStringString() |
+
+### Class *IdPw* - method *getPw()*
+
+**Criteria for method *getPw*:**
+
+ -
+
+**Predicates for method *getPw*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPw() |
+
+### Class *IdPw* - method *setPw()*
+
+**Criteria for method *setPw*:**
+
+ -
+
+**Predicates for method *setPw*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPw() |
+
+### Class *IdPw* - method *getUser()*
+
+**Criteria for method *getUser*:**
+
+ -
+
+**Predicates for method *getUser*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUser() |
+
+### Class *IdPw* - method *setUser()*
+
+**Criteria for method *setUser*:**
+
+ -
+
+**Predicates for method *setUser*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUser() |
 
 ### Class *User* - method *User*
 
 **Criteria for method *User*:**
 
- - 
+ -
 
 **Predicates for method *User*:**
 
@@ -1215,14 +2490,15 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getUserId*:**
 
- - 
+ - value of Id
 
 **Predicates for method *getUserId*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| value Id | -1 (invalid) |
+|          | 1 (valid) |
+|| no value |
 
 **Boundaries**:
 
@@ -1234,14 +2510,14 @@ Throws an exception if one of that value is wrong.
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetUserId() |
-|  |  |  | testSetGetUserId2() |
+|  |  |  | testSetGetUserId() (test valid and invalid Id) |
+|  |  |  | testSetGetUserId2() (test null Id)|
 
 ### Class *User* - method *setUserId()*
 
 **Criteria for method *setUserId*:**
 
- - 
+ -
 
 **Predicates for method *setUserId*:**
 
@@ -1267,7 +2543,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getUserName*:**
 
- - 
+ -
 
 **Predicates for method *getUserName*:**
 
@@ -1293,7 +2569,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setUserName*:**
 
- - 
+ -
 
 **Predicates for method *setUserName*:**
 
@@ -1319,7 +2595,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getPassword*:**
 
- - 
+ -
 
 **Predicates for method *getPassword*:**
 
@@ -1345,7 +2621,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setPassword*:**
 
- - 
+ -
 
 **Predicates for method *setPassword*:**
 
@@ -1371,7 +2647,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getEmail*:**
 
- - 
+ -
 
 **Predicates for method *getEmail*:**
 
@@ -1397,7 +2673,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setEmail*:**
 
- - 
+ -
 
 **Predicates for method *setEmail*:**
 
@@ -1423,7 +2699,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getReputation*:**
 
- - 
+ -
 
 **Predicates for method *getReputation*:**
 
@@ -1449,7 +2725,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setReputation*:**
 
- - 
+ -
 
 **Predicates for method *setReputation*:**
 
@@ -1475,7 +2751,7 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *getAdmin*:**
 
- - 
+ -
 
 **Predicates for method *getAdmin*:**
 
@@ -1501,7 +2777,346 @@ Throws an exception if one of that value is wrong.
 
 **Criteria for method *setAdmin*:**
 
- - 
+ -
+
+**Predicates for method *setAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
+
+### Class *UserDto* - method *UserDto*
+
+**Criteria for method *UserDto*:**
+
+ -
+
+**Predicates for method *UserDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testUserDto() |
+|  |  |  |testUserDto2() |
+
+### Class *UserDto* - method *getUserDtoId()*
+
+**Criteria for method *getUserDtoId*:**
+
+ - value of Id
+
+**Predicates for method *getUserDtoId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| value Id | -1 (invalid) |
+|          | 1 (valid) |
+|| no value |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserDtoId() (test valid and invalid Id) |
+|  |  |  | testSetGetUserDtoId2() (test null Id)|
+
+### Class *UserDto* - method *setUserDtoId()*
+
+**Criteria for method *setUserDtoId*:**
+
+ -
+
+**Predicates for method *setUserDtoId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserDtoId() |
+|  |  |  | testSetGetUserDtoId2() |
+
+### Class *UserDto* - method *getUserDtoName()*
+
+**Criteria for method *getUserDtoName*:**
+
+ -
+
+**Predicates for method *getUserDtoName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserDtoName() |
+|  |  |  | testSetGetUserDtoName2() |
+
+### Class *UserDto* - method *setUserDtoName()*
+
+**Criteria for method *setUserDtoName*:**
+
+ -
+
+**Predicates for method *setUserDtoName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserDtoName() |
+|  |  |  | testSetGetUserDtoName2() |
+
+### Class *UserDto* - method *getPassword()*
+
+**Criteria for method *getPassword*:**
+
+ -
+
+**Predicates for method *getPassword*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPassword() |
+|  |  |  | testSetGetUserDtoPassword2() |
+
+### Class *UserDto* - method *setPassword()*
+
+**Criteria for method *setPassword*:**
+
+ -
+
+**Predicates for method *setPassword*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPassword() |
+|  |  |  | testSetGetPassword2() |
+
+### Class *UserDto* - method *getEmail()*
+
+**Criteria for method *getEmail*:**
+
+ -
+
+**Predicates for method *getEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *UserDto* - method *setEmail()*
+
+**Criteria for method *setEmail*:**
+
+ -
+
+**Predicates for method *setEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *UserDto* - method *getReputation()*
+
+**Criteria for method *getReputation*:**
+
+ -
+
+**Predicates for method *getReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *UserDto* - method *setReputation()*
+
+**Criteria for method *setReputation*:**
+
+ -
+
+**Predicates for method *setReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *UserDto* - method *getAdmin()*
+
+**Criteria for method *getAdmin*:**
+
+ -
+
+**Predicates for method *getAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
+
+### Class *UserDto* - method *setAdmin()*
+
+**Criteria for method *setAdmin*:**
+
+ -
 
 **Predicates for method *setAdmin*:**
 
@@ -1525,35 +3140,215 @@ Throws an exception if one of that value is wrong.
 
 ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
 
+returns the UserDto corresponding to the userId passed as parameter.
 
-	 Queries the database and returns the UserDto corresponding to the userId passed as parameter.
-	 Throws an exception in case of invalid (negative) userId
-	 Returns null if no user is found with the given Id
+Throws an exception in case of invalid (negative) userId
 
-   **Criteria for method *getUserById(Integer userId)*:**
-   -User Id
-   **Predicates for method *getUserById(Integer userId)*:**
+Returns null if no user is found with the given Id
 
-   | Criteria | Predicate |
-   | -------- | --------- |
-   | user Id  | illegal UserId: userId<0|
-   || consistent userId not present in db|
-   || consistent userId present in db|
+**Criteria for method *getUserById(Integer userId)*:**
 
-   **Boundaries**:
+-User Id
 
-   | Criteria | Boundary values |
-   | -------- | --------------- |
-   |  |  |
+**Predicates for method *getUserById(Integer userId)*:**
 
-   **Combination of predicates**
-   | Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
-   | --- | --- | --- | --- |
-|||||
+| Criteria | Predicate |
+| -------- | --------- |
+| user Id  | illegal UserId: userId<0|
+|| consistent userId not present in db|
+|| consistent userId present in db|
 
-   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
-   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
-   ### Class *UserServiceimpl* - method *getUserById(Integer userId)*
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+   
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|userId present|V||testGetUserById()-returns UserDto object|
+|userId not present|V||testGetUserById3()->returns null|
+|invalid userId|I||testGetUserById2()->throws InvalidUserException|
+
+### Class *UserServiceimpl* - method *testSaveUser()*
+
+Saves the User object into the database and returns the saved object.
+
+**Criteria for method *saveUser(User Dto)*:**
+
+-User object
+
+**Predicates for method *saveUser(User Dto)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|user object|consistent user object not present in db|
+|| consistent user present in db|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+| user present | V |  | testSaveUser()->returns UserDto |
+| user not present | I |  | testSaveuser1()->returns null |
+
+### Class *UserServiceimpl* - method *getAllUsers()*
+
+get list of all users in UserDto format;
+
+**Criteria for method *getAllUsers(UserDto users)*:**
+
+-UserDto object
+
+**Predicates for method *getAllUsers(UserDto users)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| UserDto | more than one into the repository |
+|  | 0 UserDto into repository |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+| users present | V |  | testGetAllUser()->list of all users |
+| users not present | V |  | testGetAllUser()->isEmpty=true |
+
+### Class *UserServiceimpl* - method *deleteUser(integer id)*
+
+remove user from repository.
+
+**Criteria for method *deleteUser(integer id)*:**
+
+-Integer id
+
+**Predicates for method *deleteUser(integer id)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|Integer Id | valid |
+|  | invalid |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|id present|V||testDeleteUser(id)->return true|
+|id not present|V||testDeleteUser(id)->wrong userId exception|
+|id non valid| I|testDeleteUser(id)->wrong userId exception|
+
+### Class *UserServiceimpl* - method *Login(IdPw id)*
+
+check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+
+**Criteria for method *Login(IdPw id)*:**
+
+-IdPw object
+
+**Predicates for method *Login(IdPw id)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|IdPw object|valid|
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value IdPw |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|IdPw present and valid|V||testLogin(idPw)->return idPw|
+|IdPw not valid |V||testLogin(idPw)->invalid LoginData exception|
+
+### Class *UserServiceimpl* - method *increaseUserReputation(integer UserId)*
+
+check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+
+**Criteria for method *increaseUserReputation(integer UserId)*:**
+
+- userId
+
+- userReputation
+
+**Predicates for method *increaseUserReputation(integer UserId)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|userReputation|valid|
+||invalid|
+|userId |valid |
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId | value of reputation |   Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- |
+|UserId valid|3|V||testIncreaseUserReputation(id)->user reputation 4|
+|UserId valid |5|V||testIncreaseUserReputation(id)->5|
+|UserId Ivalid |-1|V||testIncreaseUserReputation(id)->throw invalidUserexception|
+
+### Class *UserServiceimpl* - method *decreaseUserReputation(integer UserId)*
+
+check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+
+**Criteria for method *decreaseUserReputation(integer UserId)*:**
+
+- userId
+- userReputation
+
+**Predicates for method *decreaseUserReputation(integer UserId)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|userReputation|valid|
+||invalid|
+|userId |valid |
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId | value of reputation |   Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- |
+|UserId valid|3|V||testDecreaseUserReputation(id)->user reputation 2|
+|UserId valid |-5|V||testDecreaseUserReputation(id)->-5|
+|UserId Ivalid |-1|V||testDecreaseUserReputation(id)->throw invalidUserexception|
 
 
 # White Box Unit Tests

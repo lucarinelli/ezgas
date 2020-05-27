@@ -2,7 +2,7 @@
 
 Authors: Luca Rinelli
 
-Date: 24/05/20
+Date: 26/05/20
 
 Version: 0
 
@@ -117,7 +117,11 @@ A bottom up approach has been used for integration test, some mixed approach has
 ## Step 2
 | Classes  | JUnit test cases |
 |--|--|
-|||
+|GasStationConverter|testtoGasStationDto()|
+||testtoGasStation()|
+|UserConverter|testtoUserDto()|
+||testtoUser()|
+|LoginConverter|testtoLoginDto()|
 
 
 ## Step 3 API Tests
@@ -133,7 +137,31 @@ A bottom up approach has been used for integration test, some mixed approach has
 |  | testGetGasStationsByProximity() |
 |  | testGetGasStationsByProximityBoundaryIn() |
 |  | testGetGasStationsByProximityAbsent() |
-| UserServiceimpl |  |
+|  | testGetGasStationById() |
+|  | testGetGasStationById1() |
+|  | testGetGasStationById2() |
+|  | testSaveGasStation() |
+|  | testDeleteGasStation() |
+|  | testDeleteGasStation2() |
+|  | testGetGasStationsByCarSharing() |
+|  | testGetGasStationsByCarSharingAbsent() |
+|  | testGetGasStationsWithCoordinates() |
+|  | testGetGasStationsWithCoordinatesOnlyCoordinates() |
+|  | testGetGasStationsWithoutCoordinates() |
+|  | testGetGasStationsWithoutCoordinates1() |
+|  | testGetGasStationsWithoutCoordinates2() |
+|  | testGetGasStationsWithoutCoordinates3() |
+|  | testSetReport() |
+|  | testSetReport1() |
+|  | testSetReport2() |
+|  | testSetReport3() |
+| UserServiceimpl | testSaveUser1() |
+|| testGetAllUsers() |
+|| testGetUserById1() |
+|| testGetUserById2() |
+|| testGetUserById3() |
+|| testIncreaseUserReputation() |
+|| testDecreaseUserReputation() |
 
 
 
@@ -167,12 +195,17 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  ..         | FRx                             |             |             
-|  ..         | FRy                             |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+| UC7.1       | FR5.1                           | testSetReport() (1-5) |
+| UC7.1       | FR5.2                           | testSetReport() (1-5) |
+| UC8.1       | FR4.1                           | testGetGasStationsWithCoordinates()<br>testGetGasStationsWithCoordinatesOnlyCoordinates()<br>testGetGasStationsByProximity()<br> testGetGasStationsByProximityBoundaryIn()<br>testGetGasStationsByProximityAbsent() |
+| UC8.2       | FR4.1                           | testGetGasStationsWithCoordinates()<br>testGetGasStationsWithCoordinatesOnlyCoordinates()<br>testGetGasStationsByProximity()<br> testGetGasStationsByProximityBoundaryIn()<br>testGetGasStationsByProximityAbsent() |
+| UC8.2       | FR4.5                           | testGetGasStationsWithCoordinates()<br>testGetGasStationsByGasolineType()<br>testGetGasStationsByGasolineTypeAbsent()<br>testGetGasStationsByGasolineTypeInvalid() |
+| UC8.3       | FR4.1                           | testGetGasStationsWithCoordinates()<br>testGetGasStationsWithCoordinatesOnlyCoordinates()<br>testGetGasStationsByProximity()<br> testGetGasStationsByProximityBoundaryIn()<br>testGetGasStationsByProximityAbsent() |
+| UC8.3       | FR4.5                           | testGetGasStationsWithCoordinates()<br>testGetGasStationsByGasolineType()<br>testGetGasStationsByGasolineTypeAbsent()<br>testGetGasStationsByGasolineTypeInvalid() |
+| UC10.1      | FR5.2                           | testIncreaseUserReputation()<br>testDecreaseUserReputation()<br>testSetReport() (1-5) |
+| UC10.1      | FR5.3                           | testIncreaseUserReputation()<br>testDecreaseUserReputation()<br>testSetReport() (1-5) |
+| UC10.2      | FR5.2                           | testIncreaseUserReputation()<br>testDecreaseUserReputation()<br>testSetReport() (1-5) |
+| UC10.2      | FR5.3                           | testIncreaseUserReputation()<br>testDecreaseUserReputation()<br>testSetReport() (1-5) |
 
 
 
@@ -186,6 +219,6 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Non Functional Requirement | Test name |
 | -------------------------- | --------- |
-|                            |           |
+| NFR2                       | All tests check timing |
 
 
