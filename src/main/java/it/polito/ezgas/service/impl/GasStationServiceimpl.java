@@ -259,9 +259,10 @@ public class GasStationServiceimpl implements GasStationService {
 		for (GasStation current : gasStationRepository.findAll()) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
 			if (distance <= 1 && (getListGasolineTypes(current).contains(gasolinetype) || gasolinetype == null)
-					&& (current.getCarSharing().equals(carsharing) || carsharing == null))
+					&& (current.getCarSharing().equals(carsharing) || carsharing == null)) {
 				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
+			}
 		}
 		// TODO checked
 		return gasStations;
@@ -283,9 +284,10 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
 		for (GasStation current : gasStationRepository.findByCarSharing(carsharing)) {
-			if (getListGasolineTypes(current).contains(gasolinetype))
+			if (getListGasolineTypes(current).contains(gasolinetype)) {
 				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
+			}
 		}
 		// TODO checked
 		return gasStations;
@@ -298,23 +300,30 @@ public class GasStationServiceimpl implements GasStationService {
 
 		if (gasStationId == null || gasStationId < 0)
 			throw new InvalidGasStationException("Wrong gasStationId");
-		
-		GasStation gasStation = gasStationRepository.findOne(gasStationId);
 
 		if (userId == null || userId < 0)
 			throw new InvalidUserException("Wrong userId");
 
+		GasStation gasStation = gasStationRepository.findOne(gasStationId);
+		
+		if(gasStation==null)
+			throw new InvalidGasStationException("Wrong gasStationId");
+		
 		if ((gasStation.getHasDiesel() && dieselPrice < 0) || (gasStation.getHasSuper() && superPrice < 0) || (gasStation.getHasSuperPlus() && superPlusPrice < 0) || (gasStation.getHasGas() && gasPrice < 0) || (gasStation.getHasMethane() && methanePrice < 0))
 			throw new PriceException("Wrong Price");
 		
-		String reportTimestamp = new java.text.SimpleDateFormat("dd/MM/yyy HH:mm:ss").format(new java.util.Date());
+		User user = userRepository.findOne(userId);
+		if(user==null)
+			throw new InvalidUserException("Wrong userId");
+		
+		String reportTimestamp = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date());
 		gasStation.setDieselPrice(dieselPrice);
 		gasStation.setGasPrice(gasPrice);
 		gasStation.setSuperPrice(superPrice);
 		gasStation.setSuperPlusPrice(superPlusPrice);
 		gasStation.setMethanePrice(methanePrice);
 		gasStation.setReportTimestamp(reportTimestamp);
-		User user = userRepository.findOne(userId);
+		
 		gasStation.setReportUser(user.getUserId());
 		gasStation.setReportDependability(refreshReportDependability(gasStation));
 		gasStation.setUser(user);
