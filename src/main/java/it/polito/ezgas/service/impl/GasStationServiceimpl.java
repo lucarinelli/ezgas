@@ -1,7 +1,12 @@
 package it.polito.ezgas.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
@@ -115,6 +120,7 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
 		for (GasStation current : gasStationRepository.findAll()) {
+			refreshReportDependability(current);
 			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO Check
@@ -147,6 +153,7 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
 		for (GasStation current : sortListByPrice(gasolinetype)) {
+			refreshReportDependability(current);
 			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO Check
@@ -205,8 +212,10 @@ public class GasStationServiceimpl implements GasStationService {
 
 		for (GasStation current : result) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
-			if (distance <= 1)
+			if (distance <= 1) {
+				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
+			}
 		}
 
 		// TODO checked
@@ -251,6 +260,7 @@ public class GasStationServiceimpl implements GasStationService {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
 			if (distance <= 1 && (getListGasolineTypes(current).contains(gasolinetype) || gasolinetype == null)
 					&& (current.getCarSharing().equals(carsharing) || carsharing == null))
+				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO checked
@@ -274,6 +284,7 @@ public class GasStationServiceimpl implements GasStationService {
 
 		for (GasStation current : gasStationRepository.findByCarSharing(carsharing)) {
 			if (getListGasolineTypes(current).contains(gasolinetype))
+				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
 		// TODO checked
@@ -305,7 +316,7 @@ public class GasStationServiceimpl implements GasStationService {
 		gasStation.setReportTimestamp(reportTimestamp);
 		User user = userRepository.findOne(userId);
 		gasStation.setReportUser(user.getUserId());
-		gasStation.setReportDependability(((user.getReputation()+5)*5)+50);
+		gasStation.setReportDependability(refreshReportDependability(gasStation));
 		gasStation.setUser(user);
 		gasStationRepository.save(gasStation);
 		return;
@@ -324,6 +335,33 @@ public class GasStationServiceimpl implements GasStationService {
 		}
 		// TODO checked
 		return gasStations;
+	}
+	
+	private double refreshReportDependability(GasStation g) {
+		if(g.getReportUser()==null)
+			return 0.0;
+		
+		Date dateTimestamp = null;
+		try {
+			dateTimestamp = new SimpleDateFormat("dd/MM/yyyy").parse(g.getReportTimestamp());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    User user = userRepository.findOne(g.getReportUser());
+	    int reputation = user.getReputation();
+		g.setReportDependability(computeReportDependability(dateTimestamp, reputation));
+		return g.getReportDependability();
+	}
+	
+private double computeReportDependability(Date timestamp, Integer reputation) {
+		Date now = new Date();
+		long diffInMillies = Math.abs(now.getTime() - timestamp.getTime());
+	    long diffDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+	    int obsolescence = 0;
+	    if(diffDays<=7)
+	    	obsolescence = (int) (1 - diffDays/7);
+		return 50*(reputation+5)/10 + 50*obsolescence;
 	}
 
 }
