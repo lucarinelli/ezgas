@@ -84,7 +84,7 @@ public class UserDtoTest {
 	 * Test method for {@link it.polito.ezgas.dto.UserDto#setUserId(java.lang.Integer)}.
 	 */
 	@Test
-	public final void testSetGetUserId() {
+	public final void testSetGetUserDtoId() {
 		int Id=-1;
 		ur.setUserId(1);
 		assertEquals(ur.getUserId(), (Integer) 1);
@@ -93,7 +93,7 @@ public class UserDtoTest {
 	}
 	
 	@Test
-	public void testSetGetUserId2() { 
+	public void testSetGetUserDtoId2() { 
 		UserDto usr = new UserDto();
 		assertNull(usr.getUserId());
 	}

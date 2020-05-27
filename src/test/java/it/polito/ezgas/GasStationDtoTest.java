@@ -27,19 +27,19 @@ public class GasStationDtoTest {
 	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#getGasStationId()}.
 	 */
 	@Test
-	public void testSetGetGasStationId() {
+	public void testSetGetGasStationDtoId() {
 		gs.setGasStationId(1);
 		assertEquals(gs.getGasStationId(), (Integer) 1);
 	}
 	
 	@Test
-	public void testSetGetGasStationId1() {
+	public void testSetGetGasStationDtoId1() {
 		gs.setGasStationId(777);
 		assertEquals((Integer) gs.getGasStationId(), (Integer) 777);
 	}
 
 	@Test
-	public void testSetGetGasStationId2() { 
+	public void testSetGetGasStationDtoId2() { 
 		GasStationDto sg = new GasStationDto();
 		assertNull(sg.getGasStationId());
 	}
@@ -49,19 +49,19 @@ public class GasStationDtoTest {
 	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#getGasStationName()}.
 	 */
 	@Test
-	public void testSetGetGasStationName() {
+	public void testSetGetGasStationDtoName() {
 		gs.setGasStationName("Pippo Station");
 		assertEquals(gs.getGasStationName(), "Pippo Station");
 	}
 
 	@Test
-	public void testSetGetGasStationName1() {
+	public void testSetGetGasStationDtoName1() {
 		gs.setGasStationName("Pollo");
 		assertEquals((String) gs.getGasStationName(), (String) "Pollo");
 	}
 
 	@Test
-	public void testSetGetGasStationName2() {
+	public void testSetGetGasStationDtoName2() {
 		GasStationDto sg = new GasStationDto();
 		assertNull(sg.getGasStationName());
 	}
@@ -71,19 +71,19 @@ public class GasStationDtoTest {
 	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#getGasStationAddress()}.
 	 */
 	@Test
-	public void testSetGetGasStationAddress() {
+	public void testSetGetGasStationDtoAddress() {
 		gs.setGasStationAddress("Best Way, 123");
 		assertEquals(gs.getGasStationAddress(), "Best Way, 123");
 	}
 	
 	@Test
-	public void testSetGetGasStationAddress1() {
+	public void testSetGetGasStationDtoAddress1() {
 		gs.setGasStationAddress("Corso Duca");
 		assertEquals(gs.getGasStationAddress() , "Corso Duca");
 	}
 	
 	@Test
-	public void testSetGetGasStationAddress2() {
+	public void testSetGetGasStationDtoAddress2() {
 		GasStationDto sg = new GasStationDto();
 		assertNull(sg.getGasStationAddress());
 	}
