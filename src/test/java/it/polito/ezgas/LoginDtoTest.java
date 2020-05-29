@@ -68,7 +68,7 @@ public class LoginDtoTest {
 	}
 
 	@Test
-	public final void testGetToken() {
+	public final void testSetGetToken() {
 		ur.setToken("password");
 		assertEquals(ur.getToken(), "password");
 	}
