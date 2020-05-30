@@ -52,7 +52,7 @@ public class GasStationControllerTest {
 		
 		GasStationDto gasStation = mapper.readValue(jsonFromResponse, GasStationDto.class);
 		
-		assert(gasStation.getGasStationId()==1); //TODO Fix with the actual value!
+		assertEquals((Integer)1, gasStation.getGasStationId()); //TODO Fix with the actual value!
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class GasStationControllerTest {
 		
 		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
 		
-		assert(gasStationArray.length==2); //TODO Fix with the actual value!
+		assertEquals(2, gasStationArray.length); //TODO Fix with the actual value!
 		
 	}
 
@@ -84,8 +84,6 @@ public class GasStationControllerTest {
 
 	@Test
 	public final void testGetGasStationsByGasolineType() throws ClientProtocolException, IOException {
-		
-		
 		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/searchGasStationByGasolineType/Diesel");
 		HttpResponse response;
 		
