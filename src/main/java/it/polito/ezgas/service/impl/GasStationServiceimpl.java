@@ -356,10 +356,10 @@ private double computeReportDependability(Date timestamp, Integer reputation) {
 		Date now = new Date();
 		long diffInMillies = Math.abs(now.getTime() - timestamp.getTime());
 	    long diffDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-	    int obsolescence = 0;
+	    double obsolescence = 0;
 	    if(diffDays<=7)
-	    	obsolescence = (int) (1 - diffDays/7);
-		return 50*(reputation+5)/10 + 50*obsolescence;
+	    	obsolescence = (1 - (double)diffDays/7);
+		return (int) (50*(reputation+5)/10 + 50*obsolescence);
 	}
 
 }
