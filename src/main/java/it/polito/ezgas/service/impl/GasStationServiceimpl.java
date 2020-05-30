@@ -153,7 +153,6 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
 		for (GasStation current : sortListByPrice(gasolinetype)) {
-			System.out.println("TEST");
 			refreshReportDependability(current);
 			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
