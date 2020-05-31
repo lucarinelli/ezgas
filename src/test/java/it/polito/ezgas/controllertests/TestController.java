@@ -1,6 +1,7 @@
 package it.polito.ezgas.controllertests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.LoginDto;
+import it.polito.ezgas.dto.UserDto;
 
 public class TestController {
 
@@ -87,8 +90,53 @@ public class TestController {
 
 	// 3
 	@Test
-	public final void testSaveGasStation() {
-		fail("Not yet implemented"); // TODO
+	public final void testSaveGasStation() throws ClientProtocolException, IOException, JSONException {
+		HttpPost request = new HttpPost("http://localhost:8080/gasstation/saveGasStation/");
+		JSONObject json = new JSONObject();
+		int a = 0;
+		
+		json.put("gasStationName", "Fratm"); 
+		json.put("gasStationAddress", "P tutt e frat ingiustamente carcerat"); 
+		json.put("lat", "40.6794735");
+		json.put("lon", "17.938348"); 
+		
+		json.put("carSharing", "Enjoy");
+		json.put("hasDiesel", true);
+		json.put("reportUser", "-1");
+		
+		StringEntity params = new StringEntity(json.toString());
+	    request.addHeader("content-type", "application/json");
+	    request.setEntity(params);
+		
+		HttpResponse response;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200, response.getStatusLine().getStatusCode());
+        
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.6794735/17.938348/Diesel/Enjoy");
+		HttpResponse response1;
+		
+		response1 = HttpClientBuilder.create().build().execute(request1);
+
+		String jsonFromResponse = EntityUtils.toString(response1.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
+		
+		for(GasStationDto gdto : gasStationArray) {
+			if(gdto.getGasStationName().equals("Fratm")) {
+				assertEquals("P tutt e frat ingiustamente carcerat", gdto.getGasStationAddress()); //TODO Fix with the actual value!
+				assertEquals((double) 40.6794735, gdto.getLat(), 0.000001); //TODO Fix with the actual value!
+				assertEquals((double) 17.938348, gdto.getLon(), 0.000001); //TODO Fix with the actual value!
+				a = gdto.getGasStationId();
+			}
+		}
+		
+		assertNotEquals(a, 0);
+		HttpDelete delete = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + a);
+		HttpClientBuilder.create().build().execute(delete);
 	}
 
 	// 4
@@ -188,20 +236,35 @@ public class TestController {
 	
 	// 11
 	@Test
-	public final void testMap() {
-		fail("Not yet implemented"); // TODO
+	public final void testMap() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/map");
+		HttpResponse response;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200, response.getStatusLine().getStatusCode());
 	}
 
 	// 12
 	@Test
-	public final void testHomeLogin() {
-		fail("Not yet implemented"); // TODO
+	public final void testHomeLogin() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/login");
+		HttpResponse response;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200, response.getStatusLine().getStatusCode());
 	}
 
 	// 13
 	@Test
-	public final void testUpdate() {
-		fail("Not yet implemented"); // TODO
+	public final void testUpdate() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/update");
+		HttpResponse response;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200, response.getStatusLine().getStatusCode());
 	}
 
 	// 14
@@ -218,8 +281,19 @@ public class TestController {
 
 	// 16
 	@Test
-	public final void testGetAllUsers() {
-		fail("Not yet implemented"); // TODO
+	public final void testGetAllUsers() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getAllUsers");
+		HttpResponse response;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+
+		String jsonFromResponse = EntityUtils.toString(response.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		UserDto[] userDtoArray = mapper.readValue(jsonFromResponse, UserDto[].class);
+		
+		assertEquals(3, userDtoArray.length); //TODO Fix with the actual value!
 	}
 
 	// 17
@@ -242,8 +316,42 @@ public class TestController {
 
 	// 20
 	@Test
-	public final void testDecreaseUserReputation() {
-		fail("Not yet implemented"); // TODO
+	public final void testDecreaseUserReputation() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/1");
+		HttpResponse response;
+		int userId, userRep;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+
+		String jsonFromResponse = EntityUtils.toString(response.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		UserDto userDto = mapper.readValue(jsonFromResponse, UserDto.class);
+		
+		userId=userDto.getUserId();
+		userRep=userDto.getReputation();
+		
+		HttpPost request1 = new HttpPost("http://localhost:8080/user/decreaseUserReputation/" + userId);
+		HttpResponse response1;
+		
+		response1 = HttpClientBuilder.create().build().execute(request1);
+		
+		String jsonFromResponse1 = EntityUtils.toString(response1.getEntity());
+		
+		ObjectMapper mapper1 = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		int reputation = mapper1.readValue(jsonFromResponse1, int.class);
+		
+		if (userRep > -5)
+			assertEquals(reputation, userRep-1);
+		else
+			assertEquals(reputation, userRep);
+		
+		
+		HttpPost request2 = new HttpPost("http://localhost:8080/user/increaseUserReputation/" + userId);
+		
+		HttpClientBuilder.create().build().execute(request2);
 	}
 
 	// 21
