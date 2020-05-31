@@ -2,9 +2,12 @@ package it.polito.ezgas.controllertests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +30,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.polito.ezgas.dto.GasStationDto;
@@ -212,14 +218,55 @@ public class TestController {
 
 	// 8
 	@Test
-	public final void testSetGasStationReport() {
-		fail("Not yet implemented"); // TODO
+	public final void testSetGasStationReport() throws JsonParseException, JsonMappingException, IOException, JSONException {
+		HttpUriRequest request1a = new HttpGet("http://localhost:8080/gasstation/getGasStation/4");
+		HttpResponse response1a;
+		
+		response1a = HttpClientBuilder.create().build().execute(request1a);
+
+		String jsonFromResponsea = EntityUtils.toString(response1a.getEntity());
+		
+		ObjectMapper mapper1 = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		GasStationDto gasStationa= mapper1.readValue(jsonFromResponsea, GasStationDto.class);
+Integer a = gasStationa.getPriceReportDtos().size();
+		HttpPost request = new HttpPost("http://localhost:8080/gasstation//setGasStationReport/4/2/2/2/2/2/2");
+			
+		HttpResponse response;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200, response.getStatusLine().getStatusCode());
+        
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStation/4");
+		HttpResponse response1;
+		
+		response1 = HttpClientBuilder.create().build().execute(request1);
+
+		String jsonFromResponse = EntityUtils.toString(response1.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		GasStationDto gasStation= mapper.readValue(jsonFromResponse, GasStationDto.class);
+		assertTrue(gasStation.getDieselPrice()==2);
+		assertTrue(gasStation.getSuperPlusPrice()==2);
+		assertTrue(gasStation.getSuperPrice()==2);
+		assertTrue(gasStation.getGasPrice()==2);
+		assertTrue(gasStation.getMethanePrice()==2);
+		assertTrue(gasStation.getPriceReportDtos().size()==a+1);
+		
+		
 	}
 	
 	// 9
 	@Test
-	public final void testAdmin() {
-		fail("Not yet implemented"); // TODO
+	public final void testAdmin() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/admin");
+		HttpResponse response;
+	
+		response = HttpClientBuilder.create().build().execute(request);
+		assertEquals(200,response.getStatusLine().getStatusCode());
+		
 	}
 
 	// 10
@@ -269,14 +316,32 @@ public class TestController {
 
 	// 14
 	@Test
-	public final void testSignup() {
-		fail("Not yet implemented"); // TODO
+	public final void testSignup() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/signup");
+		HttpResponse response;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200, response.getStatusLine().getStatusCode());
+	
 	}
 	
 	// 15
 	@Test
-	public final void testGetUserById() {
-		fail("Not yet implemented"); // TODO
+	public final void testGetUserById() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/1");
+		HttpResponse response;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+
+		String jsonFromResponse = EntityUtils.toString(response.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		UserDto user = mapper.readValue(jsonFromResponse, UserDto.class);
+		
+		assertEquals((Integer)1, user.getUserId());
+
 	}
 
 	// 16
@@ -298,8 +363,52 @@ public class TestController {
 
 	// 17
 	@Test
-	public final void testSaveUser() {
-		fail("Not yet implemented"); // TODO
+	public final void testSaveUser() throws JSONException, ClientProtocolException, IOException {
+		
+		HttpPost request = new HttpPost("http://localhost:8080/user/saveUser");
+		JSONObject json = new JSONObject();
+		
+		json.put("userId", "10"); 
+		json.put("userName", "Test Test"); 
+		json.put("password", "xxpass");
+		json.put("email", "test@myuser.com"); 
+		
+		json.put("reputation", "1");
+		json.put("admin", true);
+		
+		StringEntity params = new StringEntity(json.toString());
+	    request.addHeader("content-type", "application/json");
+	    request.setEntity(params);
+	    
+		HttpResponse response;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+		assertEquals(200, response.getStatusLine().getStatusCode());
+        
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/user/getUser/10");
+		HttpResponse response1;
+		
+		response1 = HttpClientBuilder.create().build().execute(request1);
+
+		String jsonFromResponse = EntityUtils.toString(response1.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		UserDto[] userDto= mapper.readValue(jsonFromResponse, UserDto[].class);
+		
+		assertEquals(userDto[0].getAdmin(),true);
+		assertEquals(userDto[0].getEmail(),"test@myuser.com");
+		assertEquals(userDto[0].getUserName(),"Test Test");
+		assertEquals(userDto[0].getPassword(),"xxpass");
+		assertTrue(userDto[0].getUserId()==10);
+		assertTrue(userDto[0].getReputation()==1);
+
+
+
+		
+		HttpDelete delete = new HttpDelete("http://localhost:8080/user/getUser/10");
+		HttpClientBuilder.create().build().execute(delete);
+
 	}
 
 	// 18
