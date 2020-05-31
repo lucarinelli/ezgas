@@ -1,0 +1,15 @@
+click("1590955083928.png")
+type("1590955114697.png","rinelliluca@gmail.com")
+type("1590955125649.png","12345678")
+click("1590936726662-1.png")
+click("1590937304599-1.png")
+      
+wheel("1590944519119.png",WHEEL_DOWN,10)
+
+click(Pattern("1590944810479.png").targetOffset(427,-7))
+wheel("1590944650970.png",WHEEL_UP,5)
+wait("1590943579940.png")
+type("1590943597428.png","modified")
+type("1590943630613.png","0")
+click("1590943690991.png")
+wheel("1590944695811.png",WHEEL_DOWN,5)
