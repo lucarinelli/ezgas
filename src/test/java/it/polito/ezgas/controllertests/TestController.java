@@ -8,7 +8,10 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -218,52 +221,35 @@ public class TestController {
 
 	// 8
 	@Test
-	public final void testSetGasStationReport() throws JsonParseException, JsonMappingException, IOException, JSONException {
-		HttpUriRequest request1a = new HttpGet("http://localhost:8080/gasstation/getGasStation/4");
-		HttpResponse response1a;
-		
-		response1a = HttpClientBuilder.create().build().execute(request1a);
-
-		String jsonFromResponsea = EntityUtils.toString(response1a.getEntity());
-		
-		ObjectMapper mapper1 = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		
-		GasStationDto gasStationa= mapper1.readValue(jsonFromResponsea, GasStationDto.class);
-Integer a = gasStationa.getPriceReportDtos().size();
-		HttpPost request = new HttpPost("http://localhost:8080/gasstation/setGasStationReport/4/2/2/2/2/2/2");
-			GasStationDto gs=new GasStationDto();
-			gs.setDieselPrice(2);
-			gs.setGasPrice(2);
-			gs.setSuperPlusPrice(2);
-			gs.setSuperPrice(2);
-			gs.setMethanePrice(2);
-			
+	public final void testSetGasStationReport() throws JsonParseException, JsonMappingException, IOException, JSONException, ParseException {
+		HttpPost request = new HttpPost("http://localhost:8080/gasstation/setGasStationReport/4/-1/2.0/-1/2.0/-1/1/");		
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200, response.getStatusLine().getStatusCode());
         
-		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getAllGasStations");
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStation/4");
 		HttpResponse response1;
 		
 		response1 = HttpClientBuilder.create().build().execute(request1);
+		
 		assertEquals(200,response1.getStatusLine().getStatusCode());
+		
 		String jsonFromResponse = EntityUtils.toString(response1.getEntity());
 		
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		double price=2;
-		GasStationDto []gasStationArray= mapper.readValue(jsonFromResponse, GasStationDto[].class);
-		for (GasStationDto gasStation :gasStationArray) {
-			if(gasStation.getGasStationId()==4) {
-		assertTrue(gasStation.getDieselPrice()==gs.getDieselPrice());
-		assertTrue(gasStation.getSuperPlusPrice()==gs.getSuperPlusPrice());
-		assertTrue(gasStation.getSuperPrice()==2);
-		assertTrue(gasStation.getGasPrice()==2);
-		assertTrue(gasStation.getMethanePrice()==2);
-		assertTrue(gasStation.getPriceReportDtos().size()==a+1);
-			}
-		}
+		GasStationDto gasStation= mapper.readValue(jsonFromResponse, GasStationDto.class);
+		assertEquals(gasStation.getDieselPrice(), -1.0, 0.00001);
+		assertEquals(gasStation.getSuperPlusPrice(), -1.0, 0.00001);
+		assertTrue(gasStation.getSuperPrice()==2.0);
+		assertTrue(gasStation.getGasPrice()==2.0);
+		assertEquals(gasStation.getMethanePrice(), -1.0, 0.00001);
+		
+		Date dateTimestamp = null;
+		dateTimestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(gasStation.getReportTimestamp());
+		
+		assertEquals(dateTimestamp.getTime(), new Date().getTime(), 60);
 		
 	}
 	
@@ -367,7 +353,7 @@ Integer a = gasStationa.getPriceReportDtos().size();
 		
 		UserDto[] userDtoArray = mapper.readValue(jsonFromResponse, UserDto[].class);
 		
-		assertEquals(3, userDtoArray.length); //TODO Fix with the actual value!
+		assertEquals(4, userDtoArray.length); //TODO Fix with the actual value!
 	}
 
 	// 17
