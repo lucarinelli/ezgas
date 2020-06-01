@@ -56,8 +56,10 @@ public class TestController {
 
 	@Before
 	public void setUp() throws Exception {
+		
 	}
-
+	int gasStationId;
+	int userId;
 	@After
 	public void tearDown() throws Exception {
 	}
@@ -144,14 +146,22 @@ public class TestController {
 		}
 		
 		assertNotEquals(a, 0);
-		HttpDelete delete = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + a);
-		HttpClientBuilder.create().build().execute(delete);
+		gasStationId = a;
+		
 	}
 
 	// 4
 	@Test
-	public final void testGasStationDeleteUser() {
-		fail("Not yet implemented"); // TODO
+	public void testDeleteGasStation() throws ClientProtocolException, IOException{
+		
+		
+		HttpUriRequest request = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + gasStationId);
+		 	    
+		
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assert(response.getStatusLine().getStatusCode() == 200);
+		
 	}
 
 	// 5
@@ -407,7 +417,7 @@ String jsonFromResponsex = EntityUtils.toString(response.getEntity());
 
 		}
 
-		
+		userId = userDtox.getUserId(); 
 		HttpDelete delete = new HttpDelete("http://localhost:8080/user/getUser/10");
 		HttpClientBuilder.create().build().execute(delete);
 
@@ -415,14 +425,56 @@ String jsonFromResponsex = EntityUtils.toString(response.getEntity());
 
 	// 18
 	@Test
-	public final void testUserDeleteUser() {
-		fail("Not yet implemented"); // TODO
+	public void testDeleteUser() throws ClientProtocolException, IOException{
+		
+		
+		HttpUriRequest request = new HttpDelete("http://localhost:8080/user/deleteUser/" + userId);
+		 	    
+		
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assert(response.getStatusLine().getStatusCode() == 200);
+		
 	}
 
 	// 19
 	@Test
-	public final void testIncreaseUserReputation() {
-		fail("Not yet implemented"); // TODO
+	public final void testIncreaseUserReputation() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/1");
+		HttpResponse response;
+		int userId, userRep;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+
+		String jsonFromResponse = EntityUtils.toString(response.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		UserDto userDto = mapper.readValue(jsonFromResponse, UserDto.class);
+		
+		userId=userDto.getUserId();
+		userRep=userDto.getReputation();
+		
+		HttpPost request1 = new HttpPost("http://localhost:8080/user/increaseUserReputation/" + userId);
+		HttpResponse response1;
+		
+		response1 = HttpClientBuilder.create().build().execute(request1);
+		
+		String jsonFromResponse1 = EntityUtils.toString(response1.getEntity());
+		
+		ObjectMapper mapper1 = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		int reputation = mapper1.readValue(jsonFromResponse1, int.class);
+		
+		if (userRep < 5)
+			assertEquals(reputation, userRep+1);
+		else
+			assertEquals(reputation, userRep);
+		
+		
+		HttpPost request2 = new HttpPost("http://localhost:8080/user/decreaseUserReputation/" + userId);
+		
+		HttpClientBuilder.create().build().execute(request2);
 	}
 
 	// 20
