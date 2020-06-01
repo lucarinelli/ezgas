@@ -20,15 +20,15 @@ This part of the document reports about testing at the GUI level. Tests are end 
 
 | Use Cases ID | Functional Requirements covered | GUI Test(s) |
 | ----------- | ------------------------------- | ----------- |
-| 1           | FRx                             |             |             
-| 2           | FRy          FR1.1              |    UC2 MODIFY USER  |             
+| 1           | FR1.1                           | UC1.sikuli (Create User Account) |             
+| 2           | FR1.1                           | UC2 MODIFY USER  |             
 | 3           | FR1.2 FR1.3                     | UC3 DELETE USER |         
-| 4           |                                 |             |             
-| 5           |  FR3.3 FR3.1                      |  UC5 MODIFY GAS STATION INFORMATION |             
+| 4           | FR3.2 (FR4.2)                   | UC4.sikuli (Create Gas Station) |             
+| 5           | FR3.3 FR3.1                     | UC5 MODIFY GAS STATION INFORMATION |             
 | 6           | FR3 FR3.2                       | UC6 - Delete Gas Station.sikuli |
 | 7           | FR5 FR5.1                       | UC7 - Report fuel price for a gas station.sikuli |
 | 8           |                                 |             |
-| 9           |                                 |             |
+| 9           | Skipped, no gui usecase         | Skipped, no gui usecase |
 | 10          | FR5 FR5.2 FR5.3                 | UC10 - Evaluate price.sikuli |
 
 # REST  API  Testing
@@ -43,24 +43,24 @@ Tests should cover each function of classes in the Controller package
 
 | class.method name | Functional Requirements covered |REST  API Test(s) |
 | ----------- | ------------------------------- | ----------- |
-| GasStationController.getGasStationById | FRx                             | testGetGasStationById() |     
-| GasStationController.getAllGasStations | FRy         FR3.3                    | testGetAllGasStations() |             
+| GasStationController.getGasStationById | no FR                             | testGetGasStationById() |     
+| GasStationController.getAllGasStations | FR3.3                    | testGetAllGasStations() |             
 | GasStationController.saveGasStation | FR3 FR3.1                    | testSaveGasStation() |             
 | GasStationController.deleteUser |                                 | testGasStationDeleteUser() |             
-| GasStationController.getGasStationsByGasolineType |                                 | testGetGasStationsByGasolineType() |             
-| GasStationController.getGasStationsByProximity |                                 | testGetGasStationsByProximity() |                  
-| GasStationController.getGasStationsWithCoordinates | FRx                             | testGetGasStationsWithCoordinates() |     
-| GasStationController.setGasStationReport | FRy   FR3.1                 | testSetGasStationReport() |             
+| GasStationController.getGasStationsByGasolineType | FR4.5                       | testGetGasStationsByGasolineType() |             
+| GasStationController.getGasStationsByProximity | FR4.1                            | testGetGasStationsByProximity() |                  
+| GasStationController.getGasStationsWithCoordinates | FR4.1 FR4.5                            | testGetGasStationsWithCoordinates() |     
+| GasStationController.setGasStationReport | FR3.1                 | testSetGasStationReport() |             
 | HomeController.admin |                                 | testAdmin() |             
-| HomeController.index |                                 | testIndex() |             
+| HomeController.index | no FR                                | testIndex() |             
 | HomeController.map |                                 | testMap() |             
 | HomeController.login |                                 | testHomeLogin() |     
-| HomeController.update | FRx                             | testUpdate() |     
-| HomeController.signup | FRy                             | testSignup() |             
+| HomeController.update |                             | testUpdate() |     
+| HomeController.signup |                              | testSignup() |             
 | UserController.getUserById |    FR1.4                         | testGetUserById() |             
 | UserController.getAllUsers | FR1.3                           | testGetAllUsers() |             
 | UserController.saveUser |          FR1.1                   | testSaveUser() |             
 | UserController.deleteUser |                                 | testUserDeleteUser() |     
 | UserController.increaseUserReputation |                                 | testIncreaseUserReputation() |             
 | UserController.decreaseUserReputation | FR1 FR5.2                       | testDecreaseUserReputation() |             
-| UserController.login |                                 | testUserLogin() |     
+| UserController.login | no FR                                | testUserLogin() |     
