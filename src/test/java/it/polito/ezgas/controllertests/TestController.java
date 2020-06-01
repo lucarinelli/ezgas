@@ -230,7 +230,13 @@ public class TestController {
 		
 		GasStationDto gasStationa= mapper1.readValue(jsonFromResponsea, GasStationDto.class);
 Integer a = gasStationa.getPriceReportDtos().size();
-		HttpPost request = new HttpPost("http://localhost:8080/gasstation//setGasStationReport/4/2/2/2/2/2/2");
+		HttpPost request = new HttpPost("http://localhost:8080/gasstation/setGasStationReport/4/2/2/2/2/2/2");
+			GasStationDto gs=new GasStationDto();
+			gs.setDieselPrice(2);
+			gs.setGasPrice(2);
+			gs.setSuperPlusPrice(2);
+			gs.setSuperPrice(2);
+			gs.setMethanePrice(2);
 			
 		HttpResponse response;
 		
@@ -238,23 +244,26 @@ Integer a = gasStationa.getPriceReportDtos().size();
 		
 		assertEquals(200, response.getStatusLine().getStatusCode());
         
-		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStation/4");
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getAllGasStations");
 		HttpResponse response1;
 		
 		response1 = HttpClientBuilder.create().build().execute(request1);
-
+		assertEquals(200,response1.getStatusLine().getStatusCode());
 		String jsonFromResponse = EntityUtils.toString(response1.getEntity());
 		
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		
-		GasStationDto gasStation= mapper.readValue(jsonFromResponse, GasStationDto.class);
-		assertEquals(gasStation.getDieselPrice(),2);
-		assertTrue(gasStation.getSuperPlusPrice()==2);
+		double price=2;
+		GasStationDto []gasStationArray= mapper.readValue(jsonFromResponse, GasStationDto[].class);
+		for (GasStationDto gasStation :gasStationArray) {
+			if(gasStation.getGasStationId()==4) {
+		assertTrue(gasStation.getDieselPrice()==gs.getDieselPrice());
+		assertTrue(gasStation.getSuperPlusPrice()==gs.getSuperPlusPrice());
 		assertTrue(gasStation.getSuperPrice()==2);
 		assertTrue(gasStation.getGasPrice()==2);
 		assertTrue(gasStation.getMethanePrice()==2);
 		assertTrue(gasStation.getPriceReportDtos().size()==a+1);
-		
+			}
+		}
 		
 	}
 	
