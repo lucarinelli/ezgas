@@ -53,8 +53,10 @@ public class TestController {
 
 	@Before
 	public void setUp() throws Exception {
+		
 	}
-
+	int gasStationId;
+	int userId;
 	@After
 	public void tearDown() throws Exception {
 	}
@@ -141,14 +143,22 @@ public class TestController {
 		}
 		
 		assertNotEquals(a, 0);
-		HttpDelete delete = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + a);
-		HttpClientBuilder.create().build().execute(delete);
+		gasStationId = a;
+		
 	}
 
 	// 4
 	@Test
-	public final void testGasStationDeleteUser() {
-		fail("Not yet implemented"); // TODO
+	public void testDeleteGasStation() throws ClientProtocolException, IOException{
+		
+		
+		HttpUriRequest request = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + gasStationId);
+		 	    
+		
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assert(response.getStatusLine().getStatusCode() == 200);
+		
 	}
 
 	// 5
@@ -421,7 +431,7 @@ String jsonFromResponsex = EntityUtils.toString(response.getEntity());
 
 		}
 
-		
+		userId = userDtox.getUserId(); 
 		HttpDelete delete = new HttpDelete("http://localhost:8080/user/getUser/10");
 		HttpClientBuilder.create().build().execute(delete);
 
@@ -429,8 +439,16 @@ String jsonFromResponsex = EntityUtils.toString(response.getEntity());
 
 	// 18
 	@Test
-	public final void testUserDeleteUser() {
-		fail("Not yet implemented"); // TODO
+	public void testDeleteUser() throws ClientProtocolException, IOException{
+		
+		
+		HttpUriRequest request = new HttpDelete("http://localhost:8080/user/deleteUser/" + userId);
+		 	    
+		
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assert(response.getStatusLine().getStatusCode() == 200);
+		
 	}
 
 	// 19
