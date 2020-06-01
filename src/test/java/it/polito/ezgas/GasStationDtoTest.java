@@ -200,13 +200,6 @@ public class GasStationDtoTest {
 	}
 	
 	@Test
-	public void testSetGetHasSuper1() {
-		GasStationDto dto=new GasStationDto();
-		dto.setHasSuper(true);
-		assertTrue(dto.getHasSuper());
-	}
-	
-	@Test
 	public void testSetGetHasSuper2() { 
 		GasStationDto sg = new GasStationDto();
 		assertFalse(sg.getHasSuper());
@@ -225,13 +218,6 @@ public class GasStationDtoTest {
 	}
 	
 	@Test
-	public void testSetGetHasSuperPlus1() {
-		GasStationDto dto=new GasStationDto();
-		dto.setHasSuperPlus(true);
-		assertTrue(dto.getHasSuperPlus());
-	}
-	
-	@Test
 	public void testSetGetHasSuperPlus2() { 
 		GasStationDto sg = new GasStationDto();
 		assertFalse(sg.getHasSuperPlus());
@@ -247,13 +233,6 @@ public class GasStationDtoTest {
 		assertFalse(gs.getHasGas());
 		gs.setHasGas(true);
 		assertTrue(gs.getHasGas());
-	}
-	
-	@Test
-	public void testSetGetHasGas1() {
-		GasStationDto dto=new GasStationDto();
-		dto.setHasGas(true);
-		assertTrue(dto.getHasGas());
 	}
 	
 	@Test
