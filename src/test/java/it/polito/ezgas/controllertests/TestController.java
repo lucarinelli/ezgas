@@ -435,8 +435,42 @@ String jsonFromResponsex = EntityUtils.toString(response.getEntity());
 
 	// 19
 	@Test
-	public final void testIncreaseUserReputation() {
-		fail("Not yet implemented"); // TODO
+	public final void testIncreaseUserReputation() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/1");
+		HttpResponse response;
+		int userId, userRep;
+		
+		response = HttpClientBuilder.create().build().execute(request);
+
+		String jsonFromResponse = EntityUtils.toString(response.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		UserDto userDto = mapper.readValue(jsonFromResponse, UserDto.class);
+		
+		userId=userDto.getUserId();
+		userRep=userDto.getReputation();
+		
+		HttpPost request1 = new HttpPost("http://localhost:8080/user/increaseUserReputation/" + userId);
+		HttpResponse response1;
+		
+		response1 = HttpClientBuilder.create().build().execute(request1);
+		
+		String jsonFromResponse1 = EntityUtils.toString(response1.getEntity());
+		
+		ObjectMapper mapper1 = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		int reputation = mapper1.readValue(jsonFromResponse1, int.class);
+		
+		if (userRep < 5)
+			assertEquals(reputation, userRep+1);
+		else
+			assertEquals(reputation, userRep);
+		
+		
+		HttpPost request2 = new HttpPost("http://localhost:8080/user/decreaseUserReputation/" + userId);
+		
+		HttpClientBuilder.create().build().execute(request2);
 	}
 
 	// 20
