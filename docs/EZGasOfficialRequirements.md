@@ -94,21 +94,21 @@ Emma is 35 and she has always had a lifelong passion for sport cars. She owns tw
 |  FR1     |  Manage users|
 | FR1.1    | Define a new user, or modify an existing user |
 | FR1.2     | Delete a user |
-|FR1.3     |    List all users   |
-|FR1.4    |    Search a user   |
+| FR1.3     |    List all users   |
+| FR1.4    |    Search a user   |
 |  FR2     |  Manage rights. Authorize access to functions to specific actors according to access rights|
 | FR3   | Manage gas stations |
 | FR3.1    | Define a new gas station, or modify an existing gas station |
 | FR3.2     | Delete a gas station |
-|FR3.3     |    List all gas stations  |
+| FR3.3     |    List all gas stations  |
 | FR4    |  Search gas stations |
-|FR4.1 | Retrieve gas stations within radius r of a given geo point |
-|FR4.2 | Retrieve gas stations within radius r of a given address |
-|FR4.3 | Show given set of gas stations, and their fuel prices on a given map |
-|FR4.4 | Sort given set of gas stations according to fuel type price |
-|FR4.5 | Filter out given set of gas stations according to fuel type and or car sharing option |
-|FR5 | Manage fuel prices and trust |
-|FR5.1 | Create a price list, attach it to user and gas station |
+| FR4.1 | Retrieve gas stations within radius r of a given geo point |
+| FR4.2 | Retrieve gas stations within radius r of a given address |
+| FR4.3 | Show given set of gas stations, and their fuel prices on a given map |
+| FR4.4 | Sort given set of gas stations according to fuel type price |
+| FR4.5 | Filter out given set of gas stations according to fuel type and or car sharing option |
+| FR5 | Manage fuel prices and trust |
+| FR5.1 | Create a price list, attach it to user and gas station |
 | FR5.2 | Update trust level of a price list for a gas station  |
 | FR5.3 | Evaluate  price list for a gas station |
 
