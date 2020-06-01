@@ -248,7 +248,7 @@ Integer a = gasStationa.getPriceReportDtos().size();
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
 		GasStationDto gasStation= mapper.readValue(jsonFromResponse, GasStationDto.class);
-		assertTrue(gasStation.getDieselPrice()==2);
+		assertEquals(gasStation.getDieselPrice(),2);
 		assertTrue(gasStation.getSuperPlusPrice()==2);
 		assertTrue(gasStation.getSuperPrice()==2);
 		assertTrue(gasStation.getGasPrice()==2);
@@ -368,13 +368,13 @@ Integer a = gasStationa.getPriceReportDtos().size();
 		HttpPost request = new HttpPost("http://localhost:8080/user/saveUser");
 		JSONObject json = new JSONObject();
 		
-		json.put("userId", "10"); 
+
 		json.put("userName", "Test Test"); 
 		json.put("password", "xxpass");
 		json.put("email", "test@myuser.com"); 
 		
 		json.put("reputation", "1");
-		json.put("admin", true);
+		json.put("admin", "false");
 		
 		StringEntity params = new StringEntity(json.toString());
 	    request.addHeader("content-type", "application/json");
@@ -383,9 +383,15 @@ Integer a = gasStationa.getPriceReportDtos().size();
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
+String jsonFromResponsex = EntityUtils.toString(response.getEntity());
+		
+		ObjectMapper mapperx = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		UserDto userDtox= mapperx.readValue(jsonFromResponsex, UserDto.class);
+		
 		assertEquals(200, response.getStatusLine().getStatusCode());
         
-		HttpUriRequest request1 = new HttpGet("http://localhost:8080/user/getUser/10");
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/user/getAllUsers");
 		HttpResponse response1;
 		
 		response1 = HttpClientBuilder.create().build().execute(request1);
@@ -394,16 +400,17 @@ Integer a = gasStationa.getPriceReportDtos().size();
 		
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
-		UserDto[] userDto= mapper.readValue(jsonFromResponse, UserDto[].class);
+		UserDto []userDto= mapper.readValue(jsonFromResponse, UserDto[].class);
 		
-		assertEquals(userDto[0].getAdmin(),true);
-		assertEquals(userDto[0].getEmail(),"test@myuser.com");
-		assertEquals(userDto[0].getUserName(),"Test Test");
-		assertEquals(userDto[0].getPassword(),"xxpass");
-		assertTrue(userDto[0].getUserId()==10);
-		assertTrue(userDto[0].getReputation()==1);
+		for(UserDto userD : userDto) {
+			if (userD.getUserId()==userDtox.getUserId()) {
+		assertEquals(userD.getAdmin(),false);
+		assertEquals(userD.getEmail(),"test@myuser.com");
+		assertEquals(userD.getUserName(),"Test Test");
+		assertEquals(userD.getPassword(),"xxpass");
+			}
 
-
+		}
 
 		
 		HttpDelete delete = new HttpDelete("http://localhost:8080/user/getUser/10");
