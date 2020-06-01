@@ -32,6 +32,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
@@ -43,9 +44,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
+import org.junit.runners.MethodSorters;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestController {
 
+	int userId;
+	int gasStationId;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -58,8 +63,7 @@ public class TestController {
 	public void setUp() throws Exception {
 		
 	}
-	int gasStationId;
-	int userId;
+	
 	@After
 	public void tearDown() throws Exception {
 	}
@@ -101,7 +105,7 @@ public class TestController {
 
 	// 3
 	@Test
-	public final void testSaveGasStation() throws ClientProtocolException, IOException, JSONException {
+	public final void test1SaveGasStation() throws ClientProtocolException, IOException, JSONException {
 		HttpPost request = new HttpPost("http://localhost:8080/gasstation/saveGasStation/");
 		JSONObject json = new JSONObject();
 		int a = 0;
@@ -146,16 +150,16 @@ public class TestController {
 		}
 		
 		assertNotEquals(a, 0);
+		
 		gasStationId = a;
 		
 	}
 
 	// 4
 	@Test
-	public void testDeleteGasStation() throws ClientProtocolException, IOException{
+	public void test2DeleteGasStation() throws ClientProtocolException, IOException{
 		
-		
-		HttpUriRequest request = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + gasStationId);
+		HttpDelete request = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + gasStationId + "/");
 		 	    
 		
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
@@ -368,7 +372,7 @@ public class TestController {
 
 	// 17
 	@Test
-	public final void testSaveUser() throws JSONException, ClientProtocolException, IOException {
+	public final void test1SaveUser() throws JSONException, ClientProtocolException, IOException {
 		
 		HttpPost request = new HttpPost("http://localhost:8080/user/saveUser");
 		JSONObject json = new JSONObject();
@@ -425,7 +429,7 @@ String jsonFromResponsex = EntityUtils.toString(response.getEntity());
 
 	// 18
 	@Test
-	public void testDeleteUser() throws ClientProtocolException, IOException{
+	public void test2DeleteUser() throws ClientProtocolException, IOException{
 		
 		
 		HttpUriRequest request = new HttpDelete("http://localhost:8080/user/deleteUser/" + userId);
