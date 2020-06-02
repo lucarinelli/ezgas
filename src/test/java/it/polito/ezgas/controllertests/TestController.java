@@ -49,8 +49,9 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestController {
 
-	int userId;
-	int gasStationId;
+	public int userId;
+	public int gasStationId;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
