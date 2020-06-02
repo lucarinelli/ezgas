@@ -241,10 +241,11 @@ public class GasStationServiceimplIntegrationTest {
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#saveGasStation(it.polito.ezgas.dto.GasStationDto)}.
 	 */
+	/*
 	@Test
 	public final void testSaveGasStation() {
 		fail("Not yet implemented"); // TODO
-	}
+	}*/
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getAllGasStations()}.
