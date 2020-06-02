@@ -2,39 +2,25 @@ package it.polito.ezgas.controllertests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -44,30 +30,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
-import org.junit.runners.MethodSorters;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestController {
-
-	public int userId;
-	public int gasStationId;
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	@Before
-	public void setUp() throws Exception {
-		
-	}
-	
-	@After
-	public void tearDown() throws Exception {
-	}
 	
 	// 1
 	@Test
@@ -106,7 +70,7 @@ public class TestController {
 
 	// 3
 	@Test
-	public final void test1SaveGasStation() throws ClientProtocolException, IOException, JSONException {
+	public final void testSaveGasStation() throws ClientProtocolException, IOException, JSONException {
 		HttpPost request = new HttpPost("http://localhost:8080/gasstation/saveGasStation/");
 		JSONObject json = new JSONObject();
 		int a = 0;
@@ -152,20 +116,57 @@ public class TestController {
 		
 		assertNotEquals(a, 0);
 		
-		gasStationId = a;
+		HttpDelete delete = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + a + "/");
+ 	    
+		HttpClientBuilder.create().build().execute(delete);
 		
 	}
 
 	// 4
 	@Test
-	public void test2DeleteGasStation() throws ClientProtocolException, IOException{
+	public void testDeleteGasStation() throws ClientProtocolException, IOException, JSONException{
 		
-		HttpDelete request = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + gasStationId + "/");
+		HttpPost request = new HttpPost("http://localhost:8080/gasstation/saveGasStation/");
+		JSONObject json = new JSONObject();
+		int gasStationId = 0;
+		
+		json.put("gasStationName", "Pollo"); 
+		json.put("gasStationAddress", "Corso Duca dei Polli 121C"); 
+		json.put("lat", "40.6794735");
+		json.put("lon", "17.938348"); 
+		
+		json.put("carSharing", "Enjoy");
+		json.put("hasDiesel", true);
+		json.put("reportUser", "-1");
+		
+		StringEntity params = new StringEntity(json.toString());
+	    request.addHeader("content-type", "application/json");
+	    request.setEntity(params);
+		
+		HttpClientBuilder.create().build().execute(request);
+        
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.6794735/17.938348/Diesel/Enjoy");
+		HttpResponse response1;
+		
+		response1 = HttpClientBuilder.create().build().execute(request1);
+
+		String jsonFromResponse = EntityUtils.toString(response1.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
+		
+		for(GasStationDto gdto : gasStationArray) {
+			if(gdto.getGasStationName().equals("Pollo")) {
+				gasStationId = gdto.getGasStationId();
+			}
+		}
+		
+		HttpDelete delete = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + gasStationId + "/");
 		 	    
+		HttpResponse deleteresponse = HttpClientBuilder.create().build().execute(delete);
 		
-		HttpResponse response = HttpClientBuilder.create().build().execute(request);
-		
-		assert(response.getStatusLine().getStatusCode() == 200);
+		assert(deleteresponse.getStatusLine().getStatusCode() == 200);
 		
 	}
 
@@ -368,20 +369,19 @@ public class TestController {
 		
 		UserDto[] userDtoArray = mapper.readValue(jsonFromResponse, UserDto[].class);
 		
-		assertEquals(4, userDtoArray.length); //TODO Fix with the actual value!
+		assertEquals(3, userDtoArray.length); //TODO Fix with the actual value!
 	}
 
 	// 17
 	@Test
-	public final void test1SaveUser() throws JSONException, ClientProtocolException, IOException {
-		
+	public final void testSaveUser() throws JSONException, ClientProtocolException, IOException {
 		HttpPost request = new HttpPost("http://localhost:8080/user/saveUser");
 		JSONObject json = new JSONObject();
 		
 
 		json.put("userName", "Test Test"); 
 		json.put("password", "xxpass");
-		json.put("email", "test@myuser.com"); 
+		json.put("email", "test1@myuser.com"); 
 		
 		json.put("reputation", "1");
 		json.put("admin", "false");
@@ -393,7 +393,7 @@ public class TestController {
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
-String jsonFromResponsex = EntityUtils.toString(response.getEntity());
+        String jsonFromResponsex = EntityUtils.toString(response.getEntity());
 		
 		ObjectMapper mapperx = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
@@ -415,30 +415,61 @@ String jsonFromResponsex = EntityUtils.toString(response.getEntity());
 		for(UserDto userD : userDto) {
 			if (userD.getUserId()==userDtox.getUserId()) {
 		assertEquals(userD.getAdmin(),false);
-		assertEquals(userD.getEmail(),"test@myuser.com");
+		assertEquals(userD.getEmail(),"test1@myuser.com");
 		assertEquals(userD.getUserName(),"Test Test");
 		assertEquals(userD.getPassword(),"xxpass");
 			}
-
 		}
-
-		userId = userDtox.getUserId(); 
-		HttpDelete delete = new HttpDelete("http://localhost:8080/user/getUser/10");
+        int userId = userDtox.getUserId(); 
+		HttpDelete delete = new HttpDelete("http://localhost:8080/user/deleteUser/" + userId + "/");
+ 	    
 		HttpClientBuilder.create().build().execute(delete);
 
 	}
 
 	// 18
 	@Test
-	public void test2DeleteUser() throws ClientProtocolException, IOException{
+	public void testDeleteUser() throws ClientProtocolException, IOException, JSONException{
+		int userId = 0; 
+		HttpPost request = new HttpPost("http://localhost:8080/user/saveUser");
+		JSONObject json = new JSONObject();
 		
+
+		json.put("userName", "Test Test"); 
+		json.put("password", "xxpass");
+		json.put("email", "test@myuser.com"); 
 		
-		HttpUriRequest request = new HttpDelete("http://localhost:8080/user/deleteUser/" + userId);
+		json.put("reputation", "1");
+		json.put("admin", "false");
+		
+		StringEntity params = new StringEntity(json.toString());
+	    request.addHeader("content-type", "application/json");
+	    request.setEntity(params);
+		
+		HttpClientBuilder.create().build().execute(request);
+        
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/user/getAllUsers");
+		HttpResponse response1;
+		
+		response1 = HttpClientBuilder.create().build().execute(request1);
+
+		String jsonFromResponse = EntityUtils.toString(response1.getEntity());
+		
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		UserDto []userDto= mapper.readValue(jsonFromResponse, UserDto[].class);
+		
+		for(UserDto userD : userDto) {
+			if (userD.getEmail().equals("test@myuser.com")) {
+				userId = userD.getUserId(); 
+			}
+		}
+		
+		HttpDelete delete = new HttpDelete("http://localhost:8080/user/deleteUser/" + userId + "/");
 		 	    
+		HttpResponse deleteresponse = HttpClientBuilder.create().build().execute(delete);
 		
-		HttpResponse response = HttpClientBuilder.create().build().execute(request);
-		
-		assert(response.getStatusLine().getStatusCode() == 200);
+		assert(deleteresponse.getStatusLine().getStatusCode() == 200);
 		
 	}
 
