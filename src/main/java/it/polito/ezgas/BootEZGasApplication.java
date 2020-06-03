@@ -2,7 +2,9 @@ package it.polito.ezgas;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.annotation.PostConstruct;
 
@@ -20,6 +22,21 @@ public class BootEZGasApplication {
 	public void setupDbWithData() throws SQLException{
 		
 		Connection conn = DriverManager.getConnection("jdbc:h2:./data/memo", "sa", "password");
+		
+		/*System.out.println("Connected to the database");
+        
+        //declare the statement object
+        Statement sqlStatement = conn.createStatement();
+        //declare the result set    
+        ResultSet rs = null;
+        //Build the query string, making sure to use column aliases
+        String queryString="select * from users";
+        //print the query string to the screen
+        System.out.println("\nQuery string:");
+        System.out.println(queryString);
+        //execute the query
+        rs=sqlStatement.executeQuery(queryString);*/
+		
 		conn.close();
 		
 		

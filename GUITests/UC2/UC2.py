@@ -1,0 +1,13 @@
+click("1590952521850.png")
+type("1590953208260.png","test@test.test")
+type("1590952788894.png","testtest")
+click("1590953127001.png")
+click("1590952847134.png")
+type("1590952892586.png","trest")
+type(Pattern("1590952912446.png").targetOffset(12,2),"1")
+type(Pattern("1590952924215.png").targetOffset(42,-1),"1")
+type("1590953376533.png","testtest")
+click("1590953250546.png")
+click("1590952975712.png")
+wait("1590952995022.png")
+

@@ -156,22 +156,11 @@ public class GasStationServiceimpl implements GasStationService {
 			refreshReportDependability(current);
 			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
-		// TODO Check
 		return gasStations;
 	}
 
 	private static ArrayList<String> getListGasolineTypes(GasStation gasStation) {
 		ArrayList<String> listGasolineType = new ArrayList<String>();
-		/*if (gasStation.getHasDiesel())
-			listGasolineType.add("Diesel");
-		if (gasStation.getHasMethane())
-			listGasolineType.add("Methane");
-		if (gasStation.getHasGas())
-			listGasolineType.add("LPG");
-		if (gasStation.getHasSuper())
-			listGasolineType.add("Gasoline");
-		if (gasStation.getHasSuperPlus())
-			listGasolineType.add("PremiumGasoline");*/
 		if (gasStation.getHasDiesel())
 			listGasolineType.add("Diesel");
 		if (gasStation.getHasMethane())
@@ -187,15 +176,15 @@ public class GasStationServiceimpl implements GasStationService {
 
 	private List<GasStation> sortListByPrice(String gasolineType) {
 		List<GasStation> sortedListByPrice = new ArrayList<GasStation>();
-		if (gasolineType == "Diesel")
+		if (gasolineType.equals("Diesel"))
 			sortedListByPrice = gasStationRepository.findByHasDieselOrderByDieselPriceAsc(true);
-		else if (gasolineType == "Methane")
+		else if (gasolineType.equals("Methane"))
 			sortedListByPrice = gasStationRepository.findByHasMethaneOrderByMethanePriceAsc(true);
-		else if (gasolineType == "LPG")
+		else if (gasolineType.equals("LPG"))
 			sortedListByPrice = gasStationRepository.findByHasGasOrderByGasPriceAsc(true);
-		else if (gasolineType == "Gasoline")
+		else if (gasolineType.equals("Gasoline"))
 			sortedListByPrice = gasStationRepository.findByHasSuperOrderBySuperPriceAsc(true);
-		else if (gasolineType == "PremiumGasoline")
+		else if (gasolineType.equals("PremiumGasoline"))
 			sortedListByPrice = gasStationRepository.findByHasSuperPlusOrderBySuperPlusPriceAsc(true);
 		return sortedListByPrice;
 
@@ -347,7 +336,7 @@ public class GasStationServiceimpl implements GasStationService {
 	}
 	
 	private double refreshReportDependability(GasStation g) {
-		if(g.getReportUser()==null)
+		if(g.getReportUser()==null||g.getReportUser()<=0)
 			return 0.0;
 		
 		Date dateTimestamp = null;
@@ -367,10 +356,10 @@ private double computeReportDependability(Date timestamp, Integer reputation) {
 		Date now = new Date();
 		long diffInMillies = Math.abs(now.getTime() - timestamp.getTime());
 	    long diffDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-	    int obsolescence = 0;
+	    double obsolescence = 0;
 	    if(diffDays<=7)
-	    	obsolescence = (int) (1 - diffDays/7);
-		return 50*(reputation+5)/10 + 50*obsolescence;
+	    	obsolescence = (1 - (double)diffDays/7);
+		return (int) (50*(reputation+5)/10 + 50*obsolescence);
 	}
 
 }

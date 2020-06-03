@@ -75,10 +75,11 @@ public class GasStationServiceimplTest {
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#GasStationServiceimpl()}.
 	 */
+	/*
 	@Test
 	public void testGasStationServiceimpl() {
 		fail("Not yet implemented");
-	}
+	}*/
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationById(java.lang.Integer)}.
@@ -396,33 +397,38 @@ public class GasStationServiceimplTest {
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsWithCoordinates(double, double, java.lang.String, java.lang.String)}.
 	 */
+	/*
 	@Test
 	public void testGetGasStationsWithCoordinates() {
 		fail("Not yet implemented");
-	}
+	}*/
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsWithoutCoordinates(java.lang.String, java.lang.String)}.
 	 */
+	/*
 	@Test
 	public void testGetGasStationsWithoutCoordinates() {
 		fail("Not yet implemented");
-	}
+	}*/
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#setReport(java.lang.Integer, double, double, double, double, double, java.lang.Integer)}.
 	 */
+	/*
 	@Test
 	public void testSetReport() {
 		fail("Not yet implemented");
 	}
+	*/
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationByCarSharing(java.lang.String)}.
 	 */
+	/*
 	@Test
 	public void testGetGasStationByCarSharing() {
 		fail("Not yet implemented");
-	}
+	}*/
 
 }

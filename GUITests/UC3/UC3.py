@@ -1,0 +1,7 @@
+click("1590936646234.png")
+type("1590936665177.png","rinelliluca@gmail.com")
+type("1590936705051.png","12345678")
+click("1590936726662.png")
+click("1590937304599.png")
+click(Pattern("1590937495306.png").targetOffset(493,-7))
+wait("1590943110970.png")
