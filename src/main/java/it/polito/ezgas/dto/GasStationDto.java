@@ -3,52 +3,30 @@ package it.polito.ezgas.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-
 public class GasStationDto {
 
-	@Id
-	private Integer gasStationId;
-    @Column
-    private String gasStationName;
-    @Column
-    private String gasStationAddress;
-    @Column
-    private boolean hasDiesel;
-    @Column
-    private boolean hasSuper;
-    @Column
-    private boolean hasSuperPlus;
-    @Column
-    private boolean hasGas;
-    @Column
-    private boolean hasMethane;
-    
-    @Column
+	
+	Integer gasStationId;
+	String gasStationName;
+	String gasStationAddress;
+	boolean hasDiesel;
+    boolean hasSuper;
+    boolean hasSuperPlus;
+    boolean hasGas;
+    boolean hasMethane;
     private String carSharing;
-    @Column
-    private double lat;
-    @Column
-    private double lon;
-    @Column
-    private double dieselPrice;
-    @Column
-    private double superPrice;
-    @Column
-    private double superPlusPrice;
-    @Column
-    private double gasPrice;
-    @Column
-    private double methanePrice;
-    @Column
-    private Integer reportUser;
-    @Column
-    private String reportTimestamp;
-    @Column
-    private double reportDependability;
-    
+    double lat;
+    double lon;
+    double dieselPrice;
+    double superPrice;
+    double superPlusPrice;
+    double gasPrice; 
+    double methanePrice;
+    Integer reportUser;
     UserDto userDto;
+    String reportTimestamp;
+    double reportDependability;
+
     List<PriceReportDto> priceReportDtos = new ArrayList<>();;
  
 	
