@@ -91,6 +91,9 @@ public class GasStationServiceimpl implements GasStationService {
 			current = GasStationConverter.toGasStationDto(gasStations);
 		} else {
 			GasStation gasStations = gasStationRepository.findOne(gasStationDto.getGasStationId());
+			if (gasStationDto.getCarSharing().equals("null")) {
+				gasStationDto.setCarSharing(null);
+			}
 			gasStations.setCarSharing(gasStationDto.getCarSharing());
 			gasStations.setDieselPrice(gasStationDto.getDieselPrice());
 			gasStations.setGasPrice(gasStationDto.getGasPrice());
