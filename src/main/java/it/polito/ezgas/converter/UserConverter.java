@@ -30,7 +30,7 @@ public class UserConverter {
 				userDto.getEmail(),
 				new Integer(0)
 	    );
-		user.setAdmin(false);	
+		user.setAdmin(userDto.getAdmin());	
 		return user;
 	}
 
