@@ -65,7 +65,8 @@ public class GasStationServiceimpl implements GasStationService {
 			gasStation = gasStationRepository.findOne(gasStationId);
 			if (gasStation != null) {
 				gasStationDto=GasStationConverter.toGasStationDto(gasStation);
-				gasStationDto.setUserDto(UserConverter.toUserDto(gasStation.getUser()));
+				if(gasStation.getUser()!=null)
+					gasStationDto.setUserDto(UserConverter.toUserDto(gasStation.getUser()));
 				return gasStationDto;
 			} else
 				return null;
