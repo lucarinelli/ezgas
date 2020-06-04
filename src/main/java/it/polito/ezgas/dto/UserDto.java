@@ -1,15 +1,24 @@
 package it.polito.ezgas.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 /**
  * Created by softeng on 27/4/2020.
  */
 public class UserDto {
-    Integer userId;
-    String userName;
-    String password;
-    String email;
-    Integer reputation;
-    Boolean admin;
+	@Id
+	private Integer userId;
+    @Column
+    private String userName;
+    @Column
+    private String password;
+    @Column
+    private String email;
+    @Column
+    private Integer reputation;
+    @Column
+    private Boolean admin;
 
     public UserDto(Integer userId, String userName, String password, String email, Integer reputation) {
         this.userId = userId;
