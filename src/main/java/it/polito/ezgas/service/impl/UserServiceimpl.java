@@ -49,9 +49,14 @@ public class UserServiceimpl implements UserService {
 		UserDto current = null;
 
 		if (userDto.getUserId() == null) {
-			User user = UserConverter.toUser(userDto);
-			user = repositoryUser.save(user);
-			current = UserConverter.toUserDto(user);
+			if (repositoryUser.findByEmail(userDto.getEmail()) == null) {
+				User user = UserConverter.toUser(userDto);
+				user = repositoryUser.save(user);
+				current = UserConverter.toUserDto(user);
+			} else {
+				User user = repositoryUser.findByEmail(userDto.getEmail());
+				current = UserConverter.toUserDto(user);
+			}
 		} else {
 			User user = repositoryUser.getOne(userDto.getUserId());
 			user.setUserName(userDto.getUserName());
