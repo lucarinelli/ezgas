@@ -2,9 +2,9 @@
 
 Authors: Luca Rinelli, Alberto Canta, Ignacio Lopez-Perea Villacanas, Dario Licastro
 
-Date: 18/05/2020
+Date: 09/06/2020
 
-Version: 0
+Version: 2
 
 # Contents
 
