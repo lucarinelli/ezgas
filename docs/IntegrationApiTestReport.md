@@ -8,11 +8,13 @@ Version: 0
 
 # Contents
 
-- [Dependency graph](#dependency graph)
+- [Dependency graph](#dependency-graph)
 
-- [Integration approach](#integration)
+- [Integration approach](#Integration-approach)
+   + [Tests](#tests)
 
-- [Tests](#tests)
+- [Integration approach (Mock ups)](#Integration-approach-(Mock-ups))
+   + [Tests (Mock ups)](#tests-(Mock-ups))
 
 - [Scenarios](#scenarios)
 
@@ -177,7 +179,7 @@ A mixed approach has been used for integration test with mock ups.
 
 GasStationServiceimpl+GasStation+GasStationDto+mock(GasStationRepository)+User+UserDto+mock(UserRepository), UserServiceimpl+User+UserDto+mock(UserRepository)
 
-#  Tests
+#  Tests (Mock ups)
 
    <define below a table for each integration step. For each integration step report the group of classes under test, and the names of
      JUnit test cases applied to them>
