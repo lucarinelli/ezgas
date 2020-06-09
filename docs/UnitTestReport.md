@@ -9,8 +9,14 @@ Version: 0
 # Contents
 
 - [Black Box Unit Tests](#black-box-unit-tests)
+   + [Gas Station](#gas-station)
+   + [User](#User)
 
 - [White Box Unit Tests](#white-box-unit-tests)
+   + [GasStationDto](#GasStationDto)
+   + [UserDto](#UserDto)
+   + [IdPw](#IdPw)
+   + [LoginDto](#LoginDto)
 
 
 # Black Box Unit Tests
@@ -22,6 +28,8 @@ Version: 0
     <JUnit test classes must be in src/test/java/it/polito/ezgas   You find here, and you can use,  class EZGasApplicationTests.java that is executed before
     the set up of all Spring components
     >
+
+# Gas Station
 
 ### Class *GasStation* - method *GasStation*
 
@@ -721,6 +729,1167 @@ Version: 0
 |  |  |  | testSetGetMethanePrice2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
+### Class *GasStationServiceimpl* - method *getGasStationById*
+
+Queries the database and return a single gas station corresponding to the database given as parameter.
+
+Returns null if no gas station is found with the given id.
+
+**Criteria for method *getGasStationById*:**
+
+ - Value of gasStationId
+
+**Predicates for method *getGasStationById*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value of gasStationId | a gas station with this gasStationId is present in the database |
+|          | no gas station in the database for this gasStationId |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Value of gasStationId | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+| Is in the db | Yes | Retrieve correctly a gas station present in the db by its id | testGetGasStationById() |
+| Is not in the db | Yes | No gas station for this id in the db, the function should return null | testGetGasStationByIdAbsent() |
+
+### Class *GasStationServiceimpl* - method *saveGasStation*
+
+Receives a GasStationDto and store it in the database.
+
+Throws exceptions in case of negative prices or wrong latitude and longitude values in the GasStationDto.
+
+**Criteria for method *saveGasStation*:**
+
+ - Value of prices
+ - Value latitude
+ - Value longitude
+ - existing gas station
+
+**Predicates for method *saveGasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value of prices | no price is negative |
+|          | at least one price is negative |
+| Value latitude | correct [-90, +90] |
+|          | wrong (-inf, -90) U (+90, +inf) |
+| Value longitude | correct [-180, +180] |
+|          | wrong (-inf, -180) U (+180, +inf) |
+| existing gas station | yes |
+|          | no |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+| Value of prices | price equal to 0 |
+| Value latitude | -90 |
+|          | +90 |
+| Value longitude | -180 |
+|          | +180 |
+
+**Combination of predicates**
+
+| Existing gas station | Value of prices | Value latitude | Value longitude | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- | --- |
+| no | no negative | correct | correct | Yes | Correct insertion, no exception should be generated | testSaveGasStation1() |
+| no | no negative | correct | wrong | Yes | Correct price. Wrong longitude, an exception for GPS should be generated | testSaveGasStation3() |
+| no | no negative | wrong | correct | Yes | Correct price. Wrong latitude, an exception for GPS should be generated | testSaveGasStation4() |
+| no | no negative | wrong | wrong | Yes | Correct price. Wrong longitude and latitude, an exception for GPS should be generated | skipped |
+| no | at least one negative | correct | correct | Yes | Correct GPS. Negative price, an exception for price must be generated | testSaveGasStation2() |
+| no | at least one negative | correct | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated | skipped |
+| no | at least one negative | wrong | correct | Yes | Wrong prices and GPS, an exception for one of the two error must be generated | skipped |
+| no | at least one negative | wrong | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated | testSaveGasStation5() |
+| yes | no negative | correct | correct | Yes | Existing gas station. Correct insertion, no exception should be generated | testSaveGasStation6() |
+| yes | no negative | correct | wrong | Yes | Existing gas station. Correct price. Wrong longitude, an exception for GPS should be generated |  |
+| yes | no negative | wrong | correct | Yes | Existing gas station. Correct price. Wrong latitude, an exception for GPS should be generated |  |
+| yes | no negative | wrong | wrong | Yes | Existing gas station. Correct price. Wrong longitude and latitude, an exception for GPS should be generated |  |
+| yes | at least one negative | correct | correct | Yes | Existing gas station. Correct GPS. Negative price, an exception for price must be generated |  |
+| yes | at least one negative | correct | wrong | Yes | Existing gas station. Wrong prices and GPS, an exception for one of the two error must be generated |  |
+| yes | at least one negative | wrong | correct | Yes | Existing gas station. Wrong prices and GPS, an exception for one of the two error must be generated |  |
+| yes | at least one negative | wrong | wrong | Yes | Existing gas station. Wrong prices and GPS, an exception for one of the two error must be generated |  |
+
+### Class *GasStationServiceimpl* - method *getAllGasStations*
+
+Returns an ArrayList with all the GasStations stored in the database
+
+Returns an empty ArrayList if no gas station is registered in the database
+
+**Criteria for method *getAllGasStations*:**
+
+ - Number of gas stations in db
+
+**Predicates for method *getAllGasStations*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Number of gas stations in db | no gas station in the db |
+|          | one gas station in the db |
+|          | many gas station in the db |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Number of gas stations in db | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+| no gas station in the db | Yes | No gas station in db, empty list | testGetAllGasStationsNone() |
+| one gas station in the db | Yes | One gas station, list one element | skipped |
+| many gas station in the db | Yes | Multiple gas stations in db, list returned | testGetAllGasStations() |
+
+### Class *GasStationServiceimpl* - method *deleteGasStation*
+
+Deletes from the database the GasStation with the id passed as parameter. Throws an exception in case of invalid id (<0).
+
+Returns null in case of not found gas station
+
+
+**Criteria for method *deleteGasStation*:**
+
+ - Value of gasStationId
+
+**Predicates for method *deleteGasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value of gasStationId | a gas station with this gasStationId is present in the database |
+|          | no gas station in the database for this gasStationId |
+|          | Invalid id (less than 0) |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value of gasStationId | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+| Is in the db | Yes | Delete the corresponding gas station from the db, no exception. | testDeleteGasStation() |
+| Is not in the db | Yes | No gas station for this id in the db, the function should return null | testDeleteGasStationAbsent() |
+| Less than 0 | Yes | Throws an InvalidGasStationException exception | testDeleteGasStationInvalid() |
+
+### Class *GasStationServiceimpl* - method *getGasStationsByGasolineType*
+
+Returns all gas stations that provide the gasoline type provided as parameter, sorted by increasing price of that gasoline type.
+
+Returns an empty ArrayList if no gas station in the database provides the given gasoline type
+
+Throws an exception if an invalid gasoline type is given as parameter
+
+**Criteria for method *getGasStationsByGasolineType*:**
+
+ - String gasolinetype
+
+**Predicates for method *getGasStationsByGasolineType*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| String gasolinetype | valid, gas stations exists with this type in the db |
+|          | valid, NO gas stations exists with this type in the db |
+|          | invalid |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| String gasolinetype | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | -------|-------|-------|
+| valid, gas stations exists with this type in the db | Yes | Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type | Tested in integration |
+| valid, NO gas stations exists with this type in the db | Yes | Returns an empty ArrayList | Tested in integration |
+| invalid | Yes | Throws an InvalidGasTypeException | testGetGasStationsByGasolineTypeInvalid() |
+
+### Class *GasStationServiceimpl* - method *getGasStationsByProximity*
+
+Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
+
+Returns an empty ArrayList if no gas station in the database is located within 1km from that geopoint
+
+Throws an exception if an invalid value is given for latitude and/or longitude
+
+
+**Criteria for method *getGasStationsByProximity*:**
+
+ - Value latitude
+ - Value longitude
+ - Gas stations positions
+
+**Predicates for method *getGasStationsByProximity*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value latitude | correct [-90, +90] |
+|          | wrong (-inf, -90) U (+90, +inf) |
+| Value longitude | correct [-180, +180] |
+|          | wrong (-inf, -180) U (+180, +inf) |
+| Gas stations positions | gas stations are present in a range of 1km from given coordinates |
+|          | gas stations exists but are not in a range of 1km from given coordinates |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value latitude | Value longitude | Gas stations positions | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- |
+| correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** | Tested in integration |
+| correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. | Tested in integration |
+| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. | testGetGasStationsByProximityWrongLon()  |
+| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |   |
+| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. | testGetGasStationsByProximityWrongLat() |
+| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. | testGetGasStationsByProximityWrongLonLat() |
+| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+
+### Class *GasStationServiceimpl* - method *getGasStationsWithCoordinates*
+
+Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
+
+It receives as parameters a gasolinetype and a carsharing value.
+
+If gasolinetype is different than "null" (string), it filters the list of gas stations keeping only those providing such gasoline type
+
+If carsharing is different than "null" (string), it filters the list of gas stations keeping only those affiliated to that carsharing company
+
+Returns an empty ArrayList if no gas station is found in the database with the given parameters
+
+Throws an exception if an invalid value is given for latitude and/or longitude, gasolinetype or carsharing string parameters
+
+**Criteria for method *getGasStationsWithCoordinates*:**
+
+ - Value latitude
+ - Value longitude
+ - Gas stations positions
+ - String gasolinetype
+ - String carsharing
+
+**Predicates for method *getGasStationsWithCoordinates*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value latitude | correct [-90, +90] |
+|          | wrong (-inf, -90) U (+90, +inf) |
+| Value longitude | correct [-180, +180] |
+|          | wrong (-inf, -180) U (+180, +inf) |
+| Gas stations positions | gas stations are present in a range of 1km from given coordinates |
+|          | gas stations exists but are not in a range of 1km from given coordinates |
+| gasolinetype | null |
+|  | valid |
+|  | invalid |
+| carsharing | null |
+|  | valid |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| gasolinetype | carsharing | Value latitude | Value longitude | Gas stations positions | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| null | null | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
+| null | null | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
+| null | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
+| null | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| null | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
+| null | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| null | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
+| null | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| null | valid | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
+| null | valid | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
+| null | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
+| null | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| null | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
+| null | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| null | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
+| null | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| valid | null | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
+| valid | null | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
+| valid | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
+| valid | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| valid | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
+| valid | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| valid | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
+| valid | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| valid | valid | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
+| valid | valid | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
+| valid | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
+| valid | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| valid | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
+| valid | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| valid | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
+| valid | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| invalid | null | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
+| invalid | null | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
+| invalid | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
+| invalid | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| invalid | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
+| invalid | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| invalid | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
+| invalid | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| invalid | valid | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
+| invalid | valid | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
+| invalid | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
+| invalid | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| invalid | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
+| invalid | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+| invalid | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
+| invalid | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
+
+### Class *GasStationServiceimpl* - method *getGasStationsByCarSharing*
+
+Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
+
+Returns an empty ArrayList if no gas station in the database is located within 1km from that geopoint
+
+Throws an exception if an invalid value is given for latitude and/or longitude
+
+**Criteria for method *getGasStationsByCarSharing*:**
+
+ - String carSharing
+
+**Predicates for method *getGasStationsByCarSharing*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| String carSharing | gas stations exists with this type in the db |
+|          | NO gas stations exists with this type in the db |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| carsharing | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | -------|-------|-------|
+| exists, gas stations exists with this type in the db | Yes | Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type | Tested in integration |
+| NO gas stations exists with this type in the db | Yes | Returns an empty ArrayList | Tested in integration |
+
+### [WIP] Class *GasStationServiceimpl* - method *getGasStationsWithoutCoordinates*
+
+Returns all gas stations of a car sharing and having one specific gasoline type.
+
+It receives as parameters a gasolinetype and a carsharing value.
+
+If gasolinetype is different than "null" (string), it filters the list of gas stations keeping only those providing such gasoline type.
+
+If carsharing is different than "null" (string), it filters the list of gas stations, previously filtered by gasolinetype, keeping only those affiliated to that carsharing company.
+
+Returns an empty ArrayList if no gas station is found in the database with the given parameters.
+
+Throws an exception if an invalid value is given for gasolinetype or carsharing string parameters.
+
+**Criteria for method *getGasStationsWithoutCoordinates*:**
+
+ - String gasolinetype
+ - String carsharing
+
+**Predicates for method *getGasStationsWithoutCoordinates*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| String gasolinetype | valid, gas stations exists with this type in the db |
+|          | invalid, NO gas stations exists with this type in the db |
+| String carsharing | valid, alfanumeric words |
+|          | invalid, null |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| String gasolinetype | String carsharing  | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- |
+| correct  | correct |  Yes | Correct input, gas stations exists in range. Returns all gas stations with right car sharing company and gasoline type whose car sharing company and gasoline type are passed as parameters. **Specific order?** | testGetGasStationsWithoutCoordinates (Integration test) |
+| correct | wrong, null |  Yes | No gas stations for this car sharing Company | testGetGasStationsWithoutCoordinates2 (Integration test) |
+| wrong, gasoline type not in list | correct |  Yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates3 (Integration test) |
+| wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates1 (Integration test) |
+
+
+### Class *GasStationServiceimpl* - method *SetReport*
+
+Set a report for price update by an user for a gas station.
+
+It receives as parameters an integer gas station ID value, an integer user ID and the price value of the gasoline type.
+
+If ID of gas station and user are valid, so they are not null and positive and if gas type price are positive, a report is gonna create.
+
+Throws an exception if one of that value is wrong.
+
+**Criteria for method *SetReport*:**
+
+ - Value gasStationId
+ - Value userId
+ - Value dieselPrice
+ - Value superPrice
+ - Value superPlusPrice
+ - Value gasPrice
+ - Value methanePrice
+
+**Predicates for method *SetReport*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value gasStationId | valid, >0 and not null |
+|          | invalid, <0 or null |
+| Value userId | valid, >0 and not null |
+|          | invalid, <0 or null |
+| Value dieselPrice | valid, >0 |
+|          | invalid, <0 |
+| Value superPrice | valid, >0 |
+|          | invalid, <0 |
+| Value superPlusPrice | valid, >0 |
+|          | invalid, <0 |
+| Value gasPrice | valid, >0 |
+|          | invalid, <0 |
+| Value methanePrice | valid, >0 |
+|          | invalid, <0 |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value gasStationId | Value userId | Value dieselPrice | Value superPrice | Value superPlusPrice | Value gasPrice | Value methanePrice | Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| correct | correct | correct  | correct | correct  | correct | correct |  Yes | Correct input and report is setted | testSetReport(Integration Test) |
+| correct | correct | correct  | correct | correct  | correct | wrong |  Yes | wrong methanePrice, PriceException | testSetReport2(Integration Test) |
+| correct | correct | correct | correct | correct | wrong | correct | Skipped | wrong gasPrice, PriceException |  |
+| correct | correct | correct | correct | wrong | correct | correct | Skipped | wrong superPlusPrice, PriceException |  |
+| correct | correct | correct | wrong | correct | correct | correct | Skipped | wrong superPrice, PriceException |  |
+| correct | correct | wrong | correct | correct | correct | correct | Skipped | wrong dieselPrice, PriceException |  |
+| correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException | testSetReport3(Integration Test) |
+| wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException | testSetReport1(Integration Test) |
+
+### Class *UserConverter* - method *toUserDto*
+
+**Criteria for method *toUserDto*:**
+
+ - Make a UserDto with User's value
+
+**Predicates for method *toUserDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoUserDto() |
+
+### Class *GasStationConverter* - method *toGasStation*
+
+**Criteria for method *toGasStation*:**
+
+ - Make a GasStation with GasStationDto's value
+
+**Predicates for method *toGasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoGasStation() |
+
+### Class *GasStationConverter* - method *toGasStationDto*
+
+**Criteria for method *toGasStationDto*:**
+
+ - Make a GasStationDto with GasStation's value
+
+**Predicates for method *toGasStationDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoGasStationDto() |
+
+### Class *LoginConverter* - method *testtoLoginDto*
+
+**Criteria for method *testtoLoginDto*:**
+
+ - Make a LoginDto with User's value
+
+**Predicates for method *testtoLoginDto*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtesttoLoginDto() |
+
+### Class *UserConverter* - method *toUser*
+
+**Criteria for method *toUser*:**
+
+ - Make a User with UserDto's value
+
+**Predicates for method *toUser*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  | yes | Test if the value are correct |testtoUser() |
+
+# User
+
+### Class *User* - method *User*
+
+**Criteria for method *User*:**
+
+ -
+
+**Predicates for method *User*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testUser() |
+|  |  |  |testUser2() |
+
+### Class *User* - method *getUserId()*
+
+**Criteria for method *getUserId*:**
+
+ - value of Id
+
+**Predicates for method *getUserId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| value Id | -1 (invalid) |
+|          | 1 (valid) |
+|| no value |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserId() (test valid and invalid Id) |
+|  |  |  | testSetGetUserId2() (test null Id)|
+
+### Class *User* - method *setUserId()*
+
+**Criteria for method *setUserId*:**
+
+ -
+
+**Predicates for method *setUserId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserId() |
+|  |  |  | testSetGetUserId2() |
+
+### Class *User* - method *getUserName()*
+
+**Criteria for method *getUserName*:**
+
+ -
+
+**Predicates for method *getUserName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserName() |
+|  |  |  | testSetGetUserName2() |
+
+### Class *User* - method *setUserName()*
+
+**Criteria for method *setUserName*:**
+
+ -
+
+**Predicates for method *setUserName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserName() |
+|  |  |  | testSetGetUserName2() |
+
+### Class *User* - method *getPassword()*
+
+**Criteria for method *getPassword*:**
+
+ -
+
+**Predicates for method *getPassword*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPassword() |
+|  |  |  | testSetGetUserPassword2() |
+
+### Class *User* - method *setPassword()*
+
+**Criteria for method *setPassword*:**
+
+ -
+
+**Predicates for method *setPassword*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPassword() |
+|  |  |  | testSetGetPassword2() |
+
+### Class *User* - method *getEmail()*
+
+**Criteria for method *getEmail*:**
+
+ -
+
+**Predicates for method *getEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *User* - method *setEmail()*
+
+**Criteria for method *setEmail*:**
+
+ -
+
+**Predicates for method *setEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *User* - method *getReputation()*
+
+**Criteria for method *getReputation*:**
+
+ -
+
+**Predicates for method *getReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *User* - method *setReputation()*
+
+**Criteria for method *setReputation*:**
+
+ -
+
+**Predicates for method *setReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *User* - method *getAdmin()*
+
+**Criteria for method *getAdmin*:**
+
+ -
+
+**Predicates for method *getAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
+
+### Class *User* - method *setAdmin()*
+
+**Criteria for method *setAdmin*:**
+
+ -
+
+**Predicates for method *setAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
+
+### Class *UserServiceimpl* - method *getUserById(Integer userId)*
+
+returns the UserDto corresponding to the userId passed as parameter.
+
+Throws an exception in case of invalid (negative) userId
+
+Returns null if no user is found with the given Id
+
+**Criteria for method *getUserById(Integer userId)*:**
+
+-User Id
+
+**Predicates for method *getUserById(Integer userId)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| user Id  | illegal UserId: userId<0|
+|| consistent userId not present in db|
+|| consistent userId present in db|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+   
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|userId present|V||testGetUserById()-returns UserDto object|
+|userId not present|V||testGetUserById3()->returns null|
+|invalid userId|I||testGetUserById2()->throws InvalidUserException|
+
+### Class *UserServiceimpl* - method *testSaveUser()*
+
+Saves the User object into the database and returns the saved object.
+
+**Criteria for method *saveUser(User Dto)*:**
+
+-User object
+
+**Predicates for method *saveUser(User Dto)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|user object|consistent user object not present in db|
+|| consistent user present in db|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+| user present | V |  | testSaveUser()->returns UserDto |
+| user not present | I |  | testSaveuser1()->returns null |
+
+### Class *UserServiceimpl* - method *getAllUsers()*
+
+get list of all users in UserDto format;
+
+**Criteria for method *getAllUsers(UserDto users)*:**
+
+-UserDto object
+
+**Predicates for method *getAllUsers(UserDto users)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| UserDto | more than one into the repository |
+|  | 0 UserDto into repository |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+| users present | V |  | testGetAllUser()->list of all users |
+| users not present | V |  | testGetAllUser()->isEmpty=true |
+
+### Class *UserServiceimpl* - method *deleteUser(integer id)*
+
+remove user from repository.
+
+**Criteria for method *deleteUser(integer id)*:**
+
+-Integer id
+
+**Predicates for method *deleteUser(integer id)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|Integer Id | valid |
+|  | invalid |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|id present|V||testDeleteUser(id)->return true|
+|id not present|V||testDeleteUser(id)->wrong userId exception|
+|id non valid| I|testDeleteUser(id)->wrong userId exception|
+
+### Class *UserServiceimpl* - method *Login(IdPw id)*
+
+check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+
+**Criteria for method *Login(IdPw id)*:**
+
+-IdPw object
+
+**Predicates for method *Login(IdPw id)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|IdPw object|valid|
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value IdPw |  Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- |
+|IdPw present and valid|V||testLogin(idPw)->return idPw|
+|IdPw not valid |V||testLogin(idPw)->invalid LoginData exception|
+
+### Class *UserServiceimpl* - method *increaseUserReputation(integer UserId)*
+
+check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+
+**Criteria for method *increaseUserReputation(integer UserId)*:**
+
+- userId
+
+- userReputation
+
+**Predicates for method *increaseUserReputation(integer UserId)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|userReputation|valid|
+||invalid|
+|userId |valid |
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId | value of reputation |   Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- |
+|UserId valid|3|V||testIncreaseUserReputation(id)->user reputation 4|
+|UserId valid |5|V||testIncreaseUserReputation(id)->5|
+|UserId Ivalid |-1|V||testIncreaseUserReputation(id)->throw invalidUserexception|
+
+### Class *UserServiceimpl* - method *decreaseUserReputation(integer UserId)*
+
+check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+
+**Criteria for method *decreaseUserReputation(integer UserId)*:**
+
+- userId
+- userReputation
+
+**Predicates for method *decreaseUserReputation(integer UserId)*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|userReputation|valid|
+||invalid|
+|userId |valid |
+||invalid|
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |  |
+
+**Combination of predicates**
+
+| Value UserId | value of reputation |   Valid / Invalid | Description of the test case | JUnit test case |
+| --- | --- | --- | --- | --- |
+|UserId valid|3|V||testDecreaseUserReputation(id)->user reputation 2|
+|UserId valid |-5|V||testDecreaseUserReputation(id)->-5|
+|UserId Ivalid |-1|V||testDecreaseUserReputation(id)->throw invalidUserexception|
+
+
+# White Box Unit Tests
+
+### Test cases definition
+
+    <JUnit test classes must be in src/test/java/it/polito/ezgas>
+    <Report here all the created JUnit test cases, and the units/classes under test >
+    <For traceability write the class and method name that contains the test case>
+
+
+|      Unit name      |     JUnit test case     |
+|---------------------|-------------------------|
+| GasStation.java     | GasStationTest.java     |
+| User.java           | UserTest.java           |
+| [GasStationDto.java](#GasStationDto)  | testGasStationDto.java  |
+| [UserDto.java](#UserDto)              | testUserDto.java        |
+| [IdPw.java](#IdPw)                    | testIdPw.java           |
+| [LoginDto.java](#LoginDto)       | testLoginDto.java       |
+
+# GasStationDto
+
 ### Class *GasStationDto* - method *GasStationDto*
 
 **Criteria for method *GasStationDto*:**
@@ -1408,1396 +2577,7 @@ Version: 0
 |  |  |  | testSetGetGasPrice2() |
 |  |  |  | testSetGetMethanePrice2() |
 
-### Class *GasStationServiceimpl* - method *getGasStationById*
-
-Queries the database and return a single gas station corresponding to the database given as parameter.
-
-Returns null if no gas station is found with the given id.
-
-**Criteria for method *getGasStationById*:**
-
- - Value of gasStationId
-
-**Predicates for method *getGasStationById*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| Value of gasStationId | a gas station with this gasStationId is present in the database |
-|          | no gas station in the database for this gasStationId |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Value of gasStationId | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-| Is in the db | Yes | Retrieve correctly a gas station present in the db by its id | testGetGasStationById() |
-| Is not in the db | Yes | No gas station for this id in the db, the function should return null | testGetGasStationByIdAbsent() |
-
-### Class *GasStationServiceimpl* - method *saveGasStation*
-
-Receives a GasStationDto and store it in the database.
-
-Throws exceptions in case of negative prices or wrong latitude and longitude values in the GasStationDto.
-
-**Criteria for method *saveGasStation*:**
-
- - Value of prices
- - Value latitude
- - Value longitude
- - existing gas station
-
-**Predicates for method *saveGasStation*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| Value of prices | no price is negative |
-|          | at least one price is negative |
-| Value latitude | correct [-90, +90] |
-|          | wrong (-inf, -90) U (+90, +inf) |
-| Value longitude | correct [-180, +180] |
-|          | wrong (-inf, -180) U (+180, +inf) |
-| existing gas station | yes |
-|          | no |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-| Value of prices | price equal to 0 |
-| Value latitude | -90 |
-|          | +90 |
-| Value longitude | -180 |
-|          | +180 |
-
-**Combination of predicates**
-
-| Existing gas station | Value of prices | Value latitude | Value longitude | Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- | --- | --- | --- |
-| no | no negative | correct | correct | Yes | Correct insertion, no exception should be generated | testSaveGasStation1() |
-| no | no negative | correct | wrong | Yes | Correct price. Wrong longitude, an exception for GPS should be generated | testSaveGasStation3() |
-| no | no negative | wrong | correct | Yes | Correct price. Wrong latitude, an exception for GPS should be generated | testSaveGasStation4() |
-| no | no negative | wrong | wrong | Yes | Correct price. Wrong longitude and latitude, an exception for GPS should be generated | skipped |
-| no | at least one negative | correct | correct | Yes | Correct GPS. Negative price, an exception for price must be generated | testSaveGasStation2() |
-| no | at least one negative | correct | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated | skipped |
-| no | at least one negative | wrong | correct | Yes | Wrong prices and GPS, an exception for one of the two error must be generated | skipped |
-| no | at least one negative | wrong | wrong | Yes | Wrong prices and GPS, an exception for one of the two error must be generated | testSaveGasStation5() |
-| yes | no negative | correct | correct | Yes | Existing gas station. Correct insertion, no exception should be generated | testSaveGasStation6() |
-| yes | no negative | correct | wrong | Yes | Existing gas station. Correct price. Wrong longitude, an exception for GPS should be generated |  |
-| yes | no negative | wrong | correct | Yes | Existing gas station. Correct price. Wrong latitude, an exception for GPS should be generated |  |
-| yes | no negative | wrong | wrong | Yes | Existing gas station. Correct price. Wrong longitude and latitude, an exception for GPS should be generated |  |
-| yes | at least one negative | correct | correct | Yes | Existing gas station. Correct GPS. Negative price, an exception for price must be generated |  |
-| yes | at least one negative | correct | wrong | Yes | Existing gas station. Wrong prices and GPS, an exception for one of the two error must be generated |  |
-| yes | at least one negative | wrong | correct | Yes | Existing gas station. Wrong prices and GPS, an exception for one of the two error must be generated |  |
-| yes | at least one negative | wrong | wrong | Yes | Existing gas station. Wrong prices and GPS, an exception for one of the two error must be generated |  |
-
-### Class *GasStationServiceimpl* - method *getAllGasStations*
-
-Returns an ArrayList with all the GasStations stored in the database
-
-Returns an empty ArrayList if no gas station is registered in the database
-
-**Criteria for method *getAllGasStations*:**
-
- - Number of gas stations in db
-
-**Predicates for method *getAllGasStations*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| Number of gas stations in db | no gas station in the db |
-|          | one gas station in the db |
-|          | many gas station in the db |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |  |
-
-**Combination of predicates**
-
-| Number of gas stations in db | Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- |
-| no gas station in the db | Yes | No gas station in db, empty list | testGetAllGasStationsNone() |
-| one gas station in the db | Yes | One gas station, list one element | skipped |
-| many gas station in the db | Yes | Multiple gas stations in db, list returned | testGetAllGasStations() |
-
-### Class *GasStationServiceimpl* - method *deleteGasStation*
-
-Deletes from the database the GasStation with the id passed as parameter. Throws an exception in case of invalid id (<0).
-
-Returns null in case of not found gas station
-
-
-**Criteria for method *deleteGasStation*:**
-
- - Value of gasStationId
-
-**Predicates for method *deleteGasStation*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| Value of gasStationId | a gas station with this gasStationId is present in the database |
-|          | no gas station in the database for this gasStationId |
-|          | Invalid id (less than 0) |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |  |
-
-**Combination of predicates**
-
-| Value of gasStationId | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-| Is in the db | Yes | Delete the corresponding gas station from the db, no exception. | testDeleteGasStation() |
-| Is not in the db | Yes | No gas station for this id in the db, the function should return null | testDeleteGasStationAbsent() |
-| Less than 0 | Yes | Throws an InvalidGasStationException exception | testDeleteGasStationInvalid() |
-
-### Class *GasStationServiceimpl* - method *getGasStationsByGasolineType*
-
-Returns all gas stations that provide the gasoline type provided as parameter, sorted by increasing price of that gasoline type.
-
-Returns an empty ArrayList if no gas station in the database provides the given gasoline type
-
-Throws an exception if an invalid gasoline type is given as parameter
-
-**Criteria for method *getGasStationsByGasolineType*:**
-
- - String gasolinetype
-
-**Predicates for method *getGasStationsByGasolineType*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| String gasolinetype | valid, gas stations exists with this type in the db |
-|          | valid, NO gas stations exists with this type in the db |
-|          | invalid |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |  |
-
-**Combination of predicates**
-
-| String gasolinetype | Valid / Invalid | Description of the test case | JUnit test case |
-| --- | -------|-------|-------|
-| valid, gas stations exists with this type in the db | Yes | Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type | Tested in integration |
-| valid, NO gas stations exists with this type in the db | Yes | Returns an empty ArrayList | Tested in integration |
-| invalid | Yes | Throws an InvalidGasTypeException | testGetGasStationsByGasolineTypeInvalid() |
-
-### Class *GasStationServiceimpl* - method *getGasStationsByProximity*
-
-Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
-
-Returns an empty ArrayList if no gas station in the database is located within 1km from that geopoint
-
-Throws an exception if an invalid value is given for latitude and/or longitude
-
-
-**Criteria for method *getGasStationsByProximity*:**
-
- - Value latitude
- - Value longitude
- - Gas stations positions
-
-**Predicates for method *getGasStationsByProximity*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| Value latitude | correct [-90, +90] |
-|          | wrong (-inf, -90) U (+90, +inf) |
-| Value longitude | correct [-180, +180] |
-|          | wrong (-inf, -180) U (+180, +inf) |
-| Gas stations positions | gas stations are present in a range of 1km from given coordinates |
-|          | gas stations exists but are not in a range of 1km from given coordinates |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |  |
-
-**Combination of predicates**
-
-| Value latitude | Value longitude | Gas stations positions | Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- | --- | --- |
-| correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** | Tested in integration |
-| correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. | Tested in integration |
-| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. | testGetGasStationsByProximityWrongLon()  |
-| correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |   |
-| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. | testGetGasStationsByProximityWrongLat() |
-| wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. | testGetGasStationsByProximityWrongLonLat() |
-| wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-
-### Class *GasStationServiceimpl* - method *getGasStationsWithCoordinates*
-
-Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
-
-It receives as parameters a gasolinetype and a carsharing value.
-
-If gasolinetype is different than "null" (string), it filters the list of gas stations keeping only those providing such gasoline type
-
-If carsharing is different than "null" (string), it filters the list of gas stations keeping only those affiliated to that carsharing company
-
-Returns an empty ArrayList if no gas station is found in the database with the given parameters
-
-Throws an exception if an invalid value is given for latitude and/or longitude, gasolinetype or carsharing string parameters
-
-**Criteria for method *getGasStationsWithCoordinates*:**
-
- - Value latitude
- - Value longitude
- - Gas stations positions
- - String gasolinetype
- - String carsharing
-
-**Predicates for method *getGasStationsWithCoordinates*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| Value latitude | correct [-90, +90] |
-|          | wrong (-inf, -90) U (+90, +inf) |
-| Value longitude | correct [-180, +180] |
-|          | wrong (-inf, -180) U (+180, +inf) |
-| Gas stations positions | gas stations are present in a range of 1km from given coordinates |
-|          | gas stations exists but are not in a range of 1km from given coordinates |
-| gasolinetype | null |
-|  | valid |
-|  | invalid |
-| carsharing | null |
-|  | valid |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |  |
-
-**Combination of predicates**
-
-| gasolinetype | carsharing | Value latitude | Value longitude | Gas stations positions | Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| null | null | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
-| null | null | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
-| null | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
-| null | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| null | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
-| null | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| null | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
-| null | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| null | valid | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
-| null | valid | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
-| null | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
-| null | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| null | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
-| null | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| null | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
-| null | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| valid | null | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
-| valid | null | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
-| valid | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
-| valid | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| valid | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
-| valid | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| valid | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
-| valid | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| valid | valid | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
-| valid | valid | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
-| valid | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
-| valid | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| valid | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
-| valid | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| valid | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
-| valid | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| invalid | null | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
-| invalid | null | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
-| invalid | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
-| invalid | null | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| invalid | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
-| invalid | null | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| invalid | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
-| invalid | null | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| invalid | valid | correct [-90, +90] | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Correct input, gas stations exists in range. Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters. **Specific order?** |  |
-| invalid | valid | correct [-90, +90] | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Yes | Correct input, **NO** gas stations exists in range. Returns an empty ArrayList. |  |
-| invalid | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input longitude, throws GPSDataException. |  |
-| invalid | valid | correct [-90, +90] | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| invalid | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude, throws GPSDataException. |  |
-| invalid | valid | wrong (-inf, -90) U (+90, +inf) | correct [-180, +180] | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-| invalid | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations are present in a range of 1km from given coordinates | Yes | Wrong input latitude and longitude, throws GPSDataException. |  |
-| invalid | valid | wrong (-inf, -90) U (+90, +inf) | wrong (-inf, -180) U (+180, +inf) | gas stations exists but are not in a range of 1km from given coordinates | Skipped |  |  |
-
-### Class *GasStationServiceimpl* - method *getGasStationsByCarSharing*
-
-Returns all gas stations within 1km from the GeoPoint whose latitude and longitude are passed as parameters.
-
-Returns an empty ArrayList if no gas station in the database is located within 1km from that geopoint
-
-Throws an exception if an invalid value is given for latitude and/or longitude
-
-**Criteria for method *getGasStationsByCarSharing*:**
-
- - String carSharing
-
-**Predicates for method *getGasStationsByCarSharing*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| String carSharing | gas stations exists with this type in the db |
-|          | NO gas stations exists with this type in the db |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |  |
-
-**Combination of predicates**
-
-| carsharing | Valid / Invalid | Description of the test case | JUnit test case |
-| --- | -------|-------|-------|
-| exists, gas stations exists with this type in the db | Yes | Returns all gas stations that provide the gasoline type provided as parameter, SORTED by increasing price of that gasoline type | Tested in integration |
-| NO gas stations exists with this type in the db | Yes | Returns an empty ArrayList | Tested in integration |
-
-### [WIP] Class *GasStationServiceimpl* - method *getGasStationsWithoutCoordinates*
-
-Returns all gas stations of a car sharing and having one specific gasoline type.
-
-It receives as parameters a gasolinetype and a carsharing value.
-
-If gasolinetype is different than "null" (string), it filters the list of gas stations keeping only those providing such gasoline type.
-
-If carsharing is different than "null" (string), it filters the list of gas stations, previously filtered by gasolinetype, keeping only those affiliated to that carsharing company.
-
-Returns an empty ArrayList if no gas station is found in the database with the given parameters.
-
-Throws an exception if an invalid value is given for gasolinetype or carsharing string parameters.
-
-**Criteria for method *getGasStationsWithoutCoordinates*:**
-
- - String gasolinetype
- - String carsharing
-
-**Predicates for method *getGasStationsWithoutCoordinates*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| String gasolinetype | valid, gas stations exists with this type in the db |
-|          | invalid, NO gas stations exists with this type in the db |
-| String carsharing | valid, alfanumeric words |
-|          | invalid, null |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |  |
-
-**Combination of predicates**
-
-| String gasolinetype | String carsharing  | Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- | --- | --- |
-| correct  | correct |  Yes | Correct input, gas stations exists in range. Returns all gas stations with right car sharing company and gasoline type whose car sharing company and gasoline type are passed as parameters. **Specific order?** | testGetGasStationsWithoutCoordinates (Integration test) |
-| correct | wrong, null |  Yes | No gas stations for this car sharing Company | testGetGasStationsWithoutCoordinates2 (Integration test) |
-| wrong, gasoline type not in list | correct |  Yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates3 (Integration test) |
-| wrong | wrong | yes | Wrong input gasoline type, InvalidGasTypeException | testGetGasStationsWithoutCoordinates1 (Integration test) |
-
-
-### Class *GasStationServiceimpl* - method *SetReport*
-
-Set a report for price update by an user for a gas station.
-
-It receives as parameters an integer gas station ID value, an integer user ID and the price value of the gasoline type.
-
-If ID of gas station and user are valid, so they are not null and positive and if gas type price are positive, a report is gonna create.
-
-Throws an exception if one of that value is wrong.
-
-**Criteria for method *SetReport*:**
-
- - Value gasStationId
- - Value userId
- - Value dieselPrice
- - Value superPrice
- - Value superPlusPrice
- - Value gasPrice
- - Value methanePrice
-
-**Predicates for method *SetReport*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| Value gasStationId | valid, >0 and not null |
-|          | invalid, <0 or null |
-| Value userId | valid, >0 and not null |
-|          | invalid, <0 or null |
-| Value dieselPrice | valid, >0 |
-|          | invalid, <0 |
-| Value superPrice | valid, >0 |
-|          | invalid, <0 |
-| Value superPlusPrice | valid, >0 |
-|          | invalid, <0 |
-| Value gasPrice | valid, >0 |
-|          | invalid, <0 |
-| Value methanePrice | valid, >0 |
-|          | invalid, <0 |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |  |
-
-**Combination of predicates**
-
-| Value gasStationId | Value userId | Value dieselPrice | Value superPrice | Value superPlusPrice | Value gasPrice | Value methanePrice | Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| correct | correct | correct  | correct | correct  | correct | correct |  Yes | Correct input and report is setted | testSetReport(Integration Test) |
-| correct | correct | correct  | correct | correct  | correct | wrong |  Yes | wrong methanePrice, PriceException | testSetReport2(Integration Test) |
-| correct | correct | correct | correct | correct | wrong | correct | Skipped | wrong gasPrice, PriceException |  |
-| correct | correct | correct | correct | wrong | correct | correct | Skipped | wrong superPlusPrice, PriceException |  |
-| correct | correct | correct | wrong | correct | correct | correct | Skipped | wrong superPrice, PriceException |  |
-| correct | correct | wrong | correct | correct | correct | correct | Skipped | wrong dieselPrice, PriceException |  |
-| correct | wrong | correct | correct | correct | correct | correct | Yes | wrong userId, InvalidUserException | testSetReport3(Integration Test) |
-| wrong | correct | correct | correct | correct | correct | correct | Yes | wrong gasStationId, InvalidGasStationException | testSetReport1(Integration Test) |
-
-### Class *UserConverter* - method *toUserDto*
-
-**Criteria for method *toUserDto*:**
-
- - Make a UserDto with User's value
-
-**Predicates for method *toUserDto*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  | yes | Test if the value are correct |testtoUserDto() |
-
-### Class *GasStationConverter* - method *toGasStation*
-
-**Criteria for method *toGasStation*:**
-
- - Make a GasStation with GasStationDto's value
-
-**Predicates for method *toGasStation*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  | yes | Test if the value are correct |testtoGasStation() |
-
-### Class *GasStationConverter* - method *toGasStationDto*
-
-**Criteria for method *toGasStationDto*:**
-
- - Make a GasStationDto with GasStation's value
-
-**Predicates for method *toGasStationDto*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  | yes | Test if the value are correct |testtoGasStationDto() |
-
-### Class *LoginConverter* - method *testtoLoginDto*
-
-**Criteria for method *testtoLoginDto*:**
-
- - Make a LoginDto with User's value
-
-**Predicates for method *testtoLoginDto*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  | yes | Test if the value are correct |testtesttoLoginDto() |
-
-### Class *UserConverter* - method *toUser*
-
-**Criteria for method *toUser*:**
-
- - Make a User with UserDto's value
-
-**Predicates for method *toUser*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  | yes | Test if the value are correct |testtoUser() |
-
-### Class *LoginDto* - method *LoginDto*
-
-**Criteria for method *LoginDto*:**
-
- -
-
-**Predicates for method *LoginDto*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  |testLoginDto() |
-|  |  |  |testLoginDtoIntegerStringStringStringInteger() |
-
-### Class *LoginDto* - method *getLoginDtoId()*
-
-**Criteria for method *getLoginDtoId*:**
-
- - value of Id
-
-**Predicates for method *getLoginDtoId*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| value Id | -1 (invalid) |
-|          | 1 (valid) |
-|| no value |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUserId() (test valid and invalid Id) |
-|  |  |  | testSetGetUserId2() (test null Id)|
-
-### Class *LoginDto* - method *setLoginDtoId()*
-
-**Criteria for method *setLoginDtoId*:**
-
- -
-
-**Predicates for method *setLoginDtoId*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUserId() |
-|  |  |  | testSetGetUserId2() |
-
-### Class *LoginDto* - method *getLoginDtoName()*
-
-**Criteria for method *getLoginDtoName*:**
-
- -
-
-**Predicates for method *getLoginDtoName*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUserName() |
-|  |  |  | testSetGetUserName2() |
-
-### Class *LoginDto* - method *setLoginDtoName()*
-
-**Criteria for method *setLoginDtoName*:**
-
- -
-
-**Predicates for method *setLoginDtoName*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUserName() |
-|  |  |  | testSetGetUserName2() |
-
-### Class *LoginDto* - method *getToken()*
-
-**Criteria for method *getToken*:**
-
- -
-
-**Predicates for method *getToken*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetToken() |
-|  |  |  | testSetGetToken2() |
-
-### Class *LoginDto* - method *setToken()*
-
-**Criteria for method *setToken*:**
-
- -
-
-**Predicates for method *setToken*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetToken() |
-|  |  |  | testSetGetToken2() |
-
-### Class *LoginDto* - method *getEmail()*
-
-**Criteria for method *getEmail*:**
-
- -
-
-**Predicates for method *getEmail*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetEmail() |
-|  |  |  | testSetGetEmail2() |
-
-### Class *LoginDto* - method *setEmail()*
-
-**Criteria for method *setEmail*:**
-
- -
-
-**Predicates for method *setEmail*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetEmail() |
-|  |  |  | testSetGetEmail2() |
-
-### Class *LoginDto* - method *getReputation()*
-
-**Criteria for method *getReputation*:**
-
- -
-
-**Predicates for method *getReputation*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetReputation() |
-|  |  |  | testSetGetReputation2() |
-
-### Class *LoginDto* - method *setReputation()*
-
-**Criteria for method *setReputation*:**
-
- -
-
-**Predicates for method *setReputation*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetReputation() |
-|  |  |  | testSetGetReputation2() |
-
-### Class *LoginDto* - method *getAdmin()*
-
-**Criteria for method *getAdmin*:**
-
- -
-
-**Predicates for method *getAdmin*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetAdmin() |
-|  |  |  | testSetGetAdmin2() |
-
-### Class *LoginDto* - method *setAdmin()*
-
-**Criteria for method *setAdmin*:**
-
- -
-
-**Predicates for method *setAdmin*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetAdmin() |
-|  |  |  | testSetGetAdmin2() |
-
-### Class *IdPw* - method *IdPw*
-
-**Criteria for method *IdPw*:**
-
- -
-
-**Predicates for method *IdPw*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  |testIdPw() |
-|  |  |  |testIdPwStringString() |
-
-### Class *IdPw* - method *getPw()*
-
-**Criteria for method *getPw*:**
-
- -
-
-**Predicates for method *getPw*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetPw() |
-
-### Class *IdPw* - method *setPw()*
-
-**Criteria for method *setPw*:**
-
- -
-
-**Predicates for method *setPw*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetPw() |
-
-### Class *IdPw* - method *getUser()*
-
-**Criteria for method *getUser*:**
-
- -
-
-**Predicates for method *getUser*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUser() |
-
-### Class *IdPw* - method *setUser()*
-
-**Criteria for method *setUser*:**
-
- -
-
-**Predicates for method *setUser*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUser() |
-
-### Class *User* - method *User*
-
-**Criteria for method *User*:**
-
- -
-
-**Predicates for method *User*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  |testUser() |
-|  |  |  |testUser2() |
-
-### Class *User* - method *getUserId()*
-
-**Criteria for method *getUserId*:**
-
- - value of Id
-
-**Predicates for method *getUserId*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-| value Id | -1 (invalid) |
-|          | 1 (valid) |
-|| no value |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUserId() (test valid and invalid Id) |
-|  |  |  | testSetGetUserId2() (test null Id)|
-
-### Class *User* - method *setUserId()*
-
-**Criteria for method *setUserId*:**
-
- -
-
-**Predicates for method *setUserId*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUserId() |
-|  |  |  | testSetGetUserId2() |
-
-### Class *User* - method *getUserName()*
-
-**Criteria for method *getUserName*:**
-
- -
-
-**Predicates for method *getUserName*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUserName() |
-|  |  |  | testSetGetUserName2() |
-
-### Class *User* - method *setUserName()*
-
-**Criteria for method *setUserName*:**
-
- -
-
-**Predicates for method *setUserName*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetUserName() |
-|  |  |  | testSetGetUserName2() |
-
-### Class *User* - method *getPassword()*
-
-**Criteria for method *getPassword*:**
-
- -
-
-**Predicates for method *getPassword*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetPassword() |
-|  |  |  | testSetGetUserPassword2() |
-
-### Class *User* - method *setPassword()*
-
-**Criteria for method *setPassword*:**
-
- -
-
-**Predicates for method *setPassword*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetPassword() |
-|  |  |  | testSetGetPassword2() |
-
-### Class *User* - method *getEmail()*
-
-**Criteria for method *getEmail*:**
-
- -
-
-**Predicates for method *getEmail*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetEmail() |
-|  |  |  | testSetGetEmail2() |
-
-### Class *User* - method *setEmail()*
-
-**Criteria for method *setEmail*:**
-
- -
-
-**Predicates for method *setEmail*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetEmail() |
-|  |  |  | testSetGetEmail2() |
-
-### Class *User* - method *getReputation()*
-
-**Criteria for method *getReputation*:**
-
- -
-
-**Predicates for method *getReputation*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetReputation() |
-|  |  |  | testSetGetReputation2() |
-
-### Class *User* - method *setReputation()*
-
-**Criteria for method *setReputation*:**
-
- -
-
-**Predicates for method *setReputation*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetReputation() |
-|  |  |  | testSetGetReputation2() |
-
-### Class *User* - method *getAdmin()*
-
-**Criteria for method *getAdmin*:**
-
- -
-
-**Predicates for method *getAdmin*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetAdmin() |
-|  |  |  | testSetGetAdmin2() |
-
-### Class *User* - method *setAdmin()*
-
-**Criteria for method *setAdmin*:**
-
- -
-
-**Predicates for method *setAdmin*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  | testSetGetAdmin() |
-|  |  |  | testSetGetAdmin2() |
+# UserDto
 
 ### Class *UserDto* - method *UserDto*
 
@@ -3138,237 +2918,475 @@ Throws an exception if one of that value is wrong.
 |  |  |  | testSetGetAdmin() |
 |  |  |  | testSetGetAdmin2() |
 
-### Class *UserServiceimpl* - method *getUserById(Integer userId)*
+# IdPw
 
-returns the UserDto corresponding to the userId passed as parameter.
+### Class *IdPw* - method *IdPw*
 
-Throws an exception in case of invalid (negative) userId
+**Criteria for method *IdPw*:**
 
-Returns null if no user is found with the given Id
+ -
 
-**Criteria for method *getUserById(Integer userId)*:**
-
--User Id
-
-**Predicates for method *getUserById(Integer userId)*:**
+**Predicates for method *IdPw*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-| user Id  | illegal UserId: userId<0|
-|| consistent userId not present in db|
-|| consistent userId present in db|
+|  |  |
+|          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |  |
+|  |                 |
 
-**Combination of predicates**
-   
-| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- |
-|userId present|V||testGetUserById()-returns UserDto object|
-|userId not present|V||testGetUserById3()->returns null|
-|invalid userId|I||testGetUserById2()->throws InvalidUserException|
+**Combination of predicates**:
 
-### Class *UserServiceimpl* - method *testSaveUser()*
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testIdPw() |
+|  |  |  |testIdPwStringString() |
 
-Saves the User object into the database and returns the saved object.
+### Class *IdPw* - method *getPw()*
 
-**Criteria for method *saveUser(User Dto)*:**
+**Criteria for method *getPw*:**
 
--User object
+ -
 
-**Predicates for method *saveUser(User Dto)*:**
+**Predicates for method *getPw*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|user object|consistent user object not present in db|
-|| consistent user present in db|
+|  |  |
+|          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |  |
+|  |                 |
 
-**Combination of predicates**
+**Combination of predicates**:
 
-| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- |
-| user present | V |  | testSaveUser()->returns UserDto |
-| user not present | I |  | testSaveuser1()->returns null |
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPw() |
 
-### Class *UserServiceimpl* - method *getAllUsers()*
+### Class *IdPw* - method *setPw()*
 
-get list of all users in UserDto format;
+**Criteria for method *setPw*:**
 
-**Criteria for method *getAllUsers(UserDto users)*:**
+ -
 
--UserDto object
-
-**Predicates for method *getAllUsers(UserDto users)*:**
+**Predicates for method *setPw*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-| UserDto | more than one into the repository |
-|  | 0 UserDto into repository |
+|  |  |
+|          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |  |
+|  |                 |
 
-**Combination of predicates**
+**Combination of predicates**:
 
-| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- |
-| users present | V |  | testGetAllUser()->list of all users |
-| users not present | V |  | testGetAllUser()->isEmpty=true |
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetPw() |
 
-### Class *UserServiceimpl* - method *deleteUser(integer id)*
+### Class *IdPw* - method *getUser()*
 
-remove user from repository.
+**Criteria for method *getUser*:**
 
-**Criteria for method *deleteUser(integer id)*:**
+ -
 
--Integer id
-
-**Predicates for method *deleteUser(integer id)*:**
+**Predicates for method *getUser*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|Integer Id | valid |
-|  | invalid |
+|  |  |
+|          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |  |
+|  |                 |
 
-**Combination of predicates**
+**Combination of predicates**:
 
-| Value UserId |  Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- |
-|id present|V||testDeleteUser(id)->return true|
-|id not present|V||testDeleteUser(id)->wrong userId exception|
-|id non valid| I|testDeleteUser(id)->wrong userId exception|
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUser() |
 
-### Class *UserServiceimpl* - method *Login(IdPw id)*
+### Class *IdPw* - method *setUser()*
 
-check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+**Criteria for method *setUser*:**
 
-**Criteria for method *Login(IdPw id)*:**
+ -
 
--IdPw object
-
-**Predicates for method *Login(IdPw id)*:**
+**Predicates for method *setUser*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|IdPw object|valid|
-||invalid|
+|  |  |
+|          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |  |
+|  |                 |
 
-**Combination of predicates**
+**Combination of predicates**:
 
-| Value IdPw |  Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- |
-|IdPw present and valid|V||testLogin(idPw)->return idPw|
-|IdPw not valid |V||testLogin(idPw)->invalid LoginData exception|
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUser() |
 
-### Class *UserServiceimpl* - method *increaseUserReputation(integer UserId)*
+# LoginDto
 
-check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+### Class *LoginDto* - method *LoginDto*
 
-**Criteria for method *increaseUserReputation(integer UserId)*:**
+**Criteria for method *LoginDto*:**
 
-- userId
+ -
 
-- userReputation
-
-**Predicates for method *increaseUserReputation(integer UserId)*:**
+**Predicates for method *LoginDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|userReputation|valid|
-||invalid|
-|userId |valid |
-||invalid|
+|  |  |
+|          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |  |
+|  |                 |
 
-**Combination of predicates**
+**Combination of predicates**:
 
-| Value UserId | value of reputation |   Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- | --- |
-|UserId valid|3|V||testIncreaseUserReputation(id)->user reputation 4|
-|UserId valid |5|V||testIncreaseUserReputation(id)->5|
-|UserId Ivalid |-1|V||testIncreaseUserReputation(id)->throw invalidUserexception|
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testLoginDto() |
+|  |  |  |testLoginDtoIntegerStringStringStringInteger() |
 
-### Class *UserServiceimpl* - method *decreaseUserReputation(integer UserId)*
+### Class *LoginDto* - method *getLoginDtoId()*
 
-check correctness of user mail and associated password. returns Idpw object if email and passwords are correct, otherwise it throws an exception
+**Criteria for method *getLoginDtoId*:**
 
-**Criteria for method *decreaseUserReputation(integer UserId)*:**
+ - value of Id
 
-- userId
-- userReputation
-
-**Predicates for method *decreaseUserReputation(integer UserId)*:**
+**Predicates for method *getLoginDtoId*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|userReputation|valid|
-||invalid|
-|userId |valid |
-||invalid|
+| value Id | -1 (invalid) |
+|          | 1 (valid) |
+|| no value |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserId() (test valid and invalid Id) |
+|  |  |  | testSetGetUserId2() (test null Id)|
+
+### Class *LoginDto* - method *setLoginDtoId()*
+
+**Criteria for method *setLoginDtoId*:**
+
+ -
+
+**Predicates for method *setLoginDtoId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
 |  |  |
+|          |  |
 
-**Combination of predicates**
+**Boundaries**:
 
-| Value UserId | value of reputation |   Valid / Invalid | Description of the test case | JUnit test case |
-| --- | --- | --- | --- | --- |
-|UserId valid|3|V||testDecreaseUserReputation(id)->user reputation 2|
-|UserId valid |-5|V||testDecreaseUserReputation(id)->-5|
-|UserId Ivalid |-1|V||testDecreaseUserReputation(id)->throw invalidUserexception|
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
 
+**Combination of predicates**:
 
-# White Box Unit Tests
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserId() |
+|  |  |  | testSetGetUserId2() |
 
-### Test cases definition
+### Class *LoginDto* - method *getLoginDtoName()*
 
-    <JUnit test classes must be in src/test/java/it/polito/ezgas>
-    <Report here all the created JUnit test cases, and the units/classes under test >
-    <For traceability write the class and method name that contains the test case>
+**Criteria for method *getLoginDtoName*:**
 
+ -
 
-|      Unit name      |     JUnit test case     |
-|---------------------|-------------------------|
-| GasStation.java     | GasStationTest.java     |
-| User.java           | UserTest.java           |
-| UserDto.java        | testUserDto.java        |
-| LoginDto.java       | testLoginDto.java       |
-| GasStationDto.java  | testGasStationDto.java  |
-| IdPw.java           | testIdPw.java           |
-| PriceReportDto.java | testPriceReportDto.java |
+**Predicates for method *getLoginDtoName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserName() |
+|  |  |  | testSetGetUserName2() |
+
+### Class *LoginDto* - method *setLoginDtoName()*
+
+**Criteria for method *setLoginDtoName*:**
+
+ -
+
+**Predicates for method *setLoginDtoName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetUserName() |
+|  |  |  | testSetGetUserName2() |
+
+### Class *LoginDto* - method *getToken()*
+
+**Criteria for method *getToken*:**
+
+ -
+
+**Predicates for method *getToken*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetToken() |
+|  |  |  | testSetGetToken2() |
+
+### Class *LoginDto* - method *setToken()*
+
+**Criteria for method *setToken*:**
+
+ -
+
+**Predicates for method *setToken*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetToken() |
+|  |  |  | testSetGetToken2() |
+
+### Class *LoginDto* - method *getEmail()*
+
+**Criteria for method *getEmail*:**
+
+ -
+
+**Predicates for method *getEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *LoginDto* - method *setEmail()*
+
+**Criteria for method *setEmail*:**
+
+ -
+
+**Predicates for method *setEmail*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetEmail() |
+|  |  |  | testSetGetEmail2() |
+
+### Class *LoginDto* - method *getReputation()*
+
+**Criteria for method *getReputation*:**
+
+ -
+
+**Predicates for method *getReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *LoginDto* - method *setReputation()*
+
+**Criteria for method *setReputation*:**
+
+ -
+
+**Predicates for method *setReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetReputation() |
+|  |  |  | testSetGetReputation2() |
+
+### Class *LoginDto* - method *getAdmin()*
+
+**Criteria for method *getAdmin*:**
+
+ -
+
+**Predicates for method *getAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
+
+### Class *LoginDto* - method *setAdmin()*
+
+**Criteria for method *setAdmin*:**
+
+ -
+
+**Predicates for method *setAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  | testSetGetAdmin() |
+|  |  |  | testSetGetAdmin2() |
+
 
 ### Code coverage report
 
