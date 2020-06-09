@@ -3360,10 +3360,15 @@ check correctness of user mail and associated password. returns Idpw object if e
     <For traceability write the class and method name that contains the test case>
 
 
-| Unit name | JUnit test case |
-|--|--|
-| GasStation.java | GasStationTest.java |
-| User.java | UserTest.java |
+|      Unit name      |     JUnit test case     |
+|---------------------|-------------------------|
+| GasStation.java     | GasStationTest.java     |
+| User.java           | UserTest.java           |
+| UserDto.java        | testUserDto.java        |
+| LoginDto.java       | testLoginDto.java       |
+| GasStationDto.java  | testGasStationDto.java  |
+| IdPw.java           | testIdPw.java           |
+| PriceReportDto.java | testPriceReportDto.java |
 
 ### Code coverage report
 
