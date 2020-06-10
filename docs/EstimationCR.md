@@ -25,9 +25,9 @@ update of documents. Consider only effort on the back end (changes to all packag
 | ----------- | ------------------------------- | ---------------------------- | 
 | CR1   | 3 | 70 |          
 | CR2   | 3.5 | 110 | 
-| CR3   | 2 | 160 | 
+| CR3   | 2 | 120 | 
 | CR4   | 4.5 | 45 | 
 | CR5   | 4 | 140 | 
-| CR6   | 5 | 170 | 
+| CR6   | 5 | 160 | 
 | CR7   | 1 | 40 | 
 | CR8   | | | 

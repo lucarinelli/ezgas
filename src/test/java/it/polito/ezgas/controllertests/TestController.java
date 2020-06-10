@@ -64,7 +64,7 @@ public class TestController {
 		
 		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
 		
-		assertEquals(4, gasStationArray.length); //TODO Fix with the actual value!
+		assertEquals(2, gasStationArray.length); //TODO Fix with the actual value!
 		
 	}
 
@@ -184,7 +184,7 @@ public class TestController {
 		
 		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
 		
-		assertEquals(2, gasStationArray.length); //TODO Fix with the actual value!
+		assertEquals(1, gasStationArray.length); //TODO Fix with the actual value!
 		
 		for(GasStationDto gdto : gasStationArray) {
 			assert(gdto.getHasDiesel());
@@ -206,7 +206,7 @@ public class TestController {
 		
 		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
 		
-		assertEquals(2, gasStationArray.length); //TODO Fix with the actual value!
+		assertEquals(1, gasStationArray.length); //TODO Fix with the actual value!
 		
 		/*for(GasStationDto gdto : gasStationArray) {
 			assert(check distance); //TODO improvement
@@ -262,10 +262,10 @@ public class TestController {
 		assertTrue(gasStation.getGasPrice()==2.0);
 		assertEquals(gasStation.getMethanePrice(), -1.0, 0.00001);
 		
-		Date dateTimestamp = null;
-		dateTimestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(gasStation.getReportTimestamp());
+		Date toDay = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 		
-		assertEquals(dateTimestamp.getTime(), new Date().getTime(), 60);
+		assertEquals(gasStation.getReportTimestamp(), sdf.format(toDay));
 		
 	}
 	
@@ -369,7 +369,7 @@ public class TestController {
 		
 		UserDto[] userDtoArray = mapper.readValue(jsonFromResponse, UserDto[].class);
 		
-		assertEquals(3, userDtoArray.length); //TODO Fix with the actual value!
+		assertEquals(2, userDtoArray.length); //TODO Fix with the actual value!
 	}
 
 	// 17

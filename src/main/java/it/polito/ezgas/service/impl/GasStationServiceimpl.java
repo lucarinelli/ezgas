@@ -56,6 +56,7 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
+		GasStationDto gasStationDto;
 		if (gasStationId == null || gasStationId < 0)
 			throw new InvalidGasStationException("Wrong gasStationId");
 
@@ -63,7 +64,10 @@ public class GasStationServiceimpl implements GasStationService {
 			GasStation gasStation;
 			gasStation = gasStationRepository.findOne(gasStationId);
 			if (gasStation != null) {
-				return GasStationConverter.toGasStationDto(gasStation);
+				gasStationDto=GasStationConverter.toGasStationDto(gasStation);
+				if(gasStation.getUser()!=null)
+					gasStationDto.setUserDto(UserConverter.toUserDto(gasStation.getUser()));
+				return gasStationDto;
 			} else
 				return null;
 		}
@@ -87,6 +91,9 @@ public class GasStationServiceimpl implements GasStationService {
 			current = GasStationConverter.toGasStationDto(gasStations);
 		} else {
 			GasStation gasStations = gasStationRepository.findOne(gasStationDto.getGasStationId());
+			if (gasStationDto.getCarSharing().equals("null")) {
+				gasStationDto.setCarSharing(null);
+			}
 			gasStations.setCarSharing(gasStationDto.getCarSharing());
 			gasStations.setDieselPrice(gasStationDto.getDieselPrice());
 			gasStations.setGasPrice(gasStationDto.getGasPrice());
@@ -305,7 +312,7 @@ public class GasStationServiceimpl implements GasStationService {
 		if(user==null)
 			throw new InvalidUserException("Wrong userId");
 		
-		String reportTimestamp = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date());
+		String reportTimestamp = new java.text.SimpleDateFormat("MM-dd-yyyy").format(new java.util.Date());
 		gasStation.setDieselPrice(dieselPrice);
 		gasStation.setGasPrice(gasPrice);
 		gasStation.setSuperPrice(superPrice);
@@ -341,7 +348,7 @@ public class GasStationServiceimpl implements GasStationService {
 		
 		Date dateTimestamp = null;
 		try {
-			dateTimestamp = new SimpleDateFormat("dd/MM/yyyy").parse(g.getReportTimestamp());
+			dateTimestamp = new SimpleDateFormat("MM-dd-yyyy").parse(g.getReportTimestamp());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

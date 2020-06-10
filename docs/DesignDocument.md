@@ -445,6 +445,17 @@ package "it.polito.ezgas.repository" {
         }
         
         class GasStationRepository{
+    findByCarSharing(String carSharing) : List<GasStation> 
+
+	findByHasDieselOrderByDieselPriceAsc(boolean hasDiesel) : List<GasStation> 
+
+	findByHasMethaneOrderByMethanePriceAsc(boolean hasMethane) : List<GasStation> 
+
+	findByHasGasOrderByGasPriceAsc(boolean hasGas) : List<GasStation> 
+
+	findByHasSuperOrderBySuperPriceAsc(boolean hasSuper) : List<GasStation> 
+
+	findByHasSuperPlusOrderBySuperPlusPriceAsc(boolean hasSuperPlus)  : List<GasStation> 
 
         }
         

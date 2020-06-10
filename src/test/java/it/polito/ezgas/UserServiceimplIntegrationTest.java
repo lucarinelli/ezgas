@@ -180,7 +180,7 @@ public class UserServiceimplIntegrationTest {
 		urD = UserConverter.toUserDto(ur);
 		nonurD= new UserDto();
 		nonur =new User();
-		aur = new User("ciao", "password", "ciao@password", 5);
+		aur = new User("ciao", "password", "ciao1@password", 5);
 		aur.setAdmin(true);
 		aurD = UserConverter.toUserDto(aur);
 		
