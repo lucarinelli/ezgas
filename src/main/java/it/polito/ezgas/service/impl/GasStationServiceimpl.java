@@ -85,42 +85,45 @@ public class GasStationServiceimpl implements GasStationService {
 		if (Math.abs(gasStationDto.getLat()) > 90.0 || Math.abs(gasStationDto.getLon()) > 180.0)
 			throw new GPSDataException("Wrong GPSData");
 
-		if (gasStationDto.getGasStationId() == null) {
-			GasStation gasStations = GasStationConverter.toGasStation(gasStationDto);
-			gasStations = gasStationRepository.save(gasStations);
-			current = GasStationConverter.toGasStationDto(gasStations);
+		if (gasStationDto.getGasStationId() == null || gasStationDto.getGasStationId() <= 0) {
+			gasStationDto.setGasStationId(null);
+			GasStation gasStation = GasStationConverter.toGasStation(gasStationDto);
+			gasStation = gasStationRepository.save(gasStation);
+			current = GasStationConverter.toGasStationDto(gasStation);
 		} else {
-			GasStation gasStations = gasStationRepository.findOne(gasStationDto.getGasStationId());
+			GasStation gasStation = gasStationRepository.findOne(gasStationDto.getGasStationId());
+			if (gasStation == null) {
+				gasStation = new GasStation();
+			}
 			if (gasStationDto.getCarSharing().equals("null")) {
 				gasStationDto.setCarSharing(null);
 			}
-			gasStations.setCarSharing(gasStationDto.getCarSharing());
-			gasStations.setDieselPrice(gasStationDto.getDieselPrice());
-			gasStations.setGasPrice(gasStationDto.getGasPrice());
-			gasStations.setGasStationAddress(gasStationDto.getGasStationAddress());
-			gasStations.setGasStationName(gasStationDto.getGasStationName());
-			gasStations.setHasDiesel(gasStationDto.getHasDiesel());
-			gasStations.setHasGas(gasStationDto.getHasGas());
-			gasStations.setHasMethane(gasStationDto.getHasMethane());
-			gasStations.setHasSuper(gasStationDto.getHasSuper());
-			gasStations.setHasSuperPlus(gasStationDto.getHasSuperPlus());
-			gasStations.setHasPremiumDiesel(gasStationDto.getHasPremiumDiesel());
-			gasStations.setLat(gasStationDto.getLat());
-			gasStations.setLon(gasStationDto.getLon());
-			gasStations.setMethanePrice(gasStationDto.getMethanePrice());
-			gasStations.setReportDependability(gasStationDto.getReportDependability());
-			gasStations.setReportTimestamp(gasStationDto.getReportTimestamp());
-			gasStations.setReportUser(gasStationDto.getReportUser());
-			gasStations.setSuperPlusPrice(gasStationDto.getSuperPlusPrice());
-			gasStations.setSuperPrice(gasStationDto.getSuperPrice());
-			gasStations.setPremiumDieselPrice(gasStationDto.getPremiumDieselPrice());
+			gasStation.setCarSharing(gasStationDto.getCarSharing());
+			gasStation.setDieselPrice(gasStationDto.getDieselPrice());
+			gasStation.setGasPrice(gasStationDto.getGasPrice());
+			gasStation.setGasStationAddress(gasStationDto.getGasStationAddress());
+			gasStation.setGasStationName(gasStationDto.getGasStationName());
+			gasStation.setHasDiesel(gasStationDto.getHasDiesel());
+			gasStation.setHasGas(gasStationDto.getHasGas());
+			gasStation.setHasMethane(gasStationDto.getHasMethane());
+			gasStation.setHasSuper(gasStationDto.getHasSuper());
+			gasStation.setHasSuperPlus(gasStationDto.getHasSuperPlus());
+			gasStation.setHasPremiumDiesel(gasStationDto.getHasPremiumDiesel());
+			gasStation.setLat(gasStationDto.getLat());
+			gasStation.setLon(gasStationDto.getLon());
+			gasStation.setMethanePrice(gasStationDto.getMethanePrice());
+			gasStation.setReportDependability(gasStationDto.getReportDependability());
+			gasStation.setReportTimestamp(gasStationDto.getReportTimestamp());
+			gasStation.setReportUser(gasStationDto.getReportUser());
+			gasStation.setSuperPlusPrice(gasStationDto.getSuperPlusPrice());
+			gasStation.setSuperPrice(gasStationDto.getSuperPrice());
+			gasStation.setPremiumDieselPrice(gasStationDto.getPremiumDieselPrice());
 			if (gasStationDto.getUserDto() != null)
-				gasStations.setUser(UserConverter.toUser(gasStationDto.getUserDto()));
+				gasStation.setUser(UserConverter.toUser(gasStationDto.getUserDto()));
 
-			gasStations = gasStationRepository.save(gasStations);
-			current = GasStationConverter.toGasStationDto(gasStations);
+			gasStation = gasStationRepository.save(gasStation);
+			current = GasStationConverter.toGasStationDto(gasStation);
 		}
-		// TODO check
 		return current;
 	}
 
@@ -143,11 +146,11 @@ public class GasStationServiceimpl implements GasStationService {
 
 		GasStation gs = gasStationRepository.findOne(gasStationId);
 
-		gasStationRepository.delete(gasStationId);
 		if (gs == null) {
-			return null;
+			return false;
 		}
-		// TODO check
+
+		gasStationRepository.delete(gasStationId);
 		return true;
 
 	}
@@ -286,8 +289,9 @@ public class GasStationServiceimpl implements GasStationService {
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon, int radius) throws GPSDataException {
 		if (Math.abs(lat) > 90.0 || Math.abs(lon) > 180.0)
 			throw new GPSDataException("Wrong GPSData");
-		
-		if (radius <= 0) radius = 1;
+
+		if (radius <= 0)
+			radius = 1;
 
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
@@ -327,8 +331,9 @@ public class GasStationServiceimpl implements GasStationService {
 
 		if (!listCarSharings.contains(carsharing) && carsharing != null)
 			throw new InvalidCarSharingException("Wrong car sharing");
-		
-		if (radius <= 0) radius = 1;
+
+		if (radius <= 0)
+			radius = 1;
 
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
