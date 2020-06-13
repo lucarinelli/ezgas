@@ -251,7 +251,7 @@ public class GasStationServiceimpl implements GasStationService {
 		for (GasStation current : gasStationRepository.findByCarSharing(carSharing)) {
 			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
-		
+
 		return gasStations;
 	}
 
@@ -322,7 +322,7 @@ public class GasStationServiceimpl implements GasStationService {
 
 		if (!listGasolineTypes.contains(gasolinetype) && gasolinetype != null)
 			throw new InvalidGasTypeException("Wrong gasoline type");
-		
+
 		if (!listCarSharings.contains(carsharing) && carsharing != null)
 			throw new InvalidCarSharingException("Wrong car sharing");
 
@@ -330,7 +330,7 @@ public class GasStationServiceimpl implements GasStationService {
 
 		for (GasStation current : gasStationRepository.findAll()) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
-			if (distance <= 1 && (getListGasolineTypes(current).contains(gasolinetype) || gasolinetype == null)
+			if (distance <= radius && (getListGasolineTypes(current).contains(gasolinetype) || gasolinetype == null)
 					&& (current.getCarSharing().equals(carsharing) || carsharing == null)) {
 				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
@@ -368,7 +368,8 @@ public class GasStationServiceimpl implements GasStationService {
 
 		// check higher dependability if report already exists
 		if (gasStation.getUser() != null) {
-			if (refreshReportDependability(gasStation)>computeReportDependability(new java.util.Date(), user.getReputation())) 
+			if (refreshReportDependability(gasStation) > computeReportDependability(new java.util.Date(),
+					user.getReputation()))
 				return; // return if dependability is lower than existing report
 		}
 
