@@ -31,6 +31,7 @@ import it.polito.ezgas.converter.UserConverter;
 public class GasStationServiceimpl implements GasStationService {
 
 	ArrayList<String> listGasolineTypes = new ArrayList<String>();
+	ArrayList<String> listCarSharings = new ArrayList<String>();
 
 	public GasStationServiceimpl(GasStationRepository gasStationRepository, UserRepository userRepository) {
 		// FIXME!!! Why is this here? A const/static thing would be better!!!
@@ -40,6 +41,8 @@ public class GasStationServiceimpl implements GasStationService {
 		listGasolineTypes.add("LPG");
 		listGasolineTypes.add("Methane");
 		listGasolineTypes.add("PremiumDiesel");
+		listCarSharings.add("Enjoy");
+		listCarSharings.add("Car2Go");
 		this.gasStationRepository = gasStationRepository;
 		this.userRepository = userRepository;
 	}
@@ -248,7 +251,7 @@ public class GasStationServiceimpl implements GasStationService {
 		for (GasStation current : gasStationRepository.findByCarSharing(carSharing)) {
 			gasStations.add(GasStationConverter.toGasStationDto(current));
 		}
-		// TODO checked
+		
 		return gasStations;
 	}
 
@@ -281,7 +284,6 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon, int radius) throws GPSDataException {
-		// TODO Auto-generated method stub
 		if (Math.abs(lat) > 90.0 || Math.abs(lon) > 180.0)
 			throw new GPSDataException("Wrong GPSData");
 
@@ -291,26 +293,24 @@ public class GasStationServiceimpl implements GasStationService {
 
 		for (GasStation current : result) {
 			double distance = distance(lat, lon, current.getLat(), current.getLon());
-			if (distance <= 1) {
+			if (distance <= radius) {
 				refreshReportDependability(current);
 				gasStations.add(GasStationConverter.toGasStationDto(current));
 			}
 		}
 
-		// TODO checked
 		return gasStations;
 	}
-	
+
 	@Override
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon) throws GPSDataException {
-		// TODO Auto-generated method stub
-		return null;
+		return getGasStationsByProximity(lat, lon, 1);
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, int radius, String gasolinetype,
 			String carsharing) throws InvalidGasTypeException, GPSDataException, InvalidCarSharingException {
-		// TODO Auto-generated method stub
+
 		if (Math.abs(lat) > 90.0 || Math.abs(lon) > 180.0)
 			throw new GPSDataException("Wrong GPSData");
 
@@ -321,7 +321,10 @@ public class GasStationServiceimpl implements GasStationService {
 			carsharing = null;
 
 		if (!listGasolineTypes.contains(gasolinetype) && gasolinetype != null)
-			throw new InvalidGasTypeException("Wrong gasolinetype");
+			throw new InvalidGasTypeException("Wrong gasoline type");
+		
+		if (!listCarSharings.contains(carsharing) && carsharing != null)
+			throw new InvalidCarSharingException("Wrong car sharing");
 
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
@@ -353,17 +356,21 @@ public class GasStationServiceimpl implements GasStationService {
 		if (gasStation == null)
 			throw new InvalidGasStationException("Wrong gasStationId");
 
-		if ((gasStation.getHasDiesel() && dieselPrice < 0) 
-				|| (gasStation.getHasSuper() && superPrice < 0)
-				|| (gasStation.getHasSuperPlus() && superPlusPrice < 0) 
-				|| (gasStation.getHasGas() && gasPrice < 0)
-				|| (gasStation.getHasMethane() && methanePrice < 0) 
+		if ((gasStation.getHasDiesel() && dieselPrice < 0) || (gasStation.getHasSuper() && superPrice < 0)
+				|| (gasStation.getHasSuperPlus() && superPlusPrice < 0) || (gasStation.getHasGas() && gasPrice < 0)
+				|| (gasStation.getHasMethane() && methanePrice < 0)
 				|| (gasStation.getHasPremiumDiesel() && premiumDieselPrice < 0))
 			throw new PriceException("Wrong Price");
 
 		User user = userRepository.findOne(userId);
 		if (user == null)
 			throw new InvalidUserException("Wrong userId");
+
+		// check higher dependability if report already exists
+		if (gasStation.getUser() != null) {
+			if (refreshReportDependability(gasStation)>computeReportDependability(new java.util.Date(), user.getReputation())) 
+				return; // return if dependability is lower than existing report
+		}
 
 		String reportTimestamp = new java.text.SimpleDateFormat("MM-dd-yyyy").format(new java.util.Date());
 		gasStation.setDieselPrice(dieselPrice);
