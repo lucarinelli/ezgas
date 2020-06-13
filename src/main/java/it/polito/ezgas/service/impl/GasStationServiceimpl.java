@@ -286,6 +286,8 @@ public class GasStationServiceimpl implements GasStationService {
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon, int radius) throws GPSDataException {
 		if (Math.abs(lat) > 90.0 || Math.abs(lon) > 180.0)
 			throw new GPSDataException("Wrong GPSData");
+		
+		if (radius <= 0) radius = 1;
 
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
@@ -325,6 +327,8 @@ public class GasStationServiceimpl implements GasStationService {
 
 		if (!listCarSharings.contains(carsharing) && carsharing != null)
 			throw new InvalidCarSharingException("Wrong car sharing");
+		
+		if (radius <= 0) radius = 1;
 
 		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
 
