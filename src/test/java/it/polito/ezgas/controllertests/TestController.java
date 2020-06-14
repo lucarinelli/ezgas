@@ -1,16 +1,12 @@
 package it.polito.ezgas.controllertests;
 
 import static org.junit.Assert.assertEquals;
-
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 
 import org.apache.http.HttpResponse;
@@ -22,225 +18,25 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.aspectj.lang.annotation.*;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import exception.GPSDataException;
-import exception.InvalidLoginDataException;
-import exception.PriceException;
 import it.polito.ezgas.dto.GasStationDto;
-import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
-import it.polito.ezgas.repository.GasStationRepository;
-import it.polito.ezgas.repository.UserRepository;
-import it.polito.ezgas.service.GasStationService;
-import it.polito.ezgas.service.UserService;
-import junit.framework.TestCase;
 
-
-@SpringBootTest
-public class TestController extends TestCase {
-
-@Autowired
-GasStationService gasStationService;
-
-@Autowired
- UserService userService;
-
-@Autowired
-UserRepository userRepository;
-
-@Autowired
-GasStationRepository gasStationRepository;
-
-
-private List<Integer> userToDelete = new ArrayList<>();
-private List<Integer> gasStationToDelete = new ArrayList<>();
-private UserDto testUser;
-private UserDto testAdmin;
-private IdPw credentials;
-private IdPw credentialsAdmin;
-private GasStationDto testGasStation;
-private GasStationDto testGasStationNoPriceList;
-private GasStationDto testFarGasStation;
-
-private String testName = "test";
-private String testEmail = "test@test.test";
-private String testPwd = "testPwd";
-private String testNameAdmin = "test_Admin";
-private String testEmailAdmin = "test_Admin@test.test";
-private String testPwdAdmin = "testPwd_Admin";
-private Integer testReputation = 0;
-private String testGasStationName = "testGasStation";
-private String testGasStationName2 = "testGasStation2";
-
-private String testGasStationAddress = "testAddress";
-private double testLat =40.628624;
-private double testLon = 17.938168;
-private int testRadius = 5;
-private String testGasStationAddress2 = "testAddress2";
-private double testLat2 = 60.005;
-private double testLon2 = 60.005;
-private double testFarLat = 80.00;
-private double testFarLon = 80.00;
-
-private String testCarSharing2 = "Enjoy";
-private Double missingPrice = null;
-private boolean testHasDiesel = true;
-private double testDiesel = 1.2;
-private boolean testHasSuper = true;
-private double testSuper = 1.4;
-private boolean testHasSuperPlus = true;
-private double testSuperPlus = 1.45;
-private boolean testHasGas = true;
-private double testGas = 0.9;
-private boolean testHasMethane = true;
-private double testMethane = 0.9;
-private boolean testHasPremiumDiesel = true;
-private double testPremiumDiesel = 1.6;
-private String testCarSharing = "Car2Go";
-private UserDto userDto;
-private GasStationDto gasStationDto;
-private Integer userId,gasStationId,adminId;
-@Before
-public void init() throws PriceException, GPSDataException  {
-    userToDelete.clear();
-    gasStationToDelete.clear();
-    System.out.println("---------------------INIT---------------------");
-    testUser = new UserDto();
-    testUser.setPassword(testPwd);
-    testUser.setEmail(testEmail);
-    testUser.setUserName(testName);
-    testUser.setAdmin(false);
-    testUser.setReputation(testReputation);
-
-    testAdmin = new UserDto();
-    testAdmin.setUserName(testNameAdmin);
-    testAdmin.setEmail(testEmailAdmin);
-    testAdmin.setPassword(testPwdAdmin);
-    testAdmin.setAdmin(Boolean.TRUE);
-    testAdmin.setReputation(0);
-    credentials = new IdPw();
-    credentials.setUser(testEmail);
-    credentials.setPw(testPwd);
-
-    credentialsAdmin = new IdPw();
-    credentialsAdmin.setUser(testEmailAdmin);
-    credentialsAdmin.setPw(testPwdAdmin);
-
-    testGasStation = new GasStationDto();
-    testGasStation.setGasStationName(testGasStationName);
-    testGasStation.setGasStationAddress(testGasStationAddress);
-    testGasStation.setLat(testLat);
-    testGasStation.setLon(testLon);
-    testGasStation.setHasDiesel(testHasDiesel);
-    testGasStation.setDieselPrice(testDiesel);
-    testGasStation.setHasSuper(testHasSuper);
-    testGasStation.setSuperPrice(testSuper);
-    testGasStation.setHasSuperPlus(testHasSuperPlus);
-    testGasStation.setSuperPlusPrice(testSuperPlus);
-    testGasStation.setHasGas(testHasGas);
-    testGasStation.setGasPrice(testGas);
-    testGasStation.setHasMethane(testHasMethane);
-    testGasStation.setMethanePrice(testMethane);
-    testGasStation.setHasPremiumDiesel(testHasPremiumDiesel);
-    testGasStation.setPremiumDieselPrice(testPremiumDiesel);
-    testGasStation.setCarSharing(testCarSharing);
-
-    testFarGasStation = new GasStationDto();
-    testFarGasStation.setGasStationName(testGasStationName);
-    testFarGasStation.setGasStationAddress(testGasStationAddress);
-    testFarGasStation.setLat(testFarLat);
-    testFarGasStation.setLon(testFarLon);
-    testFarGasStation.setHasDiesel(testHasDiesel);
-    testFarGasStation.setDieselPrice(testDiesel);
-    testFarGasStation.setHasSuper(testHasSuper);
-    testFarGasStation.setSuperPrice(testSuper);
-    testFarGasStation.setHasSuperPlus(testHasSuperPlus);
-    testFarGasStation.setSuperPlusPrice(testSuperPlus);
-    testFarGasStation.setHasGas(testHasGas);
-    testFarGasStation.setGasPrice(testGas);
-    testFarGasStation.setHasMethane(testHasMethane);
-    testFarGasStation.setMethanePrice(testMethane);
-    testFarGasStation.setHasPremiumDiesel(testHasPremiumDiesel);
-    testFarGasStation.setPremiumDieselPrice(testPremiumDiesel);
-    testFarGasStation.setCarSharing(testCarSharing);
-
-    testGasStationNoPriceList = new GasStationDto();
-    testGasStationNoPriceList.setGasStationName(testGasStationName2);
-    testGasStationNoPriceList.setGasStationAddress(testGasStationAddress2);
-    testGasStationNoPriceList.setLat(testLat2);
-    testGasStationNoPriceList.setLon(testLon2);
-    testGasStationNoPriceList.setHasDiesel(testHasDiesel);
-    testGasStationNoPriceList.setDieselPrice(missingPrice);
-    testGasStationNoPriceList.setHasSuper(testHasSuper);
-    testGasStationNoPriceList.setSuperPrice(missingPrice);
-    testGasStationNoPriceList.setHasSuperPlus(testHasSuperPlus);
-    testGasStationNoPriceList.setSuperPlusPrice(missingPrice);
-    testGasStationNoPriceList.setHasGas(testHasGas);
-    testGasStationNoPriceList.setGasPrice(missingPrice);
-    testGasStationNoPriceList.setHasMethane(testHasMethane);
-    testGasStationNoPriceList.setMethanePrice(missingPrice);
-    testGasStationNoPriceList.setHasPremiumDiesel(testHasPremiumDiesel);
-    testGasStationNoPriceList.setPremiumDieselPrice(missingPrice);
-    testGasStationNoPriceList.setCarSharing(testCarSharing2);
-   userDto= userService.saveUser(testUser);
-   userId=userDto.getUserId();
-   userToDelete.add(userDto.getUserId());
-   userDto= userService.saveUser(testAdmin);
-   adminId=userDto.getUserId();
-   userToDelete.add(userDto.getUserId());
-   gasStationDto= gasStationService.saveGasStation(testFarGasStation);
-   gasStationId=gasStationDto.getGasStationId();
-   gasStationToDelete.add(gasStationId);
-    
-    
-
-}
-@After
-public void after() {
-    UserDto superadmin = new UserDto(null,"TESTSUPERADMIN","TESTSUPERADMIN","testsuper@admin.com",0,true);
-    superadmin = userService.saveUser(superadmin);
-    IdPw superAdminCred = new IdPw();
-    superAdminCred.setUser("testsuper@admin.com");
-    superAdminCred.setPw("TESTSUPERADMIN");
-    try {
-        LoginDto login = userService.login(superAdminCred);
-        if(userToDelete.size() > 0){
-            for(int id : userToDelete){
-                userRepository.delete(id);
-            }
-        }
-        if(gasStationToDelete.size() > 0){
-            for(int id : gasStationToDelete){
-                gasStationRepository.delete(id);
-            }
-        }
-        userRepository.delete(superadmin.getUserId());
-    } catch (InvalidLoginDataException e) {
-        e.printStackTrace();
-        fail();
-    }
-}
+public class TestController {
+	
 	// 1
 	@Test
 	public final void testGetGasStationById() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStation/"+gasStationId);
+		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStation/1");
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
@@ -251,13 +47,13 @@ public void after() {
 		
 		GasStationDto gasStation = mapper.readValue(jsonFromResponse, GasStationDto.class);
 		
-		assertEquals((Integer)gasStationId, gasStation.getGasStationId()); //TODO Fix with the actual value!
+		assertEquals((Integer)1, gasStation.getGasStationId()); //TODO Fix with the actual value!
 	}
 
 	// 2
 	@Test
-	public void testGetAllGasStations() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getAllGasStations/");
+	public final void testGetAllGasStations() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getAllGasStations");
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
@@ -268,13 +64,13 @@ public void after() {
 		
 		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
 		
-		assertEquals(gasStationToDelete.size(), gasStationArray.length); //TODO Fix with the actual value!
+		assertEquals(2, gasStationArray.length); //TODO Fix with the actual value!
 		
 	}
 
 	// 3
 	@Test
-	public void testSaveGasStation() throws ClientProtocolException, IOException, JSONException {
+	public final void testSaveGasStation() throws ClientProtocolException, IOException, JSONException {
 		HttpPost request = new HttpPost("http://localhost:8080/gasstation/saveGasStation/");
 		JSONObject json = new JSONObject();
 		int a = 0;
@@ -311,7 +107,6 @@ public void after() {
 		
 		for(GasStationDto gdto : gasStationArray) {
 			if(gdto.getGasStationName().equals("Fratm")) {
-				gasStationToDelete.add(gdto.getGasStationId());
 				assertEquals("P tutt e frat ingiustamente carcerat", gdto.getGasStationAddress()); //TODO Fix with the actual value!
 				assertEquals((double) 40.6794735, gdto.getLat(), 0.000001); //TODO Fix with the actual value!
 				assertEquals((double) 17.938348, gdto.getLon(), 0.000001); //TODO Fix with the actual value!
@@ -321,9 +116,9 @@ public void after() {
 		
 		assertNotEquals(a, 0);
 		
-		//HttpDelete delete = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + a + "/");
+		HttpDelete delete = new HttpDelete("http://localhost:8080/gasstation/deleteGasStation/" + a + "/");
  	    
-		//HttpClientBuilder.create().build().execute(delete);
+		HttpClientBuilder.create().build().execute(delete);
 		
 	}
 
@@ -377,23 +172,19 @@ public void after() {
 
 	// 5
 	@Test
-	public void testGetGasStationsByGasolineType() throws ClientProtocolException, IOException {
+	public final void testGetGasStationsByGasolineType() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/searchGasStationByGasolineType/Diesel");
 		HttpResponse response;
-		Integer counter=0;
+		
 		response = HttpClientBuilder.create().build().execute(request);
 
 		String jsonFromResponse = EntityUtils.toString(response.getEntity());
 		
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
-		GasStationDto gasStationArray[] = mapper.readValue(jsonFromResponse, GasStationDto[].class);
+		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
 		
-		for (GasStationDto gs : gasStationArray) {
-			if(gs.getHasDiesel())
-				counter++;
-		}
-		assert(counter.compareTo(gasStationArray.length)==0); //TODO Fix with the actual value!
+		assertEquals(1, gasStationArray.length); //TODO Fix with the actual value!
 		
 		for(GasStationDto gdto : gasStationArray) {
 			assert(gdto.getHasDiesel());
@@ -402,9 +193,9 @@ public void after() {
 
 	// 6
 	@Test
-	public void testGetGasStationsByProximity() throws ClientProtocolException, IOException {
+	public final void testGetGasStationsByProximity() throws ClientProtocolException, IOException {
 		// trailing "/" is important! or the last double will be parsed as integer!
-		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/searchGasStationByProximity/"+testLat+"/"+testLon);
+		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/searchGasStationByProximity/40.628624/17.938168/");
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
@@ -413,9 +204,9 @@ public void after() {
 		
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
-		GasStationDto gasStationArray[] = mapper.readValue(jsonFromResponse, GasStationDto[].class);
+		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
 		
-		assert( gasStationArray.length>=1); //TODO Fix with the actual value!
+		assertEquals(1, gasStationArray.length); //TODO Fix with the actual value!
 		
 		/*for(GasStationDto gdto : gasStationArray) {
 			assert(check distance); //TODO improvement
@@ -424,7 +215,7 @@ public void after() {
 
 	// 7
 	@Test
-	public void testGetGasStationsWithCoordinates() throws ClientProtocolException, IOException {
+	public final void testGetGasStationsWithCoordinates() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.628624/17.938168/Diesel/Enjoy");
 		HttpResponse response;
 		
@@ -446,7 +237,7 @@ public void after() {
 
 	// 8
 	@Test
-	public void testSetGasStationReport() throws JsonParseException, JsonMappingException, IOException, JSONException, ParseException {
+	public final void testSetGasStationReport() throws JsonParseException, JsonMappingException, IOException, JSONException, ParseException {
 		HttpPost request = new HttpPost("http://localhost:8080/gasstation/setGasStationReport/4/-1/2.0/-1/2.0/-1/1/");		
 		HttpResponse response;
 		
@@ -480,7 +271,7 @@ public void after() {
 	
 	// 9
 	@Test
-	public void testAdmin() throws ClientProtocolException, IOException {
+	public final void testAdmin() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet("http://localhost:8080/admin");
 		HttpResponse response;
 	
@@ -491,8 +282,8 @@ public void after() {
 
 	// 10
 	@Test
-	public  void testIndex() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet("http://localhost:8080");///gasstation/getGasStationsWithCoordinates/"+testGasStation.getLat()+"/"+testGasStation.getLon()+"/"+"Disel"+testGasStation.getCarSharing()+"/");
+	public final void testIndex() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.628624/17.938168/Diesel/Enjoy");
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
@@ -503,7 +294,7 @@ public void after() {
 	
 	// 11
 	@Test
-	public void testMap() throws ClientProtocolException, IOException {
+	public final void testMap() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet("http://localhost:8080/map");
 		HttpResponse response;
 		
@@ -514,7 +305,7 @@ public void after() {
 
 	// 12
 	@Test
-	public void testHomeLogin() throws ClientProtocolException, IOException {
+	public final void testHomeLogin() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet("http://localhost:8080/login");
 		HttpResponse response;
 		
@@ -525,7 +316,7 @@ public void after() {
 
 	// 13
 	@Test
-	public void testUpdate() throws ClientProtocolException, IOException {
+	public final void testUpdate() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet("http://localhost:8080/update");
 		HttpResponse response;
 		
@@ -536,7 +327,7 @@ public void after() {
 
 	// 14
 	@Test
-	public void testSignup() throws ClientProtocolException, IOException {
+	public final void testSignup() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet("http://localhost:8080/signup");
 		HttpResponse response;
 		
@@ -548,8 +339,8 @@ public void after() {
 	
 	// 15
 	@Test
-	public void testGetUserById() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/"+testUser.getUserId());
+	public final void testGetUserById() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/1");
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
@@ -566,7 +357,7 @@ public void after() {
 
 	// 16
 	@Test
-	public void testGetAllUsers() throws ClientProtocolException, IOException {
+	public final void testGetAllUsers() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getAllUsers");
 		HttpResponse response;
 		
@@ -578,12 +369,12 @@ public void after() {
 		
 		UserDto[] userDtoArray = mapper.readValue(jsonFromResponse, UserDto[].class);
 		
-		assertEquals(userToDelete.size(), userDtoArray.length); //TODO Fix with the actual value!
+		assertEquals(2, userDtoArray.length); //TODO Fix with the actual value!
 	}
 
 	// 17
 	@Test
-	public void testSaveUser() throws JSONException, ClientProtocolException, IOException {
+	public final void testSaveUser() throws JSONException, ClientProtocolException, IOException {
 		HttpPost request = new HttpPost("http://localhost:8080/user/saveUser");
 		JSONObject json = new JSONObject();
 		
@@ -623,17 +414,16 @@ public void after() {
 		
 		for(UserDto userD : userDto) {
 			if (userD.getUserId()==userDtox.getUserId()) {
-				userToDelete.add(userD.getUserId());
-		assertFalse(userD.getAdmin());
+		assertEquals(userD.getAdmin(),false);
 		assertEquals(userD.getEmail(),"test1@myuser.com");
 		assertEquals(userD.getUserName(),"Test Test");
 		assertEquals(userD.getPassword(),"xxpass");
 			}
 		}
         int userId = userDtox.getUserId(); 
-//		HttpDelete delete = new HttpDelete("http://localhost:8080/user/deleteUser/" + userId + "/");
+		HttpDelete delete = new HttpDelete("http://localhost:8080/user/deleteUser/" + userId + "/");
  	    
-	//	HttpClientBuilder.create().build().execute(delete);
+		HttpClientBuilder.create().build().execute(delete);
 
 	}
 
@@ -685,7 +475,7 @@ public void after() {
 
 	// 19
 	@Test
-	public void testIncreaseUserReputation() throws ClientProtocolException, IOException {
+	public final void testIncreaseUserReputation() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/1");
 		HttpResponse response;
 		int userId, userRep;
@@ -725,8 +515,8 @@ public void after() {
 
 	// 20
 	@Test
-	public void testDecreaseUserReputation() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/"+testUser.getUserId());
+	public final void testDecreaseUserReputation() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/1");
 		HttpResponse response;
 		int userId, userRep;
 		
@@ -765,7 +555,7 @@ public void after() {
 
 	// 21
 	@Test
-	public void testUserLogin() throws ClientProtocolException, IOException, JSONException {
+	public final void testUserLogin() throws ClientProtocolException, IOException, JSONException {
 		HttpPost request = new HttpPost("http://localhost:8080/user/login/");
 		// Request parameters and other properties.
 		JSONObject json = new JSONObject();
