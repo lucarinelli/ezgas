@@ -12,8 +12,7 @@ Version: 0
 
 - [Integration approach](#Integration-approach)
    + [Tests](#tests)
-
-- [Integration approach (Mock ups)](#Integration-approach-(Mock-ups))
+   + [Mock ups](#Integration-approach-(Mock-ups))
    + [Tests (Mock ups)](#tests-(Mock-ups))
 
 - [Scenarios](#scenarios)
