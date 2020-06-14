@@ -201,7 +201,7 @@ public class GasStationServiceimplTest {
 	 */
 	@Test
 	public void testSaveGasStation5() {
-		GasStationDto toBeSaved = new GasStationDto(null,"TestName","TestAddress", 
+		GasStationDto toBeSaved = new GasStationDto(null, "TestName","TestAddress", 
 				true, true, true, true, true, true, "Engioi", 
 				500.0, 200.0, 1.99, 1.99, -1.99, 1.99, 1.99, 1.99,
 				11, "timestamp", 50.0);
@@ -236,6 +236,42 @@ public class GasStationServiceimplTest {
 			fail();
 		}
 		assertEquals(result.getGasStationId(),toBeSaved.getGasStationId());
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#saveGasStation(it.polito.ezgas.dto.GasStationDto)}.
+	 * GasStation doesn't exist
+	 */
+	@Test
+	public void testSaveGasStation7() {
+		GasStationDto toBenotSaved = new GasStationDto(33 , "TestName","TestAddress", 
+				true, true, true, true, true, true, "Engioi", 
+				500.0, 200.0, 1.99, 1.99, 1.99, 1.99, 1.99, 1.99,
+				11, "timestamp", 50.0);
+		try {
+			gasStationService.saveGasStation(toBenotSaved);
+		} catch (GPSDataException|PriceException e) {
+			return;
+		} 
+		fail();
+	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#saveGasStation(it.polito.ezgas.dto.GasStationDto)}.
+	 * 
+	 */
+	@Test
+	public void testSaveGasStation8() {
+		GasStationDto toBeSaved = new GasStationDto(-1 , "TestName","TestAddress", 
+				true, true, true, true, true, true, "Engioi", 
+				500.0, 200.0, null, 1.99, 1.99, 1.99, 1.99, 1.99,
+				null, "timestamp", 50.0);
+		try {
+			gasStationService.saveGasStation(toBeSaved);
+		} catch (GPSDataException|PriceException e) {
+			return;
+		} 
+		fail();
 	}
 
 	/**
