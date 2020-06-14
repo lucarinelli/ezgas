@@ -138,9 +138,11 @@ A bottom up approach has been used for integration test. Step 1 is about Unit Te
 |  | testGetGasStationsByProximity() |
 |  | testGetGasStationsByProximityBoundaryIn() |
 |  | testGetGasStationsByProximityAbsent() |
+|  | testGetGasStationsByProximityEgual() |
 |  | testGetGasStationById() |
 |  | testGetGasStationById1() |
 |  | testGetGasStationById2() |
+|  | testGetGasStationById3() |
 |  | testSaveGasStation() |
 |  | testDeleteGasStation() |
 |  | testDeleteGasStation2() |
@@ -152,6 +154,8 @@ A bottom up approach has been used for integration test. Step 1 is about Unit Te
 |  | testGetGasStationsWithoutCoordinates1() |
 |  | testGetGasStationsWithoutCoordinates2() |
 |  | testGetGasStationsWithoutCoordinates3() |
+|  | testGetGasStationsWithoutCoordinates4() |
+|  | testGetGasStationsWithoutCoordinates5() |
 |  | testSetReport() |
 |  | testSetReport1() |
 |  | testSetReport2() |
@@ -206,6 +210,7 @@ GasStationServiceimpl+GasStation+GasStationDto+mock(GasStationRepository)+User+U
 |  | testSaveGasStation3() |
 |  | testSaveGasStation4() |
 |  | testSaveGasStation5() |
+|  | testSaveGasStation6() |
 |  | testSaveGasStation6() |
 | UserServiceimpl | testSaveUser() |
 || testSaveUser1()|

@@ -470,6 +470,30 @@ public class GasStationServiceimplIntegrationTest {
 		assertEquals(5,result.size());
 	}
 	
+	@Test
+	public final void testGetGasStationsByProximityEgual() {
+		List<GasStationDto> result = null;
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			// distance 0km
+			result = gasStationService.getGasStationsByProximity(42.42, 42.42);
+		} catch (GPSDataException e) {
+			fail();
+		}
+		assertEquals(5,result.size());
+	}
+	
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsByProximity(double, double)}.
 	 * Correct input, NO gas stations exists in range. Returns an empty ArrayList.
@@ -493,7 +517,7 @@ public class GasStationServiceimplIntegrationTest {
 		
 		try {
 			// distance 1.01km
-			result = gasStationService.getGasStationsByProximity(42.4273, 42.4273);
+			result = gasStationService.getGasStationsByProximity(42.4273, 42.4273, -1);
 		} catch (GPSDataException e) {
 			fail();
 		}
@@ -684,6 +708,62 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 	}
+	
+	@Test
+	public final void testGetGasStationsWithoutCoordinates4() throws InvalidCarSharingException {
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, true, true, true, true, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, false, false, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+		for(int i = 0; i < 6; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			gasStationService.getGasStationsWithoutCoordinates(null, "engioi");
+		} catch (InvalidGasTypeException e) {
+			assertEquals(e.getMessage(), "Wrong gasolinetype");
+		}
+		
+	}
+	
+	@Test
+	public final void testGetGasStationsWithoutCoordinates5() throws InvalidCarSharingException {
+		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
+		for(int i = 0; i < 5; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, true, true, true, true, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, false, false, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+		for(int i = 0; i < 6; i++)
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+		for(int i = 0; i < 7; i++)
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+		
+		for(GasStationDto g : inserted) {
+			try {
+				gasStationService.saveGasStation(g);
+			} catch (PriceException | GPSDataException e) {
+				fail();
+			}
+		}
+		
+		try {
+			gasStationService.getGasStationsWithoutCoordinates( "Diesel" , "engioi");
+		} catch (InvalidGasTypeException e) {
+			assertEquals(e.getMessage(), "Wrong gasolinetype");
+		}
+		
+	}
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#setReport(java.lang.Integer, double, double, double, double, double, java.lang.Integer)}.
@@ -855,5 +935,6 @@ public class GasStationServiceimplIntegrationTest {
 		result=gasStationService.getGasStationByCarSharing("fake");
 		assertEquals(result.size(), 0);
 	}
+	
 
 }
