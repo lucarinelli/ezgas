@@ -7,36 +7,17 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
 
-import exception.InvalidGasStationException;
 import exception.InvalidLoginDataException;
 import exception.InvalidUserException;
-import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.UserRepository;
-import it.polito.ezgas.service.UserService;
-import it.polito.ezgas.controller.UserController;
-import it.polito.ezgas.converter.UserConverter;
-import it.polito.ezgas.service.impl.GasStationServiceimpl;
 import it.polito.ezgas.service.impl.UserServiceimpl;
-import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
@@ -265,10 +246,9 @@ public class UserServiceimplTest {
 		IdPw id = new IdPw("email@email.com", "wrong");
 		User user = new User("Name Surname","ciao@password","email@email.com",3);
 		user.setUserId(42);
-		LoginDto result = null;
 		when(userRepository.findByEmail("email@email.com")).thenReturn(user);
 		try {
-			result = userService.login(id);
+			userService.login(id);
 		} catch (InvalidLoginDataException I) {
 			return;
 		}
@@ -342,9 +322,8 @@ public class UserServiceimplTest {
 		when(userRepository.findOne(user.getUserId())).thenReturn(user);
 		when(userRepository.getOne(user.getUserId())).thenReturn(user);
 		when(userRepository.save(any(User.class))).thenReturn(user);
-		Integer a = null;
 		try {
-			a = userService.increaseUserReputation(user.getUserId());
+			userService.increaseUserReputation(user.getUserId());
 		} catch (InvalidUserException e) {
 			return;
 		}
@@ -388,7 +367,7 @@ public class UserServiceimplTest {
 		} catch (InvalidUserException e) {
 			fail();
 		}
-		assertEquals(a, new Integer(-5));
+		assertEquals(a, Integer.valueOf(-5));
 	}
 	
 	/**
@@ -402,9 +381,8 @@ public class UserServiceimplTest {
 		when(userRepository.findOne(user.getUserId())).thenReturn(user);
 		when(userRepository.getOne(user.getUserId())).thenReturn(user);
 		when(userRepository.save(any(User.class))).thenReturn(user);
-		Integer a = null;
 		try {
-			a = userService.decreaseUserReputation(user.getUserId());
+			userService.decreaseUserReputation(user.getUserId());
 		} catch (InvalidUserException e) {
 			return;
 		}

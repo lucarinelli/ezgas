@@ -5,9 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.converter.UserConverter;
-import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
 
@@ -15,7 +13,6 @@ public class UserConverterTest {
 
 	private User ur;
 	private UserDto urdto;
-	private UserConverter userConverter;
 
 	@Before
 	public void setUp() {
@@ -29,7 +26,7 @@ public class UserConverterTest {
 	 */
 	@Test
 	public void testtoUserDto() {
-		UserDto urdtotest = userConverter.toUserDto(ur);
+		UserDto urdtotest = UserConverter.toUserDto(ur);
 		assertEquals(urdto.getAdmin() , urdtotest.getAdmin());
 		assertEquals(urdto.getEmail() , urdtotest.getEmail());
 		assertEquals(urdto.getPassword() , urdtotest.getPassword());
@@ -42,7 +39,7 @@ public class UserConverterTest {
 	 */
 	@Test
 	public void testtoUser() {
-		User urtest = userConverter.toUser(urdto);
+		User urtest = UserConverter.toUser(urdto);
 		assertEquals(ur.getEmail() , urtest.getEmail());
 		assertEquals(ur.getPassword() , urtest.getPassword());
 		assertEquals(ur.getUserId() , urtest.getUserId());
