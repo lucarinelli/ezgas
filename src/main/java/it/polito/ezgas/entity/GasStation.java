@@ -98,13 +98,6 @@ public class GasStation implements Serializable {
     
     
     public GasStation() {
-    	this.dieselPrice = 0.0;
-		this.superPrice = 0.0;
-		this.superPlusPrice =  0.0;
-		this.gasPrice =  0.0;
-		this.methanePrice =  0.0;
-		this.premiumDieselPrice =  0.0;
-
     	
     }
     
