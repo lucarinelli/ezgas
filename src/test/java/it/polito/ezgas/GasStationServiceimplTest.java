@@ -15,17 +15,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import exception.GPSDataException;
 import exception.InvalidGasStationException;
 import exception.InvalidGasTypeException;
 import exception.PriceException;
-import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.repository.GasStationRepository;
@@ -122,12 +116,12 @@ public class GasStationServiceimplTest {
 	@Test
 	public void testSaveGasStation1() {
 		GasStationDto result = null, toBeSaved = new GasStationDto(null,"TestName","TestAddress", 
-				true, true, true, true, true, "Engioi", 
-				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 
+				true, true, true, true, true, true, "Engioi", 
+				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 1.99,
 				11, "timestamp", 50.0);
 		GasStation savedGs = new GasStation("TestName","TestAddress", 
-				true, true, true, true, true, "Engioi", 
-				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 
+				true, true, true, true, true, true, "Engioi", 
+				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 1.99, 
 				11, "timestamp", 50.0);
 		savedGs.setGasStationId(43);
 		when(gasStationRepository.save(any(GasStation.class))).thenReturn(savedGs);
@@ -148,8 +142,8 @@ public class GasStationServiceimplTest {
 	@Test
 	public void testSaveGasStation2() {
 		GasStationDto toBeSaved = new GasStationDto(null,"TestName","TestAddress", 
-				true, true, true, true, true, "Engioi", 
-				0.0, 0.0, 1.99, -1.99, -1.99, 1.99, 1.99, 
+				true, true, true, true, true, true, "Engioi", 
+				0.0, 0.0, 1.99, -1.99, -1.99, 1.99, 1.99, 1.99, 
 				11, "timestamp", 50.0);
 		try {
 			gasStationService.saveGasStation(toBeSaved);
@@ -168,8 +162,8 @@ public class GasStationServiceimplTest {
 	@Test
 	public void testSaveGasStation3() {
 		GasStationDto toBeSaved = new GasStationDto(null,"TestName","TestAddress", 
-				true, true, true, true, true, "Engioi", 
-				0.0, 200.0, 1.99, 1.99, 1.99, 1.99, 1.99, 
+				true, true, true, true, true, true, "Engioi", 
+				0.0, 200.0, 1.99, 1.99, 1.99, 1.99, 1.99, 1.99, 
 				11, "timestamp", 50.0);
 		try {
 			gasStationService.saveGasStation(toBeSaved);
@@ -188,8 +182,8 @@ public class GasStationServiceimplTest {
 	@Test
 	public void testSaveGasStation4() {
 		GasStationDto toBeSaved = new GasStationDto(null,"TestName","TestAddress", 
-				true, true, true, true, true, "Engioi", 
-				500.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 
+				true, true, true, true, true, true, "Engioi", 
+				500.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 1.99, 
 				11, "timestamp", 50.0);
 		try {
 			gasStationService.saveGasStation(toBeSaved);
@@ -208,8 +202,8 @@ public class GasStationServiceimplTest {
 	@Test
 	public void testSaveGasStation5() {
 		GasStationDto toBeSaved = new GasStationDto(null,"TestName","TestAddress", 
-				true, true, true, true, true, "Engioi", 
-				500.0, 200.0, 1.99, 1.99, -1.99, 1.99, 1.99, 
+				true, true, true, true, true, true, "Engioi", 
+				500.0, 200.0, 1.99, 1.99, -1.99, 1.99, 1.99, 1.99,
 				11, "timestamp", 50.0);
 		try {
 			gasStationService.saveGasStation(toBeSaved);
@@ -226,12 +220,12 @@ public class GasStationServiceimplTest {
 	@Test
 	public void testSaveGasStation6() {
 		GasStationDto result = null, toBeSaved = new GasStationDto(42,"TestName","TestAddress", 
-				true, true, true, true, true, "Engioi", 
-				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 
+				true, true, true, true, true, true, "Engioi", 
+				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 1.99,
 				11, "timestamp", 50.0);
 		GasStation savedGs = new GasStation("TestName","TestAddress", 
-				true, true, true, true, true, "Engioi", 
-				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 
+				true, true, true, true, true, true, "Engioi", 
+				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 1.99, 
 				11, "timestamp", 50.0);
 		savedGs.setGasStationId(42);
 		when(gasStationRepository.findOne(42)).thenReturn(savedGs);
@@ -292,8 +286,8 @@ public class GasStationServiceimplTest {
 		Boolean result = null;
 		doNothing().when(gasStationRepository).delete(any(Integer.class));
 		GasStation savedGs = new GasStation("TestName","TestAddress", 
-				true, true, true, true, true, "Engioi", 
-				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 
+				true, true, true, true, true, true, "Engioi", 
+				0.0, 0.0, 1.99, 1.99, 1.99, 1.99, 1.99, 1.99, 
 				11, "timestamp", 50.0);
 		savedGs.setGasStationId(42);
 		when(gasStationRepository.findOne(42)).thenReturn(savedGs);
@@ -319,7 +313,7 @@ public class GasStationServiceimplTest {
 		} catch (InvalidGasStationException e) {
 			fail();
 		}
-		assertNull(result);
+		assertFalse(result); //GasStationId not found return Null
 	}
 	
 	/**

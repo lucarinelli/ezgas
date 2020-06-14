@@ -16,7 +16,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -24,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import exception.GPSDataException;
+import exception.InvalidCarSharingException;
 import exception.InvalidGasStationException;
 import exception.InvalidGasTypeException;
 import exception.InvalidUserException;
@@ -131,13 +131,13 @@ public class GasStationServiceimplIntegrationTest {
 		double DELTA = 1e-15;
 		
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -181,20 +181,19 @@ public class GasStationServiceimplIntegrationTest {
 	@Test
 	public final void testGetGasStationById1() {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
-		GasStationDto gs = new GasStationDto();
 		
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
-				gs=gasStationService.saveGasStation(g);
+				gasStationService.saveGasStation(g);
 			} catch (PriceException | GPSDataException e) {
 				fail();
 			}
@@ -215,7 +214,7 @@ public class GasStationServiceimplIntegrationTest {
 		GasStationDto result = null;
 		int a;
 		
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -274,11 +273,11 @@ public class GasStationServiceimplIntegrationTest {
 		int a;
 		
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -302,16 +301,13 @@ public class GasStationServiceimplIntegrationTest {
 	
 	@Test
 	public final void testDeleteGasStation2() {
-		boolean result = false;
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
-		GasStationDto gs = new GasStationDto();
-		int a;
 		
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
-				gs=gasStationService.saveGasStation(g);
+				gasStationService.saveGasStation(g);
 			} catch (PriceException | GPSDataException e) {
 				fail();
 			}
@@ -319,7 +315,7 @@ public class GasStationServiceimplIntegrationTest {
 		
 		
 		try {
-			result = gasStationService.deleteGasStation(null);
+			gasStationService.deleteGasStation(null);
 		} catch (InvalidGasStationException e) {
 			assertEquals(e.getMessage(), "Wrong gasStationId");
 		}
@@ -337,9 +333,9 @@ public class GasStationServiceimplIntegrationTest {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		List<GasStationDto> result = null;
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "engioi", 0.0, 0.0, price+rand.nextDouble(), 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, false, "engioi", 0.0, 0.0, price+rand.nextDouble(), 1.0, 0.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -373,9 +369,9 @@ public class GasStationServiceimplIntegrationTest {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		List<GasStationDto> result = null;
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "engioi", 0.0, 0.0, price+rand.nextDouble(), 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, false, "engioi", 0.0, 0.0, price+rand.nextDouble(), 1.0, 0.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -403,9 +399,9 @@ public class GasStationServiceimplIntegrationTest {
 		Random rand = new Random();
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "engioi", 0.0, 0.0, price+rand.nextDouble(), 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, false, "engioi", 0.0, 0.0, price+rand.nextDouble(), 1.0, 0.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, price+rand.nextDouble(), 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -432,12 +428,11 @@ public class GasStationServiceimplIntegrationTest {
 	@Test
 	public final void testGetGasStationsByProximity() {
 		List<GasStationDto> result = null;
-		Random rand = new Random();
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -464,12 +459,11 @@ public class GasStationServiceimplIntegrationTest {
 	@Test
 	public final void testGetGasStationsByProximityBoundaryIn() {
 		List<GasStationDto> result = null;
-		Random rand = new Random();
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -497,9 +491,9 @@ public class GasStationServiceimplIntegrationTest {
 		List<GasStationDto> result = null;
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -520,16 +514,16 @@ public class GasStationServiceimplIntegrationTest {
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsWithCoordinates(double, double, java.lang.String, java.lang.String)}.
+	 * @throws InvalidCarSharingException 
 	 */
 	@Test
-	public final void testGetGasStationsWithCoordinatesOnlyCoordinates() {
+	public final void testGetGasStationsWithCoordinatesOnlyCoordinates() throws InvalidCarSharingException {
 		List<GasStationDto> result = null;
-		Random rand = new Random();
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -540,7 +534,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, "null", "null");
+			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, 1, "null", "null");
 		} catch (InvalidGasTypeException | GPSDataException e) {
 			fail();
 		}
@@ -550,20 +544,20 @@ public class GasStationServiceimplIntegrationTest {
 	
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsWithCoordinates(double, double, java.lang.String, java.lang.String)}.
+	 * @throws InvalidCarSharingException 
 	 */
 	@Test
-	public final void testGetGasStationsWithCoordinates() {
+	public final void testGetGasStationsWithCoordinates() throws InvalidCarSharingException {
 		List<GasStationDto> result = null;
-		Random rand = new Random();
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -574,7 +568,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, "Diesel", "engioi");
+			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, 2, "Diesel", "engioi");
 		} catch (InvalidGasTypeException | GPSDataException e) {
 			fail();
 		}
@@ -585,20 +579,20 @@ public class GasStationServiceimplIntegrationTest {
 
 	/**
 	 * Test method for {@link it.polito.ezgas.service.impl.GasStationServiceimpl#getGasStationsWithoutCoordinates(java.lang.String, java.lang.String)}.
+	 * @throws InvalidCarSharingException 
 	 */
 	@Test
-	public final void testGetGasStationsWithoutCoordinates() {
+	public final void testGetGasStationsWithoutCoordinates() throws InvalidCarSharingException {
 		List<GasStationDto> result = null;
-		Random rand = new Random();
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -618,18 +612,16 @@ public class GasStationServiceimplIntegrationTest {
 	}
 	
 	@Test
-	public final void testGetGasStationsWithoutCoordinates1() {
-		List<GasStationDto> result = null;
-		Random rand = new Random();
+	public final void testGetGasStationsWithoutCoordinates1() throws InvalidCarSharingException {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -640,7 +632,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			result = gasStationService.getGasStationsWithoutCoordinates( "null", null);
+			gasStationService.getGasStationsWithoutCoordinates( "null", null);
 		} catch (InvalidGasTypeException e) {
 			assertEquals(e.getMessage(), "Wrong gasolinetype");
 		}
@@ -648,18 +640,17 @@ public class GasStationServiceimplIntegrationTest {
 	}
 	
 	@Test
-	public final void testGetGasStationsWithoutCoordinates2() {
+	public final void testGetGasStationsWithoutCoordinates2() throws InvalidCarSharingException {
 		List<GasStationDto> result = null;
-		Random rand = new Random();
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -679,18 +670,16 @@ public class GasStationServiceimplIntegrationTest {
 	}
 	
 	@Test
-	public final void testGetGasStationsWithoutCoordinates3() {
-		List<GasStationDto> result = null;
-		Random rand = new Random();
+	public final void testGetGasStationsWithoutCoordinates3() throws InvalidCarSharingException {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -701,7 +690,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			result = gasStationService.getGasStationsWithoutCoordinates( "null", "engioi");
+			gasStationService.getGasStationsWithoutCoordinates("null", "engioi");
 		} catch (InvalidGasTypeException e) {
 			assertEquals(e.getMessage(), "Wrong gasolinetype");
 		}
@@ -720,7 +709,7 @@ public class GasStationServiceimplIntegrationTest {
 		double DELTA = 1e-15;
 		
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));		
+			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));		
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -739,7 +728,7 @@ public class GasStationServiceimplIntegrationTest {
 		a=gs.getGasStationId();
 		
 		try {
-			gasStationService.setReport(a, 9.0, 9.0, 9.0, 9.0, 9.0, userDto.getUserId());
+			gasStationService.setReport(a, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, userDto.getUserId());
 		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
 			fail();
 		}	
@@ -762,7 +751,7 @@ public class GasStationServiceimplIntegrationTest {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));		
+			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));		
 		
 		int i = 0;
 		for(GasStationDto g : inserted) {
@@ -774,7 +763,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			gasStationService.setReport(-1, 0.0, 0.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId());
+			gasStationService.setReport(-1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId());
 		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
 			assertEquals(e.getMessage(), "Wrong gasStationId");
 			return;
@@ -787,7 +776,7 @@ public class GasStationServiceimplIntegrationTest {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));		
+			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));		
 		
 		int i = 0;
 		for(GasStationDto g : inserted) {
@@ -799,7 +788,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			gasStationService.setReport(inserted.get(0).getGasStationId(), 0.0, -2, 0.0, 0.0, 0.0, userForReportsDto.getUserId());
+			gasStationService.setReport(inserted.get(0).getGasStationId(), 0.0, -2.0, 0.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId());
 		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
 			assertEquals(e.getMessage(),"Wrong Price");
 			return;
@@ -812,7 +801,7 @@ public class GasStationServiceimplIntegrationTest {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));		
+			inserted.add(new GasStationDto(null , "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));		
 		
 		int i = 0;
 		for(GasStationDto g : inserted) {
@@ -824,7 +813,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			gasStationService.setReport(inserted.get(0).getGasStationId(), 0.0, 0.0, 0.0, 0.0, 0, null);
+			gasStationService.setReport(inserted.get(0).getGasStationId(), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, null);
 		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
 			assertEquals(e.getMessage(), "Wrong userId");
 			return;
@@ -840,9 +829,9 @@ public class GasStationServiceimplIntegrationTest {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		List<GasStationDto> result = null;
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "cartugo", 0.0, 0.0,1.2, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, false, "cartugo", 0.0, 0.0,1.2, 1.0, 0.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.19, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.19, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -864,9 +853,9 @@ public class GasStationServiceimplIntegrationTest {
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		List<GasStationDto> result = null;
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, "cartugo", 0.0, 0.0, 1.2, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", true, true, false, false, false, false, "cartugo", 0.0, 0.0, 1.2, 1.0, 0.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.19, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.19, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
