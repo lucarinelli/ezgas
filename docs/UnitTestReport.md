@@ -619,11 +619,13 @@ Version: 2
 |  |  |  | testSetGetHasSuperPlus() |
 |  |  |  | testSetGetHasGas() |
 |  |  |  | testSetGetHasMethane() |
+|  |  |  | testSetGetHasPremiumDiesel() |
 |  |  |  | testSetGetHasDiesel2() |
 |  |  |  | testSetGetHasSuper2() |
 |  |  |  | testSetGetHasSuperPlus2() |
 |  |  |  | testSetGetHasGas2() |
 |  |  |  | testSetGetHasMethane2() |
+|  |  |  | testSetGetHasPremiumDiesel2() |
 
 ### Class *GasStation* - method *getHas...*
 
@@ -653,11 +655,13 @@ Version: 2
 |  |  |  | testSetGetHasSuperPlus() |
 |  |  |  | testSetGetHasGas() |
 |  |  |  | testSetGetHasMethane() |
+|  |  |  | testSetGetHasPremiumDiesel() |
 |  |  |  | testSetGetHasDiesel2() |
 |  |  |  | testSetGetHasSuper2() |
 |  |  |  | testSetGetHasSuperPlus2() |
 |  |  |  | testSetGetHasGas2() |
 |  |  |  | testSetGetHasMethane2() |
+|  |  |  | testSetGetHasPremiumDiesel2() |
 |  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *set...Price*
