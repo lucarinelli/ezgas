@@ -185,6 +185,24 @@ public class GasStationTest {
 		GasStation sg = new GasStation();
 		assertFalse(sg.getHasDiesel());
 	}
+	
+	/**
+	 * Test method for {@link it.polito.ezgas.entity.GasStation#setHasPremiumDiesel(boolean)}.
+	 * Test method for {@link it.polito.ezgas.entity.GasStation#getHasPremiumDiesel()}.
+	 */
+	@Test
+	public void testSetGetHasPremiumDiesel() {
+		gs.setHasPremiumDiesel(false);
+		assertFalse(gs.getHasPremiumDiesel());
+		gs.setHasPremiumDiesel(true);
+		assertTrue(gs.getHasPremiumDiesel());
+	}
+	
+	@Test
+	public void testSetGetHasPremiumDiesel2() { 
+		GasStation sg = new GasStation();
+		assertFalse(sg.getHasPremiumDiesel());
+	}
 
 	/**
 	 * Test method for {@link it.polito.ezgas.entity.GasStation#setHasSuper(boolean)}.
