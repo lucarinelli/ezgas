@@ -54,7 +54,6 @@ public class GasStationConverterTest {
 		assertEquals(gsdtotest.getHasSuperPlus() ,gsdto.getHasSuperPlus());
 		assertEquals(gsdtotest.getLat() ,gsdto.getLat(), DELTA);
 		assertEquals(gsdtotest.getLon() ,gsdto.getLon(), DELTA);
-		assertEquals(gsdtotest.getReportDependability() ,gsdto.getReportDependability(),DELTA);
 		assertEquals(gsdtotest.getReportTimestamp() ,gsdto.getReportTimestamp());
 		assertEquals(gsdtotest.getReportUser() ,gsdto.getReportUser());
 		assertEquals(gsdtotest.getUserDto() ,gsdto.getUserDto());

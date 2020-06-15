@@ -324,9 +324,28 @@ public class GasStationDtoTest {
 	@Test
 	public void testSetGetDieselPrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getDieselPrice(), (double) 0, 0);
+		assertEquals(sg.getDieselPrice(), null);
 	}
 
+	/**
+	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#setDieselPrice(double)}.
+	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#getDieselPrice()}.
+	 */
+	@Test
+	public void testSetGetPremiumDieselPrice() {
+		gs.setPremiumDieselPrice(1.0);
+		assertEquals(gs.getPremiumDieselPrice(), (double) 1.0, 0);
+		gs.setPremiumDieselPrice(0.0);
+		assertEquals(gs.getPremiumDieselPrice(), (double) 0, 0);
+		gs.setPremiumDieselPrice(-1.0);
+		assertEquals(gs.getPremiumDieselPrice(), (double) -1, 0);//FIXME: should this fail?
+	}
+	
+	@Test
+	public void testSetGetPremiumDieselPrice2() { 
+		GasStationDto sg = new GasStationDto();
+		assertEquals(sg.getPremiumDieselPrice(), null);
+	}
 	/**
 	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#setSuperPrice(double)}.
 	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#getSuperPrice()}.
@@ -344,7 +363,7 @@ public class GasStationDtoTest {
 	@Test
 	public void testSetGetSuperPrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getSuperPrice(), (double) 0, 0);
+		assertEquals(sg.getSuperPrice(), null);
 	}
 
 	/**
@@ -364,7 +383,7 @@ public class GasStationDtoTest {
 	@Test
 	public void testSetGetSuperPlusPrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getSuperPlusPrice(), (double) 0, 0);
+		assertEquals(sg.getSuperPlusPrice(), null);
 	}
 
 	/**
@@ -384,7 +403,7 @@ public class GasStationDtoTest {
 	@Test
 	public void testSetGetGasPrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getGasPrice(), (double) 0, 0);
+		assertEquals(sg.getGasPrice(), null);
 	}
 	
 	/**
@@ -404,7 +423,7 @@ public class GasStationDtoTest {
 	@Test
 	public void testSetGetMethanePrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getMethanePrice(), (double) 0, 0);
+		assertEquals(sg.getMethanePrice(), null);
 	}
 
 	/**
