@@ -563,13 +563,13 @@ public class GasStationServiceimplIntegrationTest {
 		List<GasStationDto> result = null;
 		List<GasStationDto> inserted = new ArrayList<GasStationDto>();
 		for(int i = 0; i < 5; i++)
-			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "engioi", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "Enjoy", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "Enjoy", 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 6; i++)
 			inserted.add(new GasStationDto(null, "CLOSE ENOUGH", "Address", true, true, false, false, false, false, "car2go", 42.42, 42.42, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		for(int i = 0; i < 7; i++)
-			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "engioi", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
+			inserted.add(new GasStationDto(null, "Name", "Address", false, true, true, false, false, false, "Enjoy", 42.42, 42.42, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, userForReportsDto.getUserId(), "04-30-2020", 0.50));
 		
 		for(GasStationDto g : inserted) {
 			try {
@@ -580,7 +580,7 @@ public class GasStationServiceimplIntegrationTest {
 		}
 		
 		try {
-			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, 2, "Diesel", "engioi");
+			result = gasStationService.getGasStationsWithCoordinates(42.424, 42.424, 2, "Diesel", "Enjoy");
 		} catch (InvalidGasTypeException | GPSDataException e) {
 			fail();
 		}
