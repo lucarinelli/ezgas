@@ -749,7 +749,7 @@ participant GasStationServiceImpl as gsi
 gc -> gsi : getGasStationsWithCoordinates()
 activate gsi
 participant GasStationServiceRepository as gsr
-gsi -> gsr : findByGasolineTypeAndCarSharingAndLatBetweenAndLonBetween(...)
+gsi -> gsr : findAll()
 activate gsr
 gsr --> gsi : List<GasStation>
 deactivate gsr
