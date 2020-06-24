@@ -30,7 +30,7 @@ Group are about 4 developer working in parallel.
 
 |             | Estimate                        |             
 | ----------- | ------------------------------- |  
-| NC =  Estimated number of classes to be developed   |        33                     |             
+| NC =  Estimated number of classes to be developed   |        30                     |             
 |  A = Estimated average size per class, in LOC       |                58            | 
 | S = Estimated size of project, in LOC (= NC * A) | 1914 |
 | E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 192                                     |   
