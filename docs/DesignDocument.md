@@ -818,31 +818,8 @@ activate ur
 ur --> usi : User
 deactivate ur
 
-participant PriceReportRepository as prr
-collections priceReports as prs
-
-usi -> prr : findByUser(user)
-activate prr
-prr --> prs
-prs --> usi
-deactivate prr
-
-loop
-
-usi -> prs : getTimeTag()
-prs --> usi : timeTag
-usi -> prs : setTrustLevel(trustLevel)
-
-end
-
-activate prr
-usi -> prr : saveAll(priceReports)
-prr --> usi : priceReports
-deactivate prr
-
 usi --> uc : reputation
 destroy u_i
-destroy prs
 deactivate usi
 
 uc --> ua : reputation
