@@ -28,3 +28,4 @@ communication tools could have worked too.
 * A laboratory hour to ask questions about the project could have been useful
 * Use what is provided by the framework whenever is possible to ease interaction
 among the components
+* Effort in testing is not measured in the dashboard and skews the productivity
