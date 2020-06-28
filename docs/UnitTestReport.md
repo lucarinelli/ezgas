@@ -227,174 +227,176 @@ Version: 2
 
 **Criteria for method *GasStation*:**
 
- -
+ -Set a double value between [0.0 , 100.0]
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| Has to be a double value | (double) |
+| |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Has to be between a preciously set values | [0.0 , 100.0] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportDependability() |
-|  |  |  | testSetGetReportDependability2() |
+| gs.setReportDependability(96.0); | Valid | Set the value 96.0 and then check that it has change using the get method| testSetGetReportDependability() |
+|  | Valid | Check that when is not iniciated, the value is set to 0.0 | testSetGetReportDependability2() |
 
 ### Class *GasStation* - method *getReportDependability*
 
 **Criteria for method *GasStation*:**
 
- -
+-Get a double value between [0.0 , 100.0]
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| Has to be a double value | (double) |
+| |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Has to be between a preciously set values | [0.0 , 100.0] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportDependability() |
-|  |  |  | testSetGetReportDependability2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+| gs.getReportDependability(); | Valid | Set the value 96.0 and then check that it has change using the get method| testSetGetReportDependability() |
+|  | Valid | Check that when is not iniciated, the value is set to 0.0 | testSetGetReportDependability2() |
+| gs.getReportDependability(); | Valid | Check if the return type is a double | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setReportUser*
 
 **Criteria for method *GasStation*:**
 
- -
+ - Set an Integer value between [ 0 , MAXINT]
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be an integer value |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Has to be a positive number |  [ 0 , MAXINT ] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportUser() |
-|  |  |  | testSetGetReportUser2() |
+| gs.setReportUser(42); | Valid | Set a value of 42 in the ReportUser attribute and then check that it has been saved using the get method | testSetGetReportUser() |
+|  |  | Check that when the attribute is not set, the value is null | testSetGetReportUser2() |
 
 ### Class *GasStation* - method *getReportUser*
 
 **Criteria for method *GasStation*:**
 
- -
+
+ - Get an Integer value between [ 0 , MAXINT]
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be an integer value |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Has to be a positive number |  [ 0 , MAXINT ] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportUser() |
-|  |  |  | testSetGetReportUser2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+| gs.getReportUser(); | Valid | Set a value of 42 in the ReportUser attribute and then check that it has been saved using the get method | testSetGetReportUser() |
+|  |  | Check that when the attribute is not set, the value is null | testSetGetReportUser2() |
+| gs.getReportUser(); | Valid | Check that the return type is an Integer | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setReportTimestamp*
 
 **Criteria for method *GasStation*:**
 
- -
+ -Set the string with the information of the date a report has been made in the value ReportTimeStamp
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a String |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Has to be a String |                 |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportTimestamp() |
-|  |  |  | testSetGetReportTimestamp1() |
-|  |  |  | testSetGetReportTimestamp2() |
+| gs.setReportTimestamp("TIMESTAMP FORMAT"); | Valid | Set the ReportStampAtribute and check that is changed using the get function | testSetGetReportTimestamp() |
+| gs.setReportTimestamp("25/12"); | Valid | Set the ReportStampAtribute and check that is changed using the get function | testSetGetReportTimestamp1() |
+|  |  | Check that if the ReportTimeStamp is not set, its value is null | testSetGetReportTimestamp2() |
 
 ### Class *GasStation* - method *getReportTimestamp*
 
 **Criteria for method *GasStation*:**
 
- -
+
+ -Get the string with the information of the date a report has been made in the value ReportTimeStamp
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a String |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Has to be a String |                 |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportTimestamp() |
-|  |  |  | testSetGetReportTimestamp1() |
-|  |  |  | testSetGetReportTimestamp2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+| gs.getReportTimestamp(); | Valid | Set the ReportStampAtribute and check that is changed using the get function | testSetGetReportTimestamp() |
+| gs.getReportTimestamp(); | Valid | Set the ReportStampAtribute and check that is changed using the get function | testSetGetReportTimestamp1() |
+|  |  | Check that if the ReportTimeStamp is not set, its value is null | testSetGetReportTimestamp2() |
+| gs.getReportTimestamp(); | Valid | Check that the return type is a String | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setUser*
 
 **Criteria for method *GasStation*:**
 
- -
+ -Set a User object
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a User Object |  |
 |          |  |
 
 **Boundaries**:
@@ -600,143 +602,143 @@ Version: 2
 
 **Criteria for method *GasStation*:**
 
- -
+ -Set a Boolean value
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a boolean type |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| True-false |                 |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetHasDiesel() |
-|  |  |  | testSetGetHasSuper() |
-|  |  |  | testSetGetHasSuperPlus() |
-|  |  |  | testSetGetHasGas() |
-|  |  |  | testSetGetHasMethane() |
-|  |  |  | testSetGetHasPremiumDiesel() |
-|  |  |  | testSetGetHasDiesel2() |
-|  |  |  | testSetGetHasSuper2() |
-|  |  |  | testSetGetHasSuperPlus2() |
-|  |  |  | testSetGetHasGas2() |
-|  |  |  | testSetGetHasMethane2() |
-|  |  |  | testSetGetHasPremiumDiesel2() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasDiesel() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasSuper() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasSuperPlus() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasGas() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasMethane() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasPremiumDiesel() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasDiesel2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasSuper2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasSuperPlus2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasGas2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasMethane2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasPremiumDiesel2() |
 
 ### Class *GasStation* - method *getHas...*
 
 **Criteria for method *GasStation*:**
 
- -
+ -Set a Boolean value
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a boolean type |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| True-false |                 |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetHasDiesel() |
-|  |  |  | testSetGetHasSuper() |
-|  |  |  | testSetGetHasSuperPlus() |
-|  |  |  | testSetGetHasGas() |
-|  |  |  | testSetGetHasMethane() |
-|  |  |  | testSetGetHasPremiumDiesel() |
-|  |  |  | testSetGetHasDiesel2() |
-|  |  |  | testSetGetHasSuper2() |
-|  |  |  | testSetGetHasSuperPlus2() |
-|  |  |  | testSetGetHasGas2() |
-|  |  |  | testSetGetHasMethane2() |
-|  |  |  | testSetGetHasPremiumDiesel2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasDiesel() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasSuper() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasSuperPlus() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasGas() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasMethane() |
+|  | Valid  | Set the value first to false,check with a get method that the value is setted, and after set it to false and check it | testSetGetHasPremiumDiesel() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasDiesel2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasSuper2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasSuperPlus2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasGas2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasMethane2() |
+|  | Valid  | Check that when a value is not setted, the value is false | testSetGetHasPremiumDiesel2() |
+|  | Valid  | Check that the return type is a Boolean | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *set...Price*
 
 **Criteria for method *GasStation*:**
 
- -
+ -Set a positive double value
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a positive double value |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Price has to be positive | [ 0.0 , MAXDOUBLE] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetDieselPrice() |
-|  |  |  | testSetGetSuperPrice() |
-|  |  |  | testSetGetSuperPlusPrice() |
-|  |  |  | testSetGetGasPrice() |
-|  |  |  | testSetGetMethanePrice() |
-|  |  |  | testSetGetDieselPrice2() |
-|  |  |  | testSetGetSuperPrice2() |
-|  |  |  | testSetGetSuperPlusPrice2() |
-|  |  |  | testSetGetGasPrice2() |
-|  |  |  | testSetGetMethanePrice2() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method | testSetGetDieselPrice() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method  | testSetGetSuperPrice() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method  | testSetGetSuperPlusPrice() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method  | testSetGetGasPrice() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method  | testSetGetMethanePrice() |
+|  | Valid | When is not setted, the value should be null | testSetGetDieselPrice2() |
+|  | Valid | When is not setted, the value should be null | testSetGetSuperPrice2() |
+|  | Valid | When is not setted, the value should be null | testSetGetSuperPlusPrice2() |
+|  | Valid | When is not setted, the value should be null | testSetGetGasPrice2() |
+|  | Valid | When is not setted, the value should be null | testSetGetMethanePrice2() |
 
 ### Class *GasStation* - method *get...Price*
 
 **Criteria for method *GasStation*:**
 
- -
+ -Get a positive double value
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a positive double value |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Price has to be positive | [ 0.0 , MAXDOUBLE] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetDieselPrice() |
-|  |  |  | testSetGetSuperPrice() |
-|  |  |  | testSetGetSuperPlusPrice() |
-|  |  |  | testSetGetGasPrice() |
-|  |  |  | testSetGetMethanePrice() |
-|  |  |  | testSetGetDieselPrice2() |
-|  |  |  | testSetGetSuperPrice2() |
-|  |  |  | testSetGetSuperPlusPrice2() |
-|  |  |  | testSetGetGasPrice2() |
-|  |  |  | testSetGetMethanePrice2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method | testSetGetDieselPrice() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method  | testSetGetSuperPrice() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method  | testSetGetSuperPlusPrice() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method  | testSetGetGasPrice() |
+|  | Valid; Valid; Invalid | Set the value to 99.9 ; 0.0 ;-1.0 and check that the value is setted correctly using the get method  | testSetGetMethanePrice() |
+|  | Valid | When is not setted, the value should be null | testSetGetDieselPrice2() |
+|  | Valid | When is not setted, the value should be null | testSetGetSuperPrice2() |
+|  | Valid | When is not setted, the value should be null | testSetGetSuperPlusPrice2() |
+|  | Valid | When is not setted, the value should be null | testSetGetGasPrice2() |
+|  | Valid | When is not setted, the value should be null | testSetGetMethanePrice2() |
+|  | Valid | Check the return type is a double | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStationServiceimpl* - method *getGasStationById*
 
