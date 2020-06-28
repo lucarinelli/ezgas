@@ -58,168 +58,170 @@ Version: 2
 
 ### Class *GasStation* - method *setGasStationId*
 
-**Criteria for method *GasStation*:**
+**Criteria for method *GasStation*:setGasStationId**
 
- -
+ -This method shou be used to set the ID of a gasStation
 
-**Predicates for method *GasStation*:**
+**Predicates for method *GasStation*SetGetGasStationId:**
 
 | Criteria | Predicate |
-| -------- | --------- |
-|  |  |
+| ID must be an integer| --------- |
+| ID has to be null when the gasStation has not been set with all the parameters |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
-| -------- | --------------- |
+| ID must be between [0,MAXINT]| 0|
 |  |                 |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationId() |
-|  |  |  | testSetGetGasStationId1() |
-|  |  |  | testSetGetGasStationId2() |
+| gasStation.setGasStationId(1) | Valid | Set the gasStationID to 1 | testSetGetGasStationId() |
+| gasStation.setGasStationId(777) | Valid | Set the gasStationID to 777 | testSetGetGasStationId1() |
+| gasStation = New GasStation() | Valid | A gasStation without parameters set should have a null ID | testSetGetGasStationId2() |
 
 ### Class *GasStation* - method *getGasStationId*
 
 **Criteria for method *GasStation*:**
 
- -
+ -This method should be used to get the ID of a gasStation
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| ID must be an integer| --------- |
+| ID has to be null when the gasStation has not been set with all the parameters |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| ID must be between [0,MAXINT]| 0|
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationId |
-|  |  |  | testSetGetGasStationId1() |
-|  |  |  | testSetGetGasStationId2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+| gasStation.getGasStationId() | Valid | Get the gasStationID = 1 | testSetGetGasStationId() |
+| gasStation.getGasStationId() | Valid | Get the gasStationID = 777 | testSetGetGasStationId1() |
+| gasStation.getGasStationId() | Valid | A gasStation without parameters set should return a null ID | testSetGetGasStationId2() |
+| gasStation.GetGasStationId() | Valid | Check that the return type is a String | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
 
 ### Class *GasStation* - method *setGasStationName*
 
 **Criteria for method *GasStation*:**
 
- -
+ -This method returns a string with the name of the GasStation
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a string |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |       String          |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationName() |
-|  |  |  | testSetGetGasStationName1() |
-|  |  |  | testSetGetGasStationName2() |
+| gasStation.SetGasStationName() | Valid | Set the name of a gasStation | testSetGetGasStationName() |
+| gasStation.SetGasStationName() | Valid | Set the name of a gasStation | testSetGetGasStationName1() |
+| gasStation.SetGasStationName() | Valid | Check that when a name is not set, it will return null | testSetGetGasStationName2() |
 
 ### Class *GasStation* - method *getGasStationName*
 
 **Criteria for method *GasStation*:**
 
- -
+ -This method returns a string with the name of the GasStation
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a string |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |       String          |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationName() |
-|  |  |  | testSetGetGasStationName1() |
-|  |  |  | testSetGetGasStationName2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+| gasStation.GetGasStationName() | Valid | Set the name of a gasStation | testSetGetGasStationName() |
+| gasStation.GetGasStationName() | Valid | Set the name of a gasStation | testSetGetGasStationName1() |
+| gasStation.GetGasStationName() | Valid | Check that when a name is not set, it will return null | testSetGetGasStationName2() |
+| gasStation.GetGasStationName() | Valid | Check that the return type is a String | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setGasStationAddress*
 
 **Criteria for method *GasStation*:**
 
- -
+ -This method returns a string with the name of the GasStation
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a string |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |       String          |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationAddress() |
-|  |  |  | testSetGetGasStationAddress1() |
-|  |  |  | testSetGetGasStationAddress2() |
+| gasStation.setGasStationAddress(-) | Valid | Check if the address setted is returned in the get method| testSetGetGasStationAddress() |
+| gasStation.setGasStationAddress(-) | Valid | Check if the address setted is returned in the get method| testSetGetGasStationAddress1() |
+| gasStation.setGasStationAddress() | Valid | When the address is not set, it should return a null | testSetGetGasStationAddress2() |
 
 ### Class *GasStation* - method *getGasStationAddress*
 
 **Criteria for method *GasStation*:**
 
- -
+ -This method returns a string with the name of the GasStation
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a string |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |       String          |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationAddress() |
-|  |  |  | testSetGetGasStationAddress1() |
-|  |  |  | testSetGetGasStationAddress2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+| gasStation.setGasStationAddress(-) | Valid | Check if the address setted is returned in the get method| testSetGetGasStationAddress() |
+| gasStation.setGasStationAddress(-) | Valid | Check if the address setted is returned in the get method| testSetGetGasStationAddress1() |
+| gasStation.setGasStationAddress() | Valid | When the address is not set, it should return a null | testSetGetGasStationAddress2() |
+| gasStation.GetGasStationAddress() | Valid | Check that the return type is a String | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
 
 ### Class *GasStation* - method *setReportDependability*
 
@@ -434,162 +436,165 @@ Version: 2
 
 ### Class *GasStation* - method *setCarSharing*
 
+
 **Criteria for method *GasStation*:**
 
- -
+ -This method returns a string with the name of the GasStation
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a string |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |       String          |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetCarSharing() |
-|  |  |  | testSetGetCarSharing2() |
+| gasStation.setGasStationCarSharing(-) | Valid |Check if the CarSharingsetted is returned in the get method  | testSetGetCarSharing() |
+| gasStation.setGasStationCarSharing(-) | Valid |When the CarSharing is not setted, it should return null  | testSetGetCarSharing2() |
+
 
 ### Class *GasStation* - method *getCarSharing*
 
 **Criteria for method *GasStation*:**
 
- -
+ -This method returns a string with the name of the GasStation
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to be a string |  |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |       String          |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetCarSharing() |
-|  |  |  | testSetGetCarSharing2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+| gasStation.setGasStationCarSharing(-) | Valid |Check if the CarSharingsetted is returned in the get method  | testSetGetCarSharing() |
+| gasStation.setGasStationCarSharing(-) | Valid |When the CarSharing is not setted, it should return null  | testSetGetCarSharing2() |
+| gasStation.setGasStationCarSharing(-) | Valid | Check that the return type is a String | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setLat*
 
 **Criteria for method *GasStation*:**
 
- -
+ -Set a lat value (double) in the range of [-90.0 ,90.0]
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to save in the attribute lat, the value selected | setLat() |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| The value has to be in a certain range | [-90.0 , 90.0] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetLat() |
-|  |  |  | testSetGetLat2() |
+| gs.setLat(45.45); gs.setLat(505.4); gs.setLat(-1); gs.setLat(-91);| Valid; Invalid; Valid; Invalid | Set Different values for lat and check if the return is the value previously set | testSetGetLat() |
+| gs.setLat(); | Valid | Check that when there is not specification the value of Lat is 0.0 | testSetGetLat2() |
 
 ### Class *GasStation* - method *getLat*
 
 **Criteria for method *GasStation*:**
 
- -
+ -Get a lat value (double) in the range of [-90.0 ,90.0]
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to get the value of the attribute lat | setLat() |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| The value has to be in a certain range | [-90.0 , 90.0] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetLat() |
-|  |  |  | testSetGetLat2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+| gs.getLat(); | Valid | Get Different values for lat and check if the return is the value previously set | testSetGetLat() |
+| gs.getLat(); | Valid | Check that when there is not specification the value of Lat is 0.0 | testSetGetLat2() |
+| gs.getLat() | Valid | Check that the type return is a double | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
 
 ### Class *GasStation* - method *setLon*
 
 **Criteria for method *GasStation*:**
 
- -
+ -Set a lon value (double) in the range of [-180.0 ,180.0]
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to save in the attribute lon, the value selected | setLon() |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| The value has to be in a certain range | [-180.0 , 180.0] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetLon() |
-|  |  |  | testSetGetLon2() |
+| gs.setLon(45.45); gs.setLon(505.4); gs.setLon(-23.3); gs.setLon(-181);| Valid; Invalid; Valid; Invalid | Set Different values for lon and check if the return is the value previously set | testSetGetLon() |
+| gs.setLat(); | Valid | Check that when there is not specification the value of Lat is 0.0 | testSetGetLon2() |
 
 ### Class *GasStation* - method *getLon*
 
 **Criteria for method *GasStation*:**
 
- -
+ -Get a lon value (double) in the range of [-180.0 ,180.0]
 
 **Predicates for method *GasStation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| Has to get the value of the attribute lon | setLon() |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| The value has to be in a certain range | [-180.0 , 180.0] |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetLon() |
-|  |  |  | testSetGetLon2() |
-|  |  |  | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+| gs.getLon(); | Valid | Get Different values for lon and check if the return is the value previously set | testSetGetLon() |
+| gs.getLon(); | Valid | Check that when there is not specification the value of Lon is 0.0 | testSetGetLon2() |
+| gs.getLon() | Valid | Check that the type return is a double | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
 
 ### Class *GasStation* - method *setHas...*
 
