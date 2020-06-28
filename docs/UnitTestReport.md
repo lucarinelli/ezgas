@@ -1930,189 +1930,191 @@ check correctness of user mail and associated password. returns Idpw object if e
 
 **Criteria for method *GasStationDto*:**
 
- -
+ -Set the ID of a GasStationDto. 
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| VaLUE ID | Valid |
+|          | Invalid |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Integer positive Value | [ 0 , MAXINT ]|
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationDtoId() |
-|  |  |  | testSetGetGasStationDtoId1() |
-|  |  |  | testSetGetGasStationDtoId2() |
+| Valid ID | Valid | Set the value to 1 and then check it is setted | testSetGetGasStationDtoId() |
+| Valid ID | Valid | Set the value to 1 and then check it is setted | testSetGetGasStationDtoId1() |
+| No ID | Valid | When the value is not setted, the value should be null | testSetGetGasStationDtoId2() |
 
 ### Class *GasStationDto* - method *getGasStationDtoId*
 
 **Criteria for method *GasStationDto*:**
 
- -
+ -Get the ID of a GasStationDto. 
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| VaLUE ID | Valid |
+|          | Invalid |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Integer positive Value | [ 0 , MAXINT ]|
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationDtoId |
-|  |  |  | testSetGetGasStationDtoId1() |
-|  |  |  | testSetGetGasStationDtoId2() |
+| Valid ID | Valid | Set the value to 1 and then check it is setted | testSetGetGasStationDtoId() |
+| Valid ID | Valid | Set the value to 1 and then check it is setted | testSetGetGasStationDtoId1() |
+| No ID | Valid | When the value is not setted, the value should be null | testSetGetGasStationDtoId2() |
 
 ### Class *GasStationDto* - method *setGasStationDtoName*
 
 **Criteria for method *GasStationDto*:**
 
- -
+ - Set a name for a GasStation
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| String | Valid name |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |                 |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationDtoName() |
-|  |  |  | testSetGetGasStationDtoName1() |
-|  |  |  | testSetGetGasStationDtoName2() |
+| Valid Name | Valid | Set a name and check the value | testSetGetGasStationDtoName() |
+| Valid Name | Valid | Set a name and check the value | testSetGetGasStationDtoName1() |
+|  | Valid | Check that when the value is not setted, the value is null | testSetGetGasStationDtoName2() |
 
 ### Class *GasStationDto* - method *getGasStationDtoName*
 
 **Criteria for method *GasStationDto*:**
 
- -
+  - Get a name for a GasStation
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| String | Valid name |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |                 |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationDtoName() |
-|  |  |  | testSetGetGasStationDtoName1() |
-|  |  |  | testSetGetGasStationDtoName2() |
+| Valid Name | Valid | Set a name and check the value | testSetGetGasStationDtoName() |
+| Valid Name | Valid | Set a name and check the value | testSetGetGasStationDtoName1() |
+|  | Valid | Check that when the value is not setted, the value is null | testSetGetGasStationDtoName2() |
 
 ### Class *GasStationDto* - method *setGasStationDtoAddress*
 
 **Criteria for method *GasStationDto*:**
 
- -
+  - Set an address for a GasStation
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| String | Valid name |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |                 |
+
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationDtoAddress() |
-|  |  |  | testSetGetGasStationDtoAddress1() |
-|  |  |  | testSetGetGasStationDtoAddress2() |
+| Valid Address| Valid | Set an address and check the value | testSetGetGasStationDtoAddress() |
+| Valid Address| Valid | Set an address and check the value | testSetGetGasStationDtoAddress1() |
+|  | Valid | Check that when the value is not setted, the value is null | testSetGetGasStationDtoAddress2() |
 
 ### Class *GasStationDto* - method *getGasStationDtoAddress*
 
 **Criteria for method *GasStationDto*:**
 
- -
+  - Get an address for a GasStation
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
+| String | Valid name |
 |          |  |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| String |                 |
+
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetGasStationDtoAddress() |
-|  |  |  | testSetGetGasStationDtoAddress1() |
-|  |  |  | testSetGetGasStationDtoAddress2() |
+| Valid Address| Valid | Set an address and check the value | testSetGetGasStationDtoAddress() |
+| Valid Address| Valid | Set an address and check the value | testSetGetGasStationDtoAddress1() |
+|  | Valid | Check that when the value is not setted, the value is null | testSetGetGasStationDtoAddress2() |
 
 ### Class *GasStationDto* - method *setReportDependability*
 
 **Criteria for method *GasStationDto*:**
 
- -
+ - Set the ReportDependability
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| ReportDependability | Valid |
+|          | Invalid |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+|  | [0.0 , 100.0|
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportDependability() |
-|  |  |  | testSetGetReportDependability2() |
+| Valid ID | Valid | Test the method with a valid ID | testSetGetReportDependability() |
+|  |  | Test the method when the attribute is not setted | testSetGetReportDependability2() |
 
 ### Class *GasStationDto* - method *getReportDependability*
 
