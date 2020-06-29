@@ -2120,79 +2120,79 @@ check correctness of user mail and associated password. returns Idpw object if e
 
 **Criteria for method *GasStationDto*:**
 
- -
+ - Get the ReportDependability
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| ReportDependability | Valid |
+|          | Invalid |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+|  | [0.0 , 100.0|
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportDependability() |
-|  |  |  | testSetGetReportDependability2() |
+| Valid ID | Valid | Test the method with a valid ID | testSetGetReportDependability() |
+|  |  | Test the method when the attribute is not setted | testSetGetReportDependability2() |
 
 ### Class *GasStationDto* - method *setReportUser*
 
 **Criteria for method *GasStationDto*:**
 
- -
+ -Set the attribute ReportUser 
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| ReportUser as a positive number (Integer) | Valid |
+|          | Invalid |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Positive INTEGER | 0 < * |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportUser() |
-|  |  |  | testSetGetReportUser2() |
+| Positive integer | Valid | Check that when you set the attribute value to a positive integer is saved correctly | testSetGetReportUser() |
+|  |  | Check that when the attribute is not setted, it should return a null | testSetGetReportUser2() |
 
 ### Class *GasStationDto* - method *getReportUser*
 
 **Criteria for method *GasStationDto*:**
 
- -
+  -Set the attribute ReportUser 
 
 **Predicates for method *GasStationDto*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|  |  |
-|          |  |
+| ReportUser as a positive number (Integer) | Valid |
+|          | Invalid |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|  |                 |
+| Positive INTEGER | 0 < * |
 
 **Combination of predicates**:
 
 | Criteria | Valid / Invalid | Description of the test case | JUnit test case |
 | ------- | -------|-------|-------|
-|  |  |  | testSetGetReportUser() |
-|  |  |  | testSetGetReportUser2() |
+| Positive integer | Valid | Check that when you set the attribute value to a positive integer is saved correctly | testSetGetReportUser() |
+|  |  | Check that when the attribute is not setted, it should return a null | testSetGetReportUser2() |
 
 ### Class *GasStationDto* - method *setReportTimestamp*
 
