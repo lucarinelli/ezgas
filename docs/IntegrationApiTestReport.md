@@ -17,8 +17,8 @@ Version: 0
 
 - [Scenarios](#scenarios)
 
-- [Coverage of scenarios and FR](#scenario-coverage)
-- [Coverage of non-functional requirements](#nfr-coverage)
+- [Coverage of Scenarios and FR](#Coverage-of-Scenarios-and-FR)
+- [Coverage of Non Functional Requirements](#Coverage-of-Non-Functional-Requirements)
 
 
 
