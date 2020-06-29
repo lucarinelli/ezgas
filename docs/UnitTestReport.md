@@ -31,31 +31,6 @@ Version: 2
 
 # Gas Station
 
-### Class *GasStation* - method *GasStation*
-
-**Criteria for method *GasStation*:**
-
- -
-
-**Predicates for method *GasStation*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|  |  |
-|          |  |
-
-**Boundaries**:
-
-| Criteria | Boundary values |
-| -------- | --------------- |
-|  |                 |
-
-**Combination of predicates**:
-
-| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
-| ------- | -------|-------|-------|
-|  |  |  |testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
-
 ### Class *GasStation* - method *setGasStationId*
 
 **Criteria for method *GasStation*:setGasStationId**
@@ -65,15 +40,15 @@ Version: 2
 **Predicates for method *GasStation*SetGetGasStationId:**
 
 | Criteria | Predicate |
-| ID must be an integer| --------- |
-| ID has to be null when the gasStation has not been set with all the parameters |  |
-|          |  |
+| :---------: | --------- |
+| ID must be a positive integer| ID >= 0 |
+| ID has to be null when the gasStation has not been set with all the parameters | ID = null |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
-| ID must be between [0,MAXINT]| 0|
-|  |                 |
+| --- | --- |
+| ID must be between [0,MAXINT]| 0 |
 
 **Combination of predicates**:
 
@@ -93,8 +68,8 @@ Version: 2
 
 | Criteria | Predicate |
 | -------- | --------- |
-| ID must be an integer| --------- |
-| ID has to be null when the gasStation has not been set with all the parameters |  |
+| ID must be a positive integer| ID >= 0 |
+| ID has to be null when the gasStation has not been set with all the parameters | ID = null |
 
 **Boundaries**:
 
@@ -739,6 +714,32 @@ Version: 2
 |  | Valid | When is not setted, the value should be null | testSetGetGasPrice2() |
 |  | Valid | When is not setted, the value should be null | testSetGetMethanePrice2() |
 |  | Valid | Check the return type is a double | testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
+### Class *GasStation* - method *GasStation*
+
+**Criteria for method *GasStation*:**
+
+ -
+
+**Predicates for method *GasStation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  |  |
+|          |  |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|  |                 |
+
+**Combination of predicates**:
+
+| Criteria | Valid / Invalid | Description of the test case | JUnit test case |
+| ------- | -------|-------|-------|
+|  |  |  |testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() |
+
 
 ### Class *GasStationServiceimpl* - method *getGasStationById*
 
