@@ -110,6 +110,9 @@ A bottom up approach has been used for integration test. Step 1 is about Unit Te
      JUnit test cases applied to them>
 
 ## Step 1
+
+Already done and documented in UnitTestReport.md.
+
 | Classes  | JUnit test cases |
 |--|--|
 |||
