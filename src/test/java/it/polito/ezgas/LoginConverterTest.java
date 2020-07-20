@@ -12,7 +12,6 @@ import it.polito.ezgas.entity.User;
 public class LoginConverterTest {
 
 	private User ur;
-	private LoginConverter loginConverter;
 	private LoginDto loginDto;
 	
 	@Before
@@ -26,7 +25,7 @@ public class LoginConverterTest {
 	 */
 	@Test
 	public void testtoLoginDto() {
-		LoginDto loginDtotest = loginConverter.toLoginDto(ur);
+		LoginDto loginDtotest = LoginConverter.toLoginDto(ur);
 		assertEquals(loginDtotest.getEmail(), loginDto.getEmail());
 		assertEquals(loginDtotest.getReputation(), loginDto.getReputation());
 		assertEquals(loginDtotest.getToken(), loginDto.getToken());

@@ -19,7 +19,7 @@ public class GasStationDtoTest {
 
 	@Before
 	public void setUp() {
-		gs = new GasStationDto(1, "Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, "Waymo", 37.422, -122.084, 1.99, 0, 2.99, 0, 0.99, 1, "TIMESTAMP?", 50);
+		gs = new GasStationDto(1, "Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, true, "Waymo", 37.422, -122.084, 1.99, 0.0, 2.99, 0.0, 0.99, 1.0, 1, "TIMESTAMP?", 50);
 	}	
 	
 	/**
@@ -93,7 +93,7 @@ public class GasStationDtoTest {
 	 */
 	@Test
 	public void testGasStationStringStringBooleanBooleanBooleanBooleanBooleanStringDoubleDoubleDoubleDoubleDoubleDoubleDoubleIntegerStringDouble() {
-		gs = new GasStationDto(1, "Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, "Waymo", 37.422, -122.084, 1.99, 0, 2.99, 0, 0.99, 1, "TIMESTAMP?", 50);
+		gs = new GasStationDto(1, "Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, true, "Waymo", 37.422, -122.084, 1.99, 0.0, 2.99, 0.0, 0.99, 1.0, 1, "TIMESTAMP?", 50);
 		
 		assertEquals(gs.getGasStationName(), (String) "Gas Station Name");
 		assertEquals(gs.getGasStationAddress(), (String) "1600 Amphitheatre Parkway, Mountain View, CA 94043");
@@ -315,18 +315,37 @@ public class GasStationDtoTest {
 	public void testSetGetDieselPrice() {
 		gs.setDieselPrice(99.99);
 		assertEquals(gs.getDieselPrice(), (double) 99.99, 0);
-		gs.setDieselPrice(0);
+		gs.setDieselPrice(0.0);
 		assertEquals(gs.getDieselPrice(), (double) 0, 0);
-		gs.setDieselPrice(-1);
+		gs.setDieselPrice(-1.0);
 		assertEquals(gs.getDieselPrice(), (double) -1, 0);//FIXME: should this fail?
 	}
 	
 	@Test
 	public void testSetGetDieselPrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getDieselPrice(), (double) 0, 0);
+		assertEquals(sg.getDieselPrice(), null);
 	}
 
+	/**
+	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#setDieselPrice(double)}.
+	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#getDieselPrice()}.
+	 */
+	@Test
+	public void testSetGetPremiumDieselPrice() {
+		gs.setPremiumDieselPrice(1.0);
+		assertEquals(gs.getPremiumDieselPrice(), (double) 1.0, 0);
+		gs.setPremiumDieselPrice(0.0);
+		assertEquals(gs.getPremiumDieselPrice(), (double) 0, 0);
+		gs.setPremiumDieselPrice(-1.0);
+		assertEquals(gs.getPremiumDieselPrice(), (double) -1, 0);//FIXME: should this fail?
+	}
+	
+	@Test
+	public void testSetGetPremiumDieselPrice2() { 
+		GasStationDto sg = new GasStationDto();
+		assertEquals(sg.getPremiumDieselPrice(), null);
+	}
 	/**
 	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#setSuperPrice(double)}.
 	 * Test method for {@link it.polito.ezgas.dto.GasStationDto#getSuperPrice()}.
@@ -335,16 +354,16 @@ public class GasStationDtoTest {
 	public void testSetGetSuperPrice() {
 		gs.setSuperPrice(99.99);
 		assertEquals(gs.getSuperPrice(), (double) 99.99, 0);
-		gs.setSuperPrice(0);
+		gs.setSuperPrice(0.0);
 		assertEquals(gs.getSuperPrice(), (double) 0, 0);
-		gs.setSuperPrice(-1);
+		gs.setSuperPrice(-1.0);
 		assertEquals(gs.getSuperPrice(), (double) -1, 0);//FIXME: should this fail?
 	}
 	
 	@Test
 	public void testSetGetSuperPrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getSuperPrice(), (double) 0, 0);
+		assertEquals(sg.getSuperPrice(), null);
 	}
 
 	/**
@@ -355,16 +374,16 @@ public class GasStationDtoTest {
 	public void testSetGetSuperPlusPrice() {
 		gs.setSuperPlusPrice(99.99);
 		assertEquals(gs.getSuperPlusPrice(), (double) 99.99, 0);
-		gs.setSuperPlusPrice(0);
+		gs.setSuperPlusPrice(0.0);
 		assertEquals(gs.getSuperPlusPrice(), (double) 0, 0);
-		gs.setSuperPlusPrice(-1);
+		gs.setSuperPlusPrice(-1.0);
 		assertEquals(gs.getSuperPlusPrice(), (double) -1, 0);//FIXME: should this fail?
 	}
 	
 	@Test
 	public void testSetGetSuperPlusPrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getSuperPlusPrice(), (double) 0, 0);
+		assertEquals(sg.getSuperPlusPrice(), null);
 	}
 
 	/**
@@ -375,16 +394,16 @@ public class GasStationDtoTest {
 	public void testSetGetGasPrice() {
 		gs.setGasPrice(99.99);
 		assertEquals(gs.getGasPrice(), (double) 99.99, 0);
-		gs.setGasPrice(0);
+		gs.setGasPrice(0.0);
 		assertEquals(gs.getGasPrice(), (double) 0, 0);
-		gs.setGasPrice(-1);
+		gs.setGasPrice(-1.0);
 		assertEquals(gs.getGasPrice(), (double) -1, 0);//FIXME: should this fail?
 	}
 	
 	@Test
 	public void testSetGetGasPrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getGasPrice(), (double) 0, 0);
+		assertEquals(sg.getGasPrice(), null);
 	}
 	
 	/**
@@ -395,16 +414,16 @@ public class GasStationDtoTest {
 	public void testSetGetMethanePrice() {
 		gs.setMethanePrice(99.99);
 		assertEquals(gs.getMethanePrice(), (double) 99.99, 0);
-		gs.setMethanePrice(0);
+		gs.setMethanePrice(0.0);
 		assertEquals(gs.getMethanePrice(), (double) 0, 0);
-		gs.setMethanePrice(-1);
+		gs.setMethanePrice(-1.0);
 		assertEquals(gs.getMethanePrice(), (double) -1, 0);//FIXME: should this fail?
 	}
 	
 	@Test
 	public void testSetGetMethanePrice2() { 
 		GasStationDto sg = new GasStationDto();
-		assertEquals(sg.getMethanePrice(), (double) 0, 0);
+		assertEquals(sg.getMethanePrice(), null);
 	}
 
 	/**

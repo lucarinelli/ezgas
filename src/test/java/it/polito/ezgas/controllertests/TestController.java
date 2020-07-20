@@ -2,6 +2,7 @@ package it.polito.ezgas.controllertests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -94,7 +95,7 @@ public class TestController {
 		
 		assertEquals(200, response.getStatusLine().getStatusCode());
         
-		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.6794735/17.938348/Diesel/Enjoy");
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.6794735/17.938348/1/Diesel/Enjoy");
 		HttpResponse response1;
 		
 		response1 = HttpClientBuilder.create().build().execute(request1);
@@ -145,7 +146,7 @@ public class TestController {
 		
 		HttpClientBuilder.create().build().execute(request);
         
-		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.6794735/17.938348/Diesel/Enjoy");
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.6794735/17.938348/1/Diesel/Enjoy");
 		HttpResponse response1;
 		
 		response1 = HttpClientBuilder.create().build().execute(request1);
@@ -184,7 +185,7 @@ public class TestController {
 		
 		GasStationDto[] gasStationArray = mapper.readValue(jsonFromResponse, GasStationDto[].class);
 		
-		assertEquals(1, gasStationArray.length); //TODO Fix with the actual value!
+		assertEquals(2, gasStationArray.length); //TODO Fix with the actual value!
 		
 		for(GasStationDto gdto : gasStationArray) {
 			assert(gdto.getHasDiesel());
@@ -195,7 +196,7 @@ public class TestController {
 	@Test
 	public final void testGetGasStationsByProximity() throws ClientProtocolException, IOException {
 		// trailing "/" is important! or the last double will be parsed as integer!
-		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/searchGasStationByProximity/40.628624/17.938168/");
+		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/searchGasStationByProximity/40.628624/17.938168/1/");
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
@@ -216,7 +217,7 @@ public class TestController {
 	// 7
 	@Test
 	public final void testGetGasStationsWithCoordinates() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.628624/17.938168/Diesel/Enjoy");
+		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.628624/17.938168/1/Diesel/Enjoy");
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);
@@ -238,14 +239,27 @@ public class TestController {
 	// 8
 	@Test
 	public final void testSetGasStationReport() throws JsonParseException, JsonMappingException, IOException, JSONException, ParseException {
-		HttpPost request = new HttpPost("http://localhost:8080/gasstation/setGasStationReport/4/-1/2.0/-1/2.0/-1/1/");		
+		HttpPost request = new HttpPost("http://localhost:8080/gasstation/setGasStationReport/");
 		HttpResponse response;
+		JSONObject json = new JSONObject();
+
+		json.put("gasStationId", "1"); 
+		json.put("dieselPrice", "2.0");
+		json.put("superPrice", null);
+		json.put("superPlusPrice", "2.0");
+		json.put("gasPrice", null);
+		json.put("methanePrice", "2.0");
+		json.put("premiumDieselPrice", "2.0");
+		json.put("userId", "1");
 		
+		StringEntity params = new StringEntity(json.toString());
+	    request.addHeader("content-type", "application/json");
+	    request.setEntity(params);		
 		response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200, response.getStatusLine().getStatusCode());
         
-		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStation/4");
+		HttpUriRequest request1 = new HttpGet("http://localhost:8080/gasstation/getGasStation/1");
 		HttpResponse response1;
 		
 		response1 = HttpClientBuilder.create().build().execute(request1);
@@ -256,11 +270,11 @@ public class TestController {
 		
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		GasStationDto gasStation= mapper.readValue(jsonFromResponse, GasStationDto.class);
-		assertEquals(gasStation.getDieselPrice(), -1.0, 0.00001);
-		assertEquals(gasStation.getSuperPlusPrice(), -1.0, 0.00001);
-		assertTrue(gasStation.getSuperPrice()==2.0);
-		assertTrue(gasStation.getGasPrice()==2.0);
-		assertEquals(gasStation.getMethanePrice(), -1.0, 0.00001);
+		assertEquals(gasStation.getDieselPrice(), 2.0, 0.00001);
+		assertEquals(gasStation.getSuperPlusPrice(), 2.0, 0.00001);
+		assertNull(gasStation.getSuperPrice());
+		assertNull(gasStation.getGasPrice());
+		assertEquals(gasStation.getMethanePrice(), 2.0, 0.00001);
 		
 		Date toDay = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
@@ -283,7 +297,7 @@ public class TestController {
 	// 10
 	@Test
 	public final void testIndex() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.628624/17.938168/Diesel/Enjoy");
+		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.628624/17.938168/2/Diesel/Enjoy");
 		HttpResponse response;
 		
 		response = HttpClientBuilder.create().build().execute(request);

@@ -12,14 +12,13 @@ Version: 0
 
 - [Integration approach](#Integration-approach)
    + [Tests](#tests)
-
-- [Integration approach (Mock ups)](#Integration-approach-(Mock-ups))
+   + [Mock ups](#Integration-approach-(Mock-ups))
    + [Tests (Mock ups)](#tests-(Mock-ups))
 
 - [Scenarios](#scenarios)
 
-- [Coverage of scenarios and FR](#scenario-coverage)
-- [Coverage of non-functional requirements](#nfr-coverage)
+- [Coverage of Scenarios and FR](#Coverage-of-Scenarios-and-FR)
+- [Coverage of Non Functional Requirements](#Coverage-of-Non-Functional-Requirements)
 
 
 
@@ -111,6 +110,9 @@ A bottom up approach has been used for integration test. Step 1 is about Unit Te
      JUnit test cases applied to them>
 
 ## Step 1
+
+Already done and documented in UnitTestReport.md.
+
 | Classes  | JUnit test cases |
 |--|--|
 |||
@@ -139,9 +141,11 @@ A bottom up approach has been used for integration test. Step 1 is about Unit Te
 |  | testGetGasStationsByProximity() |
 |  | testGetGasStationsByProximityBoundaryIn() |
 |  | testGetGasStationsByProximityAbsent() |
+|  | testGetGasStationsByProximityEgual() |
 |  | testGetGasStationById() |
 |  | testGetGasStationById1() |
 |  | testGetGasStationById2() |
+|  | testGetGasStationById3() |
 |  | testSaveGasStation() |
 |  | testDeleteGasStation() |
 |  | testDeleteGasStation2() |
@@ -153,6 +157,8 @@ A bottom up approach has been used for integration test. Step 1 is about Unit Te
 |  | testGetGasStationsWithoutCoordinates1() |
 |  | testGetGasStationsWithoutCoordinates2() |
 |  | testGetGasStationsWithoutCoordinates3() |
+|  | testGetGasStationsWithoutCoordinates4() |
+|  | testGetGasStationsWithoutCoordinates5() |
 |  | testSetReport() |
 |  | testSetReport1() |
 |  | testSetReport2() |
@@ -207,6 +213,7 @@ GasStationServiceimpl+GasStation+GasStationDto+mock(GasStationRepository)+User+U
 |  | testSaveGasStation3() |
 |  | testSaveGasStation4() |
 |  | testSaveGasStation5() |
+|  | testSaveGasStation6() |
 |  | testSaveGasStation6() |
 | UserServiceimpl | testSaveUser() |
 || testSaveUser1()|

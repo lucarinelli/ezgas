@@ -21,4 +21,6 @@ public interface GasStationRepository extends JpaRepository<GasStation, Integer>
 	List<GasStation> findByHasSuperOrderBySuperPriceAsc(boolean hasSuper);
 
 	List<GasStation> findByHasSuperPlusOrderBySuperPlusPriceAsc(boolean hasSuperPlus);
+	
+	List<GasStation> findByHasPremiumDieselOrderByPremiumDieselPriceAsc(boolean hasPremiumDiesel);
 }

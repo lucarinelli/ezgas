@@ -25,8 +25,8 @@ public class GasStationConverterTest {
 	
 	@Before
 	public void setUp(){
-		gs = new GasStation("Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, "Waymo", 37.422, -122.084, 1.99, 0, 2.99, 0, 0.99, 1, "TIMESTAMP?", 50);
-		gsdto = new GasStationDto( gs.getGasStationId() ,"Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, "Waymo", 37.422, -122.084, 1.99, 0, 2.99, 0, 0.99, 1, "TIMESTAMP?", 50);
+		gs = new GasStation("Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, false, "Waymo", 37.422, -122.084, 1.99, 0.0, 2.99, 0.0, 0.99, null, 1, "TIMESTAMP?", 50);
+		gsdto = new GasStationDto( gs.getGasStationId() ,"Gas Station Name", "1600 Amphitheatre Parkway, Mountain View, CA 94043", true, false, true, false, true, false, "Waymo", 37.422, -122.084, 1.99, 0.0, 2.99, 0.0, 0.99, null, 1, "TIMESTAMP?", 50);
 	}
 
 	/**
@@ -54,8 +54,6 @@ public class GasStationConverterTest {
 		assertEquals(gsdtotest.getHasSuperPlus() ,gsdto.getHasSuperPlus());
 		assertEquals(gsdtotest.getLat() ,gsdto.getLat(), DELTA);
 		assertEquals(gsdtotest.getLon() ,gsdto.getLon(), DELTA);
-		assertEquals(gsdtotest.getPriceReportDtos() ,gsdto.getPriceReportDtos());
-		assertEquals(gsdtotest.getReportDependability() ,gsdto.getReportDependability(),DELTA);
 		assertEquals(gsdtotest.getReportTimestamp() ,gsdto.getReportTimestamp());
 		assertEquals(gsdtotest.getReportUser() ,gsdto.getReportUser());
 		assertEquals(gsdtotest.getUserDto() ,gsdto.getUserDto());

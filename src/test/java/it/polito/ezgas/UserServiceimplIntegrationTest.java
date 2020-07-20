@@ -2,16 +2,13 @@ package it.polito.ezgas;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.aspectj.lang.annotation.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,19 +22,14 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import exception.GPSDataException;
 import exception.InvalidLoginDataException;
 import exception.InvalidUserException;
-import exception.PriceException;
 import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
-import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.repository.UserRepository;
-import it.polito.ezgas.service.GasStationService;
 import it.polito.ezgas.service.UserService;
-import it.polito.ezgas.service.impl.GasStationServiceimpl;
 import it.polito.ezgas.service.impl.UserServiceimpl;
 
 @RunWith(SpringRunner.class)
@@ -90,14 +82,14 @@ public class UserServiceimplIntegrationTest {
 	@Test
 	public final void testGetUserById() throws InvalidUserException {
 		User ur, aur;	
-		UserDto urD, aurD, nonurD,result,result1;
+		UserDto urD, result,result1;
 		
 		
 		ur = new User("ciao", "password", "ciao@password", 3);
 		urD = UserConverter.toUserDto(ur);
 		aur = new User("ciao", "password", "ciao@password", 5);
 		aur.setAdmin(true);
-		aurD = UserConverter.toUserDto(aur);
+		UserConverter.toUserDto(aur);
 		try {
 		userService.getUserById(-12);
 		fail("InvalidUserException not thrown");
@@ -123,8 +115,8 @@ public class UserServiceimplIntegrationTest {
 	@Test
 	public void testSaveUser1() throws InvalidUserException {
 		
-		User ur, aur;	
-		UserDto urD, result,result1;
+		User ur;	
+		UserDto urD, result;
 		
 		ur = new User("ciao", "password", "ciao@password", 3);
 		urD = UserConverter.toUserDto(ur);
@@ -149,8 +141,8 @@ public class UserServiceimplIntegrationTest {
 	@Test
 	public void testSaveUser2() throws InvalidUserException {
 		
-		User ur, aur;	
-		UserDto urD, result,result1;
+		User ur;	
+		UserDto urD, result;
 		
 		ur = new User("ciao", "password", "ciao@password", 3);
 		urD = UserConverter.toUserDto(ur);
@@ -174,12 +166,10 @@ public class UserServiceimplIntegrationTest {
 	 */
 	@Test
 	public void testGetAllUsers1() {
-		User ur, aur,nonur;	
-		UserDto urD, aurD, nonurD;
+		User ur, aur;	
+		UserDto urD, aurD;
 		ur = new User("ciao", "password", "ciao@password", 3);
 		urD = UserConverter.toUserDto(ur);
-		nonurD= new UserDto();
-		nonur =new User();
 		aur = new User("ciao", "password", "ciao1@password", 5);
 		aur.setAdmin(true);
 		aurD = UserConverter.toUserDto(aur);
@@ -212,11 +202,10 @@ public class UserServiceimplIntegrationTest {
 	@Test
 	public void testGetUserById2() {
 		User ur;
-		UserDto urD;
 		ur = new User();
 		
 		try {
-			urD = userService.getUserById(ur.getUserId());
+			userService.getUserById(ur.getUserId());
 		} catch (InvalidUserException e) {
 			return;
 		}
@@ -230,12 +219,11 @@ public class UserServiceimplIntegrationTest {
 	@Test
 	public void testGetUserById3() {
 		User ur;
-		UserDto urD;
 		ur = new User();
 		ur.setUserId(-1);
 		
 		try {
-			urD = userService.getUserById(ur.getUserId());
+			userService.getUserById(ur.getUserId());
 		} catch (InvalidUserException e) {
 			return;
 		}
@@ -287,8 +275,8 @@ public class UserServiceimplIntegrationTest {
 	 */
 	@Test
 	public void testIncreaseUserReputation() throws InvalidUserException {
-		User ur, aur,nonur;	
-		UserDto urD, aurD, nonurD;
+		User ur;	
+		UserDto urD;
 		ur = new User("ciao", "password", "ciao@password", 0);
 		urD = UserConverter.toUserDto(ur);
 		
@@ -328,14 +316,13 @@ public class UserServiceimplIntegrationTest {
 	 */
 	@Test
 	public void testDecreaseUserReputation() throws InvalidUserException {
-		User ur, aur,nonur;	
-		UserDto urD, aurD, nonurD;
+		User ur;	
+		UserDto urD;
 		ur = new User("ciao", "password", "ciao@password", 0);
 		urD = UserConverter.toUserDto(ur);
 		
-		int a,b,c,d;
+		int a,b,c;
 		c = -1;
-		d = -2;
 		urD=userService.saveUser(UserConverter.toUserDto(ur));
 		b=urD.getReputation()-1;
 		a = userService.decreaseUserReputation( urD.getUserId() );

@@ -23,13 +23,13 @@ This part of the document reports about testing at the GUI level. Tests are end 
 | 1           | FR1.1                           | UC1.sikuli - Create User Account |             
 | 2           | FR1.1                           | UC2 - Modify User  |             
 | 3           | FR1.2 FR1.3                     | UC3 - Delete User |         
-| 4           | FR3.2 FR4.2                     | UC4.sikuli - Create Gas Station |             
-| 5           | FR3.3 FR3.1                     | UC5 - Modify Gas Station Information |             
-| 6           | FR3 FR3.2                       | UC6.sikuli - Delete Gas Station |
-| 7           | FR5 FR5.1                       | UC7.sikuli - Report fuel price for a gas station |
+| 4           | FR3.2 FR4.2                     | UC4NEW.sikuli - Create Gas Station |             
+| 5           | FR3.3 FR3.1                     | UC5NEW - Modify Gas Station Information |             
+| 6           | FR3 FR3.2                       | UC6NEW.sikuli - Delete Gas Station |
+| 7           | FR5 FR5.1                       | UC7NEW.sikuli - Report fuel price for a gas station |
 | 8           | FR4.2                           | Use case 8, UC8 - Obtain price of fuel for gas stations in a certain geographic area |
-| 9           | FR5 FR5.2 FR5.3                 | UC10.sikuli - Evaluate price and update trust level |
-| 10          | FR5 FR5.2 FR5.3                 | UC10.sikuli - Evaluate price |
+| 9           | FR5 FR5.2 FR5.3                 | UC10NEW.sikuli - Evaluate price and update trust level |
+| 10          | FR5 FR5.2 FR5.3                 | UC10NEW.sikuli - Evaluate price |
 
 # REST  API  Testing
 

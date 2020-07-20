@@ -3,9 +3,9 @@
 
 Authors: Luca Rinelli, Ignacio López-Perea, Alberto Canta, Dario Licastro
 
-Date: 03/05/2020
+Date: 24/06/2020
 
-Version: 0
+Version: 1
 
 
 # Contents
@@ -224,9 +224,9 @@ package "it.polito.ezgas.controller" {
             +saveGasStation(gasStationDto : GasStationDto) : void
             +deleteGasStation(gasStationId : Integer) : void
             +getGasStationsByGasolineType(gasolinetype : String) : List<GasStationDto>
-            +getGasStationsByProximity(myLat : Double, myLon : Double) : List<GasStationDto>
-            +getGasStationsWithCoordinates(myLat : Double, myLon : Double, gasolineType : String, carSharing : String) : List<GasStationDto>
-            +setGasStationReport(gasStationId : Integer, dieselPrice : double, superPrice : double, superPlusPrice : double, gasPrice : double, methanePrice : double, userId : Integer ) : void
+            +getGasStationsByProximity(myLat : Double, myLon : Double, myRadius : Double) : List<GasStationDto>
+            +getGasStationsWithCoordinates(myLat : Double, myLon : Double, myRadius : Double, gasolineType : String, carSharing : String) : List<GasStationDto>
+            +setGasStationReport(priceReportDto : PriceReportDto) : void
         }
         class UserController{
             -userService : UserService
@@ -260,10 +260,10 @@ package "it.polito.ezgas.service" {
             +getAllGasStations() : List<GasStationDto>
             +deleteGasStation(gasStationId : Integer) : Boolean
             +getGasStationsByGasolineType(gasolinetype : String) : List<GasStationDto>
-            +getGasStationsByProximity(lat : double, lon : double ) : List<GasStationDto>
-            +getGasStationsWithCoordinates(lat : double, lon : double, gasolinetype : String, carsharing : String) : List<GasStationDto>
+            +getGasStationsByProximity(lat : double, lon : double, radius : int ) : List<GasStationDto>
+            +getGasStationsWithCoordinates(lat : double, lon : double, radius : int, gasolinetype : String, carsharing : String) : List<GasStationDto>
             +getGasStationsWithoutCoordinates(gasolinetype : String, carsharing : String) : List<GasStationDto>
-            +setReport(gasStationId : Integer, dieselPrice : double, superPrice : double, superPlusPrice : double, gasPrice : double, methanePrice : double, userId : Integer, gasolinetype : String) : void
+            +setReport(gasStationId : Integer, dieselPrice : Double, superPrice : Double, superPlusPrice : Double, gasPrice : Double, methanePrice : Double, premiumDieselPrice : Double, userId : Integer) : void
             +getGasStationByCarSharing(carSharing : String) : List<GasStationDto>
         }
         
@@ -282,6 +282,11 @@ package "it.polito.ezgas.service" {
             -gasStationRepository : GasStationRepository
             -priceReportRepository : PriceReportRepository
             -carSharingCompanyRepository : CarSharingRepository
+            -getListGasolineTypes(gasStation : GasStation) : ArrayList<String>
+            -sortListByPrice(gasolineType : String) : List<GasStation>
+            -distance(lat1 : double , lon1 :  double, lat2 : double, lon2 : double) : double
+            -refreshReportDependability(g : GasStation) : double
+            -computeReportDependability(timestamp : Date, reputation : Integer) : double
         }
         
         class UserServiceImpl{
@@ -308,14 +313,16 @@ package "it.polito.ezgas.dto" {
             -hasSuperPlus : Boolean
             -hasGas : Boolean
             -hasMethane : Boolean
+            -hasPremiumDiesel : Boolean
             -carSharing : private String
             -lat : double
             -lon : double
-            -dieselPrice : double
-            -superPrice : double
-            -superPlusPrice : double
-            -gasPrice : double
-            -methanePrice : double
+            -dieselPrice : Double
+            -superPrice : Double
+            -superPlusPrice : Double
+            -gasPrice : Double
+            -methanePrice : Double
+            -premiumDieselPrice : Double
             -reportUser : Integer
             -UserDto : UserDto
             -reportTimeStamp : String
@@ -365,6 +372,20 @@ package "it.polito.ezgas.dto" {
             +IdPw() : IdPw
             +IdPw (id : String, pw : String) : IdPw
         }
+        class PriceReportDto{
+            -priceReportId : Integer
+            -user : User
+            -dieselPrice : Double
+            -superPrice : Double
+            -superPlusPrice: Double
+            -gasPrice : Double
+            -methanePrice : Double
+            -premiumDieselPrice : Double
+            +PriceReportDto() : PriceReportDto
+            + ... Getters()
+            + ... Setters()
+        }
+
     }
 
 GasStationDto --> UserDto
@@ -445,22 +466,14 @@ package "it.polito.ezgas.repository" {
         }
         
         class GasStationRepository{
-    findByCarSharing(String carSharing) : List<GasStation> 
-
-	findByHasDieselOrderByDieselPriceAsc(boolean hasDiesel) : List<GasStation> 
-
-	findByHasMethaneOrderByMethanePriceAsc(boolean hasMethane) : List<GasStation> 
-
-	findByHasGasOrderByGasPriceAsc(boolean hasGas) : List<GasStation> 
-
-	findByHasSuperOrderBySuperPriceAsc(boolean hasSuper) : List<GasStation> 
-
-	findByHasSuperPlusOrderBySuperPlusPriceAsc(boolean hasSuperPlus)  : List<GasStation> 
-
+    findByCarSharing(carSharing : String) : List<GasStation> 
+	findByHasDieselOrderByDieselPriceAsc(hasDiesel : boolean) : List<GasStation> 
+	findByHasMethaneOrderByMethanePriceAsc(hasMethane : boolean) : List<GasStation> 
+	findByHasGasOrderByGasPriceAsc(hasGas : boolean) : List<GasStation> 
+	findByHasSuperOrderBySuperPriceAsc(hasSuper : boolean) : List<GasStation> 
+	findByHasSuperPlusOrderBySuperPlusPriceAsc(hasSuperPlus : boolean)  : List<GasStation> 
+	findByHasPremiumDieselOrderByPremiumDieselPriceAsc(hasPremiumDiesel : boolean) : List<GasStation> 
         }
-        
-       
-        
     }
 
 interface PagingAndSortingRepository{
@@ -578,6 +591,8 @@ package "Backend" {
         
         class IdPw{
         }
+        class PriceReportDto{
+        }
     }
     
     package "it.polito.ezgas.entity" {
@@ -612,7 +627,11 @@ UserService <|-- UserServiceImpl
 GasStationService <|-- GasStationServiceImpl
 GasStationController o-- GasStationService
 GasStationController o-- UserService
+GasStationController -- PriceReportDto
+GasStationController -- GasStationDto
+GasStationController -- UserDto
 UserController o-- UserService
+UserController -- UserDto
 UserServiceImpl o-- UserRepository
 GasStationServiceImpl o-- GasStationRepository
 
@@ -730,7 +749,7 @@ participant GasStationServiceImpl as gsi
 gc -> gsi : getGasStationsWithCoordinates()
 activate gsi
 participant GasStationServiceRepository as gsr
-gsi -> gsr : findByGasolineTypeAndCarSharingAndLatBetweenAndLonBetween(...)
+gsi -> gsr : findAll()
 activate gsr
 gsr --> gsi : List<GasStation>
 deactivate gsr
@@ -799,31 +818,8 @@ activate ur
 ur --> usi : User
 deactivate ur
 
-participant PriceReportRepository as prr
-collections priceReports as prs
-
-usi -> prr : findByUser(user)
-activate prr
-prr --> prs
-prs --> usi
-deactivate prr
-
-loop
-
-usi -> prs : getTimeTag()
-prs --> usi : timeTag
-usi -> prs : setTrustLevel(trustLevel)
-
-end
-
-activate prr
-usi -> prr : saveAll(priceReports)
-prr --> usi : priceReports
-deactivate prr
-
 usi --> uc : reputation
 destroy u_i
-destroy prs
 deactivate usi
 
 uc --> ua : reputation

@@ -2,15 +2,10 @@ package it.polito.ezgas;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import it.polito.ezgas.dto.LoginDto;
-import it.polito.ezgas.dto.UserDto;
-import it.polito.ezgas.entity.User;
 
 public class LoginDtoTest {
 	private LoginDto ur;

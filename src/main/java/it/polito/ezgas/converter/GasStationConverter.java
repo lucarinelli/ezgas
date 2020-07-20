@@ -20,6 +20,7 @@ public class GasStationConverter {
 				gasStation.getHasSuperPlus(),
 				gasStation.getHasGas(),
 				gasStation.getHasMethane(),
+				gasStation.getHasPremiumDiesel(),
 				gasStation.getCarSharing(), 
 				gasStation.getLat(),
 				gasStation.getLon(), 
@@ -28,6 +29,7 @@ public class GasStationConverter {
 				gasStation.getSuperPlusPrice(),
 				gasStation.getGasPrice(),
 				gasStation.getMethanePrice(),
+				gasStation.getPremiumDieselPrice(),
 				gasStation.getReportUser(),
 				gasStation.getReportTimestamp(),
 				gasStation.getReportDependability());
@@ -43,6 +45,7 @@ public class GasStationConverter {
 				gasStationDto.getHasSuperPlus(),
 				gasStationDto.getHasGas(),
 				gasStationDto.getHasMethane(),
+				gasStationDto.getHasPremiumDiesel(),
 				gasStationDto.getCarSharing(), 
 				gasStationDto.getLat(),
 				gasStationDto.getLon(), 
@@ -51,6 +54,7 @@ public class GasStationConverter {
 				gasStationDto.getSuperPlusPrice(),
 				gasStationDto.getGasPrice(),
 				gasStationDto.getMethanePrice(),
+				gasStationDto.getPremiumDieselPrice(),
 				gasStationDto.getReportUser(),
 				gasStationDto.getReportTimestamp(),
 				gasStationDto.getReportDependability());

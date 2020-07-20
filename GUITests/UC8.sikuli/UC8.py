@@ -4,6 +4,7 @@ while a<800:
     if exists("1590870363047.png"):break
     dragDrop("1590871864728.png", Location(StartScroll.x, StartScroll.y+a))
     a=a+40
+click("1590870614961.png")
 type("proximity.png","Via Oddino Morgari")
 wait(4)
 type(Key.DOWN + Key.ENTER)
